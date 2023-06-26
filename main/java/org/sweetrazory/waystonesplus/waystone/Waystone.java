@@ -9,6 +9,7 @@ import org.bukkit.metadata.MetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.sweetrazory.waystonesplus.Main;
 import org.sweetrazory.waystonesplus.enums.Visibility;
+import org.sweetrazory.waystonesplus.memoryhandlers.MemoryManager;
 import org.sweetrazory.waystonesplus.memoryhandlers.WaystoneMemory;
 import org.sweetrazory.waystonesplus.types.BlockType;
 import org.sweetrazory.waystonesplus.types.WaystoneType;
@@ -49,7 +50,7 @@ public class Waystone {
     }
 
     public String getName() {
-        return name == null || name.equalsIgnoreCase("Waystone maker") ? "New Waystone" : name;
+        return name == null || name.equalsIgnoreCase("New Waystone") ? "New Waystone" : name;
     }
 
     private void spawnParticles(Location location) {
@@ -129,7 +130,7 @@ public class Waystone {
 
 
     public void createWaystone(Waystone waystone, Block targetBlock) {
-        WaystoneMemory WaystoneMemory = new WaystoneMemory();
+        WaystoneMemory WaystoneMemory = MemoryManager.getWaystoneMemory();
         particleSpawner = new BukkitRunnable() {
             @Override
             public void run() {

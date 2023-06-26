@@ -5,12 +5,12 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.sweetrazory.waystonesplus.eventhandlers.OnWaystoneBreak;
-import org.sweetrazory.waystonesplus.eventhandlers.OnWaystoneInteract;
-import org.sweetrazory.waystonesplus.eventhandlers.PlayerInteractListener;
+import org.sweetrazory.waystonesplus.eventhandlers.*;
 import org.sweetrazory.waystonesplus.gui.inventory.ClickHandler;
 import org.sweetrazory.waystonesplus.gui.inventory.DragHandler;
 import org.sweetrazory.waystonesplus.gui.inventory.screens.InventoryMemory;
@@ -22,6 +22,16 @@ public class EventController implements Listener {
     public EventController(WaystoneMemory waystoneMemory, InventoryMemory menu) {
         this.waystoneMemory = waystoneMemory;
         this.menu = menu;
+    }
+
+    @EventHandler
+    public void onWaystoneCraft(CraftItemEvent event) {
+        new OnWaystoneCraft(event);
+    }
+
+    @EventHandler
+    public void anvilRenameEvent(PrepareAnvilEvent event) {
+        new AnvilRenameEvent(event);
     }
 
     @EventHandler

@@ -53,16 +53,17 @@ public class PlayerInteractListener implements Listener {
         String waystoneIdValue = dataContainer.get(waystoneId, PersistentDataType.STRING);
 
         if (!waystoneTypeValue.isEmpty()) {
-            for (Waystone waystone : WaystoneMemory.getWaystoneDataMemory().values()) {
-                // TODO Switch config.yml to waystonetypes.yml, add config.yml and define minimum waystone distance
-                if (waystone.getLocation().distance(event.getBlockPlaced().getLocation()) < 50) {
-                    event.getBlockPlaced().setType(Material.AIR);
-//                event.getPlayer().getInventory().addItem(item);
-
-                    event.getPlayer().sendMessage("You can't place Waystones this close to each-other (50 Blocks)");
-
-                    return;
+            if (player.hasPermission("waystonesplus.placewaystone")) {
+                for (Waystone waystone : WaystoneMemory.getWaystoneDataMemory().values()) {
+                    // TODO Switch config.yml to waystonetypes.yml, add config.yml and define minimum waystone distance
+                    if (waystone.getLocation().distance(event.getBlockPlaced().getLocation()) < 50 && !player.hasPermission("waystonesplus.distanceoverride")) {
+                        event.getBlockPlaced().setType(Material.AIR);
+                        event.getPlayer().sendMessage("You can't place Waystones this close to each-other (50 Blocks)");
+                        return;
+                    }
                 }
+            } else if (!player.hasPermission("waystonesplus.placewaystone")) {
+                return;
             }
         }
 
@@ -71,9 +72,9 @@ public class PlayerInteractListener implements Listener {
         Location placedBlockLocation = new Location(temp.getWorld(), temp.getX(), temp.getY() - 1, temp.getZ());
 
         if (waystoneTypeValue != null && waystoneIdValue != null) {
-            WaystoneType ws = waystoneMemory.getWaystoneTypes().get(waystoneTypeValue.toLowerCase());
+            WaystoneType ws = WaystoneMemory.getWaystoneTypes().get(waystoneTypeValue.toLowerCase());
             if (ws != null) {
-                addWaystoneAndNotify(!waystoneName.equals("Waystone maker") ? waystoneName : "New Waystone", player, ws, placedBlockLocation, waystoneIdValue);
+                addWaystoneAndNotify(!waystoneName.equals("New Waystone") ? waystoneName : "New Waystone", player, ws, placedBlockLocation, waystoneIdValue);
             } else {
                 player.sendMessage(Color.ORANGE + "Faulty block detected. (How did we get here?)");
             }

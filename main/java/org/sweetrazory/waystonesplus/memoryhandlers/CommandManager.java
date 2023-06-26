@@ -5,8 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.sweetrazory.waystonesplus.commands.subcommands.Give;
-import org.sweetrazory.waystonesplus.commands.subcommands.Inspect;
+import org.sweetrazory.waystonesplus.commands.subcommands.Get;
 import org.sweetrazory.waystonesplus.utils.SubCommand;
 
 import java.util.ArrayList;
@@ -18,8 +17,7 @@ public class CommandManager implements CommandExecutor {
     public CommandManager(WaystoneMemory waystoneMemory) {
         this.waystoneMemory = waystoneMemory;
 
-        subCommands.add(new Give());
-        subCommands.add(new Inspect());
+        subCommands.add(new Get());
     }
 
     @Override

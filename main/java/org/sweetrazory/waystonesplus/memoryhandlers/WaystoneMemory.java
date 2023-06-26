@@ -24,8 +24,8 @@ import java.util.*;
 public class WaystoneMemory {
     private static final Map<String, Waystone> waystoneDataMemory = new HashMap<>();
     private static final String WAYSTONES = "waystones";
+    private static final Map<String, WaystoneType> waystoneTypeMemory = new HashMap<>();
     private final File waystonesFolder;
-    private final Map<String, WaystoneType> waystoneTypeMemory = new HashMap<>();
 
     public WaystoneMemory() {
         waystonesFolder = new File(Main.getInstance().getDataFolder(), WAYSTONES);
@@ -38,8 +38,8 @@ public class WaystoneMemory {
         return waystoneDataMemory;
     }
 
-    public Map<String, WaystoneType> getWaystoneTypes() {
-        return Collections.unmodifiableMap(this.waystoneTypeMemory);
+    public static Map<String, WaystoneType> getWaystoneTypes() {
+        return Collections.unmodifiableMap(waystoneTypeMemory);
     }
 
     public String[] getWaystoneIds() {
@@ -173,7 +173,10 @@ public class WaystoneMemory {
                     String headOwnerId = ((Map<String, String>) waystone.get("spawnItem")).get("playerId");
                     String textures = ((Map<String, String>) waystone.get("spawnItem")).get("textures");
 
-                    ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(Main.getInstance(), UUID.randomUUID().toString()), new ItemStack(new WaystoneSummonItem().getLodestoneHead(null, this, typeName, headOwnerId, textures)));
+                    ItemStack craftResult = new WaystoneSummonItem().getLodestoneHead(null, this, typeName, headOwnerId, textures);
+                    NamespacedKey recipeId = new NamespacedKey(Main.getInstance(), UUID.randomUUID().toString());
+
+                    ShapedRecipe recipe = new ShapedRecipe(recipeId, new ItemStack(craftResult));
                     List<String> craftingList = (List<String>) waystone.get("crafting");
                     recipe.shape("123", "456", "789");
 
@@ -185,7 +188,7 @@ public class WaystoneMemory {
 
                         recipe.setIngredient(symbol, material);
                     }
-                    this.waystoneTypeMemory.put(typeName, new WaystoneType(typeName, blocks, blockDisplays, recipe, headOwnerId, textures));
+                    waystoneTypeMemory.put(typeName, new WaystoneType(typeName, blocks, blockDisplays, recipe, headOwnerId, textures));
                 }
             }
         } catch (FileNotFoundException e) {
