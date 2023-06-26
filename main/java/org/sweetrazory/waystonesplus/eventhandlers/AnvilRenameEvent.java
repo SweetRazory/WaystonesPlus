@@ -16,7 +16,7 @@ public class AnvilRenameEvent {
         ItemStack firstSlot = eventInventory.getItem(0);
         ItemStack secondSlot = eventInventory.getItem(1);
 
-        ItemStack waystoneItem = null;
+        ItemStack waystoneItem;
         NamespacedKey waystoneIdKey = new NamespacedKey(Main.getInstance(), "waystoneId");
         String waystoneId = "";
         if (firstSlot != null) {
