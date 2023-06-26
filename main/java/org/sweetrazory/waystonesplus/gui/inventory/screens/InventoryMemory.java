@@ -21,7 +21,7 @@ import java.util.stream.Stream;
 
 public class InventoryMemory implements Listener {
     private Inventory gui;
-    //
+    // a
     private Player player;
     private ItemStack[] waystoneList;
     private int pageIndex;
