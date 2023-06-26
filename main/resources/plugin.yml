@@ -2,8 +2,6 @@ name: WaystonesPlus
 version: '${project.version}'
 main: org.sweetrazory.waystonesplus.Main
 api-version: '1.20'
-depend:
-  - ProtocolLib
 commands:
   waystones:
     description: "Main command"

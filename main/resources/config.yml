@@ -5,9 +5,9 @@ waystones:
       - { name: lodestone, x: 0, y: 2, z: 0 }
       - { name: light, x: 0, y: 3, z: 0 }
     blockDisplays:
-      - { name: smooth_stone, offset: { x: 0.075, y: -1.2, z: 0.075 }, scale: { x: 0.85, y: 0.85, z: 0.85 } }
-      - { name: smooth_stone, offset: { x: 0.2, y: -1.6, z: 0.2 }, scale: { x: 0.6, y: 0.6, z: 0.6 } }
-      - { name: smooth_stone, offset: { x: 0.075, y: -0.65, z: 0.075 }, scale: { x: 0.85, y: 0.85, z: 0.85 } }
+      - { name: smooth_stone, offset: { x: 0.075f, y: -1.2f, z: 0.075f }, scale: { x: 0.85f, y: 0.85f, z: 0.85f } }
+      - { name: smooth_stone, offset: { x: 0.2f, y: -1.6f, z: 0.2f }, scale: { x: 0.6f, y: 0.6f, z: 0.6f } }
+      - { name: smooth_stone, offset: { x: 0.075f, y: -0.65f, z: 0.075f }, scale: { x: 0.85f, y: 0.85f, z: 0.85f } }
     crafting:
       - air
       - ender_eye
