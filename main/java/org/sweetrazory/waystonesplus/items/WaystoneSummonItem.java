@@ -44,7 +44,7 @@ public class WaystoneSummonItem {
         PersistentDataContainer dataContainer = itemMeta.getPersistentDataContainer();
         dataContainer.set(waystoneId, PersistentDataType.STRING, waystoneUUID);
         WaystoneType ws = waystoneMemory.getWaystoneTypes().get(type);
-        dataContainer.set(waystoneType, PersistentDataType.STRING, ws.getTypeName());
+        dataContainer.set(waystoneType, PersistentDataType.STRING, "lodestone");
         skullItem.setItemMeta(itemMeta);
 
         return skullItem;

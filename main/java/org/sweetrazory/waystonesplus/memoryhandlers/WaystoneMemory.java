@@ -9,6 +9,7 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.joml.Vector3f;
 import org.sweetrazory.waystonesplus.Main;
 import org.sweetrazory.waystonesplus.enums.Visibility;
+import org.sweetrazory.waystonesplus.items.WaystoneSummonItem;
 import org.sweetrazory.waystonesplus.types.BlockDisplayType;
 import org.sweetrazory.waystonesplus.types.BlockType;
 import org.sweetrazory.waystonesplus.types.WaystoneType;
@@ -37,12 +38,12 @@ public class WaystoneMemory {
         return waystoneDataMemory;
     }
 
-    public String[] getWaystoneIds() {
-        return waystoneDataMemory.keySet().toArray(new String[0]);
+    public Map<String, WaystoneType> getWaystoneTypes() {
+        return Collections.unmodifiableMap(this.waystoneTypeMemory);
     }
 
-    public Map<String, WaystoneType> getWaystoneTypes() {
-        return Collections.unmodifiableMap(waystoneTypeMemory);
+    public String[] getWaystoneIds() {
+        return waystoneDataMemory.keySet().toArray(new String[0]);
     }
 
     public void loadWaystoneData(String waystoneId) {
@@ -139,7 +140,7 @@ public class WaystoneMemory {
                     String typeName = (String) waystone.get("name");
                     List<BlockType> blocks = new ArrayList<>();
                     List<BlockDisplayType> blockDisplays = new ArrayList<>();
-                    ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(Main.getInstance(), "something"), new ItemStack(Material.GRASS_BLOCK));
+                    ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(Main.getInstance(), UUID.randomUUID().toString()), new ItemStack(new WaystoneSummonItem().getLodestoneHead(null, this, "lodestone")));
 
                     List<Map<String, Object>> blockList = (List<Map<String, Object>>) waystone.get("blocks");
                     for (Map<String, Object> block : blockList) {

@@ -20,10 +20,10 @@ public class Main extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         instance = this;
-        new MemoryManager();
         getConfig().options().copyDefaults();
         saveDefaultConfig();
 
+        new MemoryManager();
         EventController eventController = new EventController(MemoryManager.getWaystoneMemory(), MemoryManager.getInventoryMemory());
         getServer().getPluginManager().registerEvents(eventController, this);
 

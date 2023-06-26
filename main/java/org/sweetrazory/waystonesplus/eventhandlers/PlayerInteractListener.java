@@ -35,17 +35,6 @@ public class PlayerInteractListener implements Listener {
         Player player = event.getPlayer();
         ItemStack item = event.getItemInHand();
 
-        for (Waystone waystone : WaystoneMemory.getWaystoneDataMemory().values()) {
-            // TODO Switch config.yml to waystonetypes.yml, add config.yml and define minimum waystone distance
-            if (waystone.getLocation().distance(event.getBlockPlaced().getLocation()) < 50) {
-                event.getBlockPlaced().setType(Material.AIR);
-//                event.getPlayer().getInventory().addItem(item);
-
-                event.getPlayer().sendMessage("You can't place Waystones this close to eachother (50 Blocks)");
-
-                return;
-            }
-        }
 
         if (item.getType() != Material.PLAYER_HEAD) {
             return;
@@ -62,6 +51,20 @@ public class PlayerInteractListener implements Listener {
         PersistentDataContainer dataContainer = itemMeta.getPersistentDataContainer();
         String waystoneTypeValue = dataContainer.get(waystoneType, PersistentDataType.STRING);
         String waystoneIdValue = dataContainer.get(waystoneId, PersistentDataType.STRING);
+
+        if (!waystoneTypeValue.isEmpty()) {
+            for (Waystone waystone : WaystoneMemory.getWaystoneDataMemory().values()) {
+                // TODO Switch config.yml to waystonetypes.yml, add config.yml and define minimum waystone distance
+                if (waystone.getLocation().distance(event.getBlockPlaced().getLocation()) < 50) {
+                    event.getBlockPlaced().setType(Material.AIR);
+//                event.getPlayer().getInventory().addItem(item);
+
+                    event.getPlayer().sendMessage("You can't place Waystones this close to each-other (50 Blocks)");
+
+                    return;
+                }
+            }
+        }
 
         Location temp = event.getBlockPlaced().getLocation();
         event.getPlayer().setItemInHand(null);
