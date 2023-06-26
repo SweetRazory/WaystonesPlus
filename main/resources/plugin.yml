@@ -1,7 +1,7 @@
 name: WaystonesPlus
-version: '${project.version}'
+version: "1.2.3"
 main: org.sweetrazory.waystonesplus.Main
-api-version: '1.20'
+api-version: "1.19"
 commands:
   waystones:
     description: "Main command"

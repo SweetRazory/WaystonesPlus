@@ -275,7 +275,6 @@ public class WaystoneMemory {
 
         File waystoneFolder = new File(waystonesFolder, waystone.getUuid());
         if (waystoneFolder.mkdir()) {
-            new Console.info("Folder for " + waystone.getUuid() + " has been created.");
             File waystoneConfig = new File(waystoneFolder, "config.yml");
 
             // Create a YAML representation of the waystone config
@@ -307,7 +306,6 @@ public class WaystoneMemory {
                 String yamlString = yaml.dump(configData);
                 yamlString = yamlString.replace("'\"", "\"").replace("\"'", "\"");
                 writer.write(yamlString);
-                new Console.info("Config for " + waystone.getUuid() + " has been saved.");
 
                 waystoneDataMemory.put(waystoneId, waystone);
             } catch (IOException e) {

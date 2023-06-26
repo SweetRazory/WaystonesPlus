@@ -1,5 +1,6 @@
 package org.sweetrazory.waystonesplus;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.sweetrazory.waystonesplus.memoryhandlers.CommandManager;
@@ -22,6 +23,13 @@ public class Main extends JavaPlugin implements Listener {
         instance = this;
         getConfig().options().copyDefaults();
         saveDefaultConfig();
+        String bukkitVersion = Bukkit.getVersion();
+
+        if (!bukkitVersion.contains("1.19.4") && !bukkitVersion.contains("1.20")) {
+            System.out.println("[WaystonesPlus] This plugin only supports 1.19.4 or higher versions!");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
 
         new MemoryManager();
         EventController eventController = new EventController(MemoryManager.getWaystoneMemory(), MemoryManager.getInventoryMemory());
