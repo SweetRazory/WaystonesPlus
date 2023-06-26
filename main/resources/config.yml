@@ -18,3 +18,30 @@ waystones:
       - smooth_stone
       - smooth_stone
       - smooth_stone
+    spawnItem: {
+      playerId: 9bf98ec7-ca26-45b2-a7f2-976f7655d361,
+      textures: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjUwMjE2NTk3ZjE2YmNkYzIyZjEwYTNjYzIyOTljYTg4NGM1N2U0Njg1MGZiOGRlZjAxODk1NjYyZDM5MDQwNCJ9fX0=
+    }
+  - name: blackstone
+    blocks:
+      - { name: polished_blackstone_brick_slab, x: 0, y: 1, z: 0 }
+      - { name: chiseled_polished_blackstone, x: 0, y: 2, z: 0 }
+      - { name: light, x: 0, y: 3, z: 0 }
+    blockDisplays:
+      - { name: polished_blackstone_bricks, offset: { x: 0.075f, y: -1.2f, z: 0.075f }, scale: { x: 0.85f, y: 0.85f, z: 0.85f } }
+      - { name: blackstone, offset: { x: 0.2f, y: -1.6f, z: 0.2f }, scale: { x: 0.6f, y: 0.6f, z: 0.6f } }
+      - { name: polished_blackstone_bricks, offset: { x: 0.075f, y: -0.65f, z: 0.075f }, scale: { x: 0.85f, y: 0.85f, z: 0.85f } }
+    crafting:
+      - air
+      - ender_eye
+      - air
+      - enchanted_book
+      - lodestone
+      - enchanted_book
+      - polished_blackstone_bricks
+      - polished_blackstone_bricks
+      - polished_blackstone_bricks
+    spawnItem: {
+      playerId: ff6a40af-8fa5-4b8c-adb2-1dd56a23a813,
+      textures: eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmZkOWFlNmQ5YTAxZjAzOGZjYmE5ZGVkNzJjMWNmZDhjNzk0YTZiYTU4ZjllNjVhNDQ0OGNmZmViZWU2NTNlYiJ9fX0=
+    }

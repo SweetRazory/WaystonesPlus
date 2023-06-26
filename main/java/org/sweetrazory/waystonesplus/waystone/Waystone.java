@@ -22,7 +22,7 @@ public class Waystone {
     private final String type;
     private final String ownerId;
     private final Visibility visibility;
-    WaystoneType waystoneType;
+    private final WaystoneType waystoneType;
     private Integer[] entityIds = new Integer[]{};
     private BukkitRunnable particleSpawner;
 
@@ -42,6 +42,10 @@ public class Waystone {
 
     public void setEntityIds(Integer[] entityIds) {
         this.entityIds = entityIds;
+    }
+
+    public WaystoneType getWaystoneType() {
+        return waystoneType;
     }
 
     public String getName() {
@@ -98,9 +102,10 @@ public class Waystone {
 
     public Integer[] spawnStructure(Location location) {
         World world = Bukkit.getWorld("world");
-        assert world != null;
+
         Block baseBlock = world.getBlockAt(location);
         MetadataValue waypointIdentifier = new FixedMetadataValue(Main.getInstance(), uuid);
+        MetadataValue waypointType = new FixedMetadataValue(Main.getInstance(), type);
 
         for (BlockType block : waystoneType.getBlocks()) {
             Block newBlock = world.getBlockAt(new Location(baseBlock.getWorld(),
@@ -110,6 +115,7 @@ public class Waystone {
             ));
             newBlock.setType(block.getMaterial());
             newBlock.setMetadata("waystoneId", waypointIdentifier);
+            newBlock.setMetadata("waystoneType", waypointType);
         }
 
         Integer[] blockDisplayIds = new Integer[waystoneType.getBlockDisplays().size()];

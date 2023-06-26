@@ -14,12 +14,13 @@ import java.util.List;
 public class OnWaystoneBreak implements Listener {
     public OnWaystoneBreak(WaystoneMemory waystoneMemory, BlockBreakEvent e) {
         List<MetadataValue> blockMeta = e.getBlock().getMetadata("waystoneId");
+        String blockWaystoneType = e.getBlock().getMetadata("waystoneType").get(0).asString();
         if (!blockMeta.isEmpty()) {
-            if (waystoneMemory.getWaystoneTypes().containsKey("lodestone")) {
+            if (waystoneMemory.getWaystoneTypes().containsKey(blockWaystoneType)) {
                 Location dropLocation = e.getPlayer().getTargetBlock(null, 5).getLocation().add(0, 1, 0);
                 World world = e.getPlayer().getWorld();
                 String waystoneName = WaystoneMemory.getWaystoneDataMemory().get(blockMeta.get(0).asString()).getName();
-                ItemStack skullItem = new WaystoneSummonItem().getLodestoneHead(waystoneName, waystoneMemory, "lodestone");
+                ItemStack skullItem = new WaystoneSummonItem().getLodestoneHead(waystoneName, waystoneMemory, blockWaystoneType, null, null);
                 world.dropItemNaturally(dropLocation, skullItem);
             }
             waystoneMemory.removeWaystone(blockMeta.get(0).asString());

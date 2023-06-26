@@ -37,7 +37,7 @@ public class ClickHandler implements Listener {
                         menu.nextPage();
                     } else if (clickedItem.getType().equals(Material.BARRIER)) {
                         menu.close();
-                    } else if (clickedItem.getType().equals(Material.GRASS_BLOCK)) {
+                    } else {
                         ItemMeta itemMeta = clickedItem.getItemMeta();
                         PersistentDataContainer dataContainer = itemMeta.getPersistentDataContainer();
 

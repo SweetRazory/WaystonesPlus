@@ -19,12 +19,16 @@ import java.util.UUID;
 
 public class WaystoneSummonItem {
 
-    public ItemStack getLodestoneHead(@Nullable String name, WaystoneMemory waystoneMemory, String type) {
+    public ItemStack getLodestoneHead(@Nullable String name, WaystoneMemory waystoneMemory, String type, @Nullable String headOwnerId, @Nullable String texturesString) {
         ItemStack skullItem = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta skullMeta = (SkullMeta) skullItem.getItemMeta();
+        WaystoneType ws = waystoneMemory.getWaystoneTypes().get(type);
 
-        GameProfile gameProfile = new GameProfile(UUID.fromString("9bf98ec7-ca26-45b2-a7f2-976f7655d361"), null);
-        gameProfile.getProperties().put("textures", new Property("textures", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjUwMjE2NTk3ZjE2YmNkYzIyZjEwYTNjYzIyOTljYTg4NGM1N2U0Njg1MGZiOGRlZjAxODk1NjYyZDM5MDQwNCJ9fX0=", null));
+        String playerId = "9bf98ec7-ca26-45b2-a7f2-976f7655d361";
+        String textures = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjUwMjE2NTk3ZjE2YmNkYzIyZjEwYTNjYzIyOTljYTg4NGM1N2U0Njg1MGZiOGRlZjAxODk1NjYyZDM5MDQwNCJ9fX0=";
+
+        GameProfile gameProfile = new GameProfile(UUID.fromString(headOwnerId == null ? ws.getSpawnItemHeadId() != null ? ws.getSpawnItemHeadId() : playerId : headOwnerId), null);
+        gameProfile.getProperties().put("textures", new Property("textures", texturesString == null ? ws.getSpawnItemTextures() != null ? ws.getSpawnItemTextures() : textures : texturesString, null));
 
         try {
             Field profileField = skullMeta.getClass().getDeclaredField("profile");
@@ -43,8 +47,7 @@ public class WaystoneSummonItem {
         String waystoneUUID = UUID.randomUUID().toString();
         PersistentDataContainer dataContainer = itemMeta.getPersistentDataContainer();
         dataContainer.set(waystoneId, PersistentDataType.STRING, waystoneUUID);
-        WaystoneType ws = waystoneMemory.getWaystoneTypes().get(type);
-        dataContainer.set(waystoneType, PersistentDataType.STRING, "lodestone");
+        dataContainer.set(waystoneType, PersistentDataType.STRING, type);
         skullItem.setItemMeta(itemMeta);
 
         return skullItem;

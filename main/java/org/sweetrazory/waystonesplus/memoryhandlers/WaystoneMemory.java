@@ -140,7 +140,6 @@ public class WaystoneMemory {
                     String typeName = (String) waystone.get("name");
                     List<BlockType> blocks = new ArrayList<>();
                     List<BlockDisplayType> blockDisplays = new ArrayList<>();
-                    ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(Main.getInstance(), UUID.randomUUID().toString()), new ItemStack(new WaystoneSummonItem().getLodestoneHead(null, this, "lodestone")));
 
                     List<Map<String, Object>> blockList = (List<Map<String, Object>>) waystone.get("blocks");
                     for (Map<String, Object> block : blockList) {
@@ -171,6 +170,10 @@ public class WaystoneMemory {
                         blockDisplays.add(new BlockDisplayType(material, translation, scale));
                     }
 
+                    String headOwnerId = ((Map<String, String>) waystone.get("spawnItem")).get("playerId");
+                    String textures = ((Map<String, String>) waystone.get("spawnItem")).get("textures");
+
+                    ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(Main.getInstance(), UUID.randomUUID().toString()), new ItemStack(new WaystoneSummonItem().getLodestoneHead(null, this, typeName, headOwnerId, textures)));
                     List<String> craftingList = (List<String>) waystone.get("crafting");
                     recipe.shape("123", "456", "789");
 
@@ -182,7 +185,7 @@ public class WaystoneMemory {
 
                         recipe.setIngredient(symbol, material);
                     }
-                    this.waystoneTypeMemory.put(typeName, new WaystoneType(typeName, blocks, blockDisplays, recipe));
+                    this.waystoneTypeMemory.put(typeName, new WaystoneType(typeName, blocks, blockDisplays, recipe, headOwnerId, textures));
                 }
             }
         } catch (FileNotFoundException e) {

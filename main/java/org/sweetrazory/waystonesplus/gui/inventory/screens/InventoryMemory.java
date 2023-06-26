@@ -41,7 +41,7 @@ public class InventoryMemory implements Listener {
             }
 
             Waystone waystone = WaystoneMemory.getWaystoneDataMemory().get(waystoneId);
-            ItemStack waystoneItem = new ItemStack(Material.GRASS_BLOCK);
+            ItemStack waystoneItem = new ItemStack(waystone.getWaystoneType().getBlocks().get(1).getMaterial());
             ItemMeta waystoneItemMeta = waystoneItem.getItemMeta();
             PersistentDataContainer waystoneData = waystoneItemMeta.getPersistentDataContainer();
             waystoneData.set(new NamespacedKey(Main.getInstance(), "waystone_visibility"), PersistentDataType.STRING, waystone.getVisibility().getValue());

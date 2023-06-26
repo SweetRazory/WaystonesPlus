@@ -21,7 +21,7 @@ public class Give implements SubCommand {
             if (waystoneMemory.getWaystoneTypes().containsKey(args[1])) {
                 String name = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
                 // TODO: length handling
-                ItemStack skullItem = new WaystoneSummonItem().getLodestoneHead(name, waystoneMemory, args[1]);
+                ItemStack skullItem = new WaystoneSummonItem().getLodestoneHead(name, waystoneMemory, args[1], null, null);
                 player.getInventory().addItem(skullItem);
             } else {
                 player.sendMessage(Color.ORANGE + "A waystone variation with that name doesn't exist!");

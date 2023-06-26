@@ -10,12 +10,16 @@ public class WaystoneType {
     List<BlockType> blocks;
     List<BlockDisplayType> BlockDisplays;
     ShapedRecipe recipe;
+    String spawnItemHeadId;
+    String spawnItemTextures;
 
-    public WaystoneType(String typeName, List<BlockType> blocks, List<BlockDisplayType> blockDisplays, ShapedRecipe recipe) {
+    public WaystoneType(String typeName, List<BlockType> blocks, List<BlockDisplayType> blockDisplays, ShapedRecipe recipe, String spawnItemHeadId, String spawnItemTextures) {
         this.typeName = typeName;
         this.blocks = blocks;
         BlockDisplays = blockDisplays;
         this.recipe = recipe;
+        this.spawnItemHeadId = spawnItemHeadId;
+        this.spawnItemTextures = spawnItemTextures;
 
         Bukkit.getServer().addRecipe(recipe);
     }
@@ -30,6 +34,14 @@ public class WaystoneType {
 
     public List<BlockDisplayType> getBlockDisplays() {
         return BlockDisplays;
+    }
+
+    public String getSpawnItemHeadId() {
+        return spawnItemHeadId;
+    }
+
+    public String getSpawnItemTextures() {
+        return spawnItemTextures;
     }
 
     public ShapedRecipe getRecipe() {
