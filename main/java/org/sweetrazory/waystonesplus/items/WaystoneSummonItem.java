@@ -20,7 +20,7 @@ import java.util.UUID;
 
 public class WaystoneSummonItem {
 
-    public ItemStack getLodestoneHead(@Nullable String name, WaystoneMemory waystoneMemory, String type, @Nullable String headOwnerId, @Nullable String texturesString) {
+    public ItemStack getLodestoneHead(@Nullable String name, String type, @Nullable String headOwnerId, @Nullable String texturesString) {
         ItemStack skullItem = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta skullMeta = (SkullMeta) skullItem.getItemMeta();
         WaystoneType ws = WaystoneMemory.getWaystoneTypes().get(type);

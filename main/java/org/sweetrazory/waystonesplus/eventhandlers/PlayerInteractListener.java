@@ -56,7 +56,7 @@ public class PlayerInteractListener implements Listener {
             if (player.hasPermission("waystonesplus.placewaystone")) {
                 for (Waystone waystone : WaystoneMemory.getWaystoneDataMemory().values()) {
                     // TODO Switch config.yml to waystonetypes.yml, add config.yml and define minimum waystone distance
-                    if (waystone.getLocation().distance(event.getBlockPlaced().getLocation()) < 50 && !player.hasPermission("waystonesplus.distanceoverride")) {
+                    if (waystone.getLocation().getWorld().equals(event.getBlockPlaced().getWorld()) && waystone.getLocation().distance(event.getBlockPlaced().getLocation()) < 50 && !player.hasPermission("waystonesplus.distanceoverride")) {
                         event.getBlockPlaced().setType(Material.AIR);
                         event.getPlayer().sendMessage("You can't place Waystones this close to each-other (50 Blocks)");
                         return;

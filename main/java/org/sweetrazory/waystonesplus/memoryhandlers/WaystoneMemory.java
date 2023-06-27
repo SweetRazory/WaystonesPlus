@@ -67,7 +67,7 @@ public class WaystoneMemory {
 
     public void addWaystone(String name, String uuid, WaystoneType waystoneType, Location location, String type, Player owner, Visibility visibility) {
         Waystone newWaystone = new Waystone(name, uuid, waystoneType, location, type, owner.getUniqueId().toString(), visibility);
-        newWaystone.createWaystone(newWaystone, Objects.requireNonNull(Bukkit.getWorld("world")).getBlockAt(location));
+        newWaystone.createWaystone(newWaystone, location.getWorld().getBlockAt(location));
         saveWaystone(name, uuid, newWaystone, newWaystone.getEntityIds());
     }
 
@@ -104,6 +104,7 @@ public class WaystoneMemory {
             File configFile = new File(waystoneFolder, "config.yml");
             if (configFile.exists() && configFile.isFile()) {
                 FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
+                String worldName = config.getString("location.world");
                 double x = config.getDouble("location.x");
                 double y = config.getDouble("location.y");
                 double z = config.getDouble("location.z");
@@ -115,7 +116,7 @@ public class WaystoneMemory {
                 Integer[] entityIdList = new Integer[entityIds.length];
                 System.arraycopy(entityIds, 0, entityIdList, 0, entityIds.length);
 
-                Location location = new Location(Main.getInstance().getServer().getWorld("world"), x, y, z);
+                Location location = new Location(Main.getInstance().getServer().getWorld(worldName), x, y, z);
 
                 assert visibility != null;
                 Waystone loadedWaystone = new Waystone(name, waystoneId, waystoneTypeMemory.get(type), location, type, ownerId, Visibility.fromString(visibility));
@@ -173,7 +174,7 @@ public class WaystoneMemory {
                     String headOwnerId = ((Map<String, String>) waystone.get("spawnItem")).get("playerId");
                     String textures = ((Map<String, String>) waystone.get("spawnItem")).get("textures");
 
-                    ItemStack craftResult = new WaystoneSummonItem().getLodestoneHead(null, this, typeName, headOwnerId, textures);
+                    ItemStack craftResult = new WaystoneSummonItem().getLodestoneHead(null, typeName, headOwnerId, textures);
                     NamespacedKey recipeId = new NamespacedKey(Main.getInstance(), UUID.randomUUID().toString());
 
                     ShapedRecipe recipe = new ShapedRecipe(recipeId, new ItemStack(craftResult));
@@ -294,6 +295,7 @@ public class WaystoneMemory {
             coords.put("y", waystone.getLocation().getY());
             coords.put("z", waystone.getLocation().getZ());
             configData.put("location", coords);
+            configData.put("location.world", waystone.getLocation().getWorld().getName());
 
             List<String> newEntityIds = new ArrayList<>();
             for (Integer entityId : entityIds) {

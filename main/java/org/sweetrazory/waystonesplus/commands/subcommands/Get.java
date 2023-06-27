@@ -16,13 +16,13 @@ public class Get implements SubCommand {
     }
 
     @Override
-    public void run(Player player, String[] args, WaystoneMemory waystoneMemory) {
-        if (player.hasPermission("waystones.command.get")) {
+    public void run(Player player, String[] args) {
+        if (player.hasPermission("waystonesplus.command.get")) {
             if (args.length > 1) {
-                if (WaystoneMemory.getWaystoneTypes().containsKey(args[1])) {
+                if (WaystoneMemory.getWaystoneTypes().containsKey(args[1].toLowerCase())) {
                     String name = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
                     // TODO: length handling
-                    ItemStack skullItem = new WaystoneSummonItem().getLodestoneHead(name, waystoneMemory, args[1], null, null);
+                    ItemStack skullItem = new WaystoneSummonItem().getLodestoneHead(name, args[1].toLowerCase(), null, null);
                     player.getInventory().addItem(skullItem);
                 } else {
                     player.sendMessage(Color.ORANGE + "A waystone variation with that name doesn't exist!");

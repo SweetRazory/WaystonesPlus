@@ -57,7 +57,7 @@ public class Waystone {
         // Iterate through all online players
         for (Player player : Bukkit.getOnlinePlayers()) {
             // Check if the player is within the render distance of the particle location
-            if (player.getLocation().distance(location) <= Bukkit.getServer().getViewDistance() * 16) {
+            if (player.getLocation().getWorld().equals(location.getWorld()) && player.getLocation().distance(location) <= Bukkit.getServer().getViewDistance() * 16) {
                 // Spawn particles for the player
                 player.spawnParticle(Particle.ENCHANTMENT_TABLE, location, 1, 0.075, 0, 0.075);
             }
@@ -90,7 +90,7 @@ public class Waystone {
         block2.setType(Material.AIR);
         block3.setType(Material.AIR);
 
-        List<Entity> entities = Bukkit.getWorld("world").getEntities();
+        List<Entity> entities = location.getWorld().getEntities();
 
         for (Entity entity : entities) {
             for (Integer entityId : entityIds) {
@@ -102,7 +102,7 @@ public class Waystone {
     }
 
     public Integer[] spawnStructure(Location location) {
-        World world = Bukkit.getWorld("world");
+        World world = location.getWorld();
 
         Block baseBlock = world.getBlockAt(location);
         MetadataValue waypointIdentifier = new FixedMetadataValue(Main.getInstance(), uuid);

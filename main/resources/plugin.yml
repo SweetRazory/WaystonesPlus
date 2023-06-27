@@ -1,5 +1,5 @@
 name: WaystonesPlus
-version: "1.2.3"
+version: "1.3.3"
 main: org.sweetrazory.waystonesplus.Main
 api-version: "1.19"
 commands:

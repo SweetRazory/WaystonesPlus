@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.sweetrazory.waystonesplus.commands.subcommands.Get;
+import org.sweetrazory.waystonesplus.commands.subcommands.Help;
 import org.sweetrazory.waystonesplus.utils.SubCommand;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class CommandManager implements CommandExecutor {
         this.waystoneMemory = waystoneMemory;
 
         subCommands.add(new Get());
+        subCommands.add(new Help());
     }
 
     @Override
@@ -32,11 +34,11 @@ public class CommandManager implements CommandExecutor {
         if (args.length > 0) {
             for (SubCommand subCommand : getSubCommands()) {
                 if (args[0].equalsIgnoreCase(subCommand.getName())) {
-                    subCommand.run(player, args, waystoneMemory);
+                    subCommand.run(player, args);
                 }
             }
         } else {
-            player.sendMessage("Enter something bitch");
+            new Help().run(player, args);
         }
 
         return false;
