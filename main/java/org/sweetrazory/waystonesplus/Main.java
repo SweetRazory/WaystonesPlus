@@ -49,5 +49,9 @@ public class Main extends JavaPlugin implements Listener {
             Objects.requireNonNull(getCommand(commandAlias)).setExecutor(new CommandManager(MemoryManager.getWaystoneMemory()));
         }
     }
+
+//    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+
+//    }
 }
 

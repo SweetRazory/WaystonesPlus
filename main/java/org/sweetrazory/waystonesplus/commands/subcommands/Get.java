@@ -17,7 +17,7 @@ public class Get implements SubCommand {
 
     @Override
     public void run(Player player, String[] args) {
-        if (player.hasPermission("waystonesplus.command.get")) {
+        if (player.hasPermission("waystonesplus.command.get") || player.isOp()) {
             if (args.length > 1) {
                 if (WaystoneMemory.getWaystoneTypes().containsKey(args[1].toLowerCase())) {
                     String name = String.join(" ", Arrays.copyOfRange(args, 2, args.length));

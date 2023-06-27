@@ -67,7 +67,7 @@ public class WaystoneMemory {
 
     public void addWaystone(String name, String uuid, WaystoneType waystoneType, Location location, String type, Player owner, Visibility visibility) {
         Waystone newWaystone = new Waystone(name, uuid, waystoneType, location, type, owner.getUniqueId().toString(), visibility);
-        newWaystone.createWaystone(newWaystone, location.getWorld().getBlockAt(location));
+        newWaystone.createWaystone(newWaystone);
         saveWaystone(name, uuid, newWaystone, newWaystone.getEntityIds());
     }
 

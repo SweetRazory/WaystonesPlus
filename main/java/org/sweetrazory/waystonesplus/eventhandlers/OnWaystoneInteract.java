@@ -16,7 +16,7 @@ public class OnWaystoneInteract {
             List<MetadataValue> blockMeta = e.getClickedBlock().getMetadata("waystoneId");
             String exclude = "";
             Waystone waystone = null;
-            if (!blockMeta.isEmpty() && e.getPlayer().hasPermission("waystonesplus.interact")) {
+            if (!blockMeta.isEmpty() && (e.getPlayer().hasPermission("waystonesplus.interact") || e.getPlayer().isOp())) {
                 for (String waystoneId : waystoneMemory.getWaystoneIds()) {
                     if (waystoneId.equalsIgnoreCase(blockMeta.get(0).asString())) {
                         waystone = WaystoneMemory.getWaystoneDataMemory().get(blockMeta.get(0).asString());

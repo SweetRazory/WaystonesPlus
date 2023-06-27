@@ -22,7 +22,7 @@ public class OnWaystoneBreak implements Listener {
             if (!blockWaystoneTypeList.isEmpty() && !blockMeta.isEmpty()) {
                 String blockWaystoneType = blockWaystoneTypeList.get(0).asString();
                 if (!blockMeta.isEmpty() && WaystoneMemory.getWaystoneTypes().containsKey(blockWaystoneType)) {
-                    if (event.getPlayer().hasPermission("waystonesplus.breakwaystone")) {
+                    if (event.getPlayer().hasPermission("waystonesplus.breakwaystone") || event.getPlayer().isOp()) {
                         Location dropLocation = event.getPlayer().getTargetBlock(null, 5).getLocation().add(0, 1, 0);
                         World world = event.getPlayer().getWorld();
                         String waystoneId = blockMeta.get(0).asString();

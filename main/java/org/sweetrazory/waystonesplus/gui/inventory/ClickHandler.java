@@ -24,7 +24,7 @@ public class ClickHandler implements Listener {
         Player player = (Player) event.getWhoClicked();
         if (event.getView().getTitle().equals("Teleport to Waystone:")) {
             event.setCancelled(true);
-            if (player.hasPermission("waystonesplus.teleport")) {
+            if (player.hasPermission("waystonesplus.teleport") || player.isOp()) {
                 Inventory clickedInventory = event.getClickedInventory();
                 InventoryType.SlotType slotType = event.getSlotType();
 

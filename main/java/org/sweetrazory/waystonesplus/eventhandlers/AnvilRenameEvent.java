@@ -33,7 +33,7 @@ public class AnvilRenameEvent {
             return;
         }
         Player player = (Player) event.getView().getPlayer();
-        boolean playerHasPermission = event.getView().getPlayer().hasPermission("waystonesplus.rename");
+        boolean playerHasPermission = event.getView().getPlayer().hasPermission("waystonesplus.rename") || player.isOp();
 
         if (waystoneItem != null && !playerHasPermission) {
             event.setResult(null);

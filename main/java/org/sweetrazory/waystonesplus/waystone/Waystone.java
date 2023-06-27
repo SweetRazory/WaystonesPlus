@@ -65,7 +65,7 @@ public class Waystone {
     }
 
     public void enableHandler() {
-        spawnStructure(location);
+        spawnStructure();
 
         particleSpawner = new BukkitRunnable() {
             @Override
@@ -101,10 +101,9 @@ public class Waystone {
         }
     }
 
-    public Integer[] spawnStructure(Location location) {
-        World world = location.getWorld();
-
-        Block baseBlock = world.getBlockAt(location);
+    public Integer[] spawnStructure() {
+        World world = getLocation().getWorld();
+        Block baseBlock = world.getBlockAt(getLocation());
         MetadataValue waypointIdentifier = new FixedMetadataValue(Main.getInstance(), uuid);
         MetadataValue waypointType = new FixedMetadataValue(Main.getInstance(), type);
 
@@ -121,7 +120,7 @@ public class Waystone {
 
         Integer[] blockDisplayIds = new Integer[waystoneType.getBlockDisplays().size()];
         for (int i = 0; i < waystoneType.getBlockDisplays().size(); i++) {
-            Integer entityId = waystoneType.getBlockDisplays().get(i).spawnBlockDisplay(uuid, location);
+            Integer entityId = waystoneType.getBlockDisplays().get(i).spawnBlockDisplay(uuid, getLocation());
             blockDisplayIds[i] = entityId;
         }
 
@@ -129,7 +128,7 @@ public class Waystone {
     }
 
 
-    public void createWaystone(Waystone waystone, Block targetBlock) {
+    public void createWaystone(Waystone waystone) {
         WaystoneMemory WaystoneMemory = MemoryManager.getWaystoneMemory();
         particleSpawner = new BukkitRunnable() {
             @Override
@@ -140,7 +139,7 @@ public class Waystone {
 
         particleSpawner.runTaskTimer(Main.getInstance(), 0, 2);
 
-        entityIds = spawnStructure(targetBlock.getLocation());
+        entityIds = spawnStructure();
 
         WaystoneMemory.saveWaystone(waystone.getName(), waystone.getUuid(), this, waystone.getEntityIds());
     }

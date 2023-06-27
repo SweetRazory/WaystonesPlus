@@ -1,10 +1,40 @@
 name: WaystonesPlus
-version: "1.3.3"
+version: "1.3.5"
 main: org.sweetrazory.waystonesplus.Main
 api-version: "1.19"
+load: POSTWORLD
+author: SweetRazory
+permissions:
+  waystonesplus.teleport:
+    description: Toggles if the player can teleport to another Waystone from the GUI
+    default: false
+  waystonesplus.command.get:
+    description: Gives access to the /waystonesplus or /wsp get command
+    default: false
+  waystonesplus.breakwaystone:
+    description: Gives access for the player to break a Waystone
+    default: false
+  waystonesplus.rename:
+    description: Gives access to rename the Waystone spawner item in an anvil
+    default: false
+  waystonesplus.craft:
+    description: Gives access for the player to craft a Waystone
+    default: false
+  waystonesplus.interact:
+    description: Gives access for the player to interact with a Waystone with left click, this will bring up the Waystone list GUI
+    default: false
+  waystonesplus.placewaystone:
+    description: Gives access for the player to place a waystone
+    default: false
+  waystonesplus.distanceoverride:
+    description: Remove the 50 block radius boundary from the player, so it can place multiple Waystones less then 50 blocks from eachother
+    default: false
+softdepend:
+  - Multiverse-Core
 commands:
   waystones:
-    description: "Main command"
+    description: "Main command of the plugin WaystonesPlus"
+    permission: waystonesplus.command.get
     aliases:
       - waystone
       - waystonesplus
