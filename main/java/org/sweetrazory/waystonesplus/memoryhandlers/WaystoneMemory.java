@@ -65,7 +65,8 @@ public class WaystoneMemory {
     }
 
 
-    public void addWaystone(String name, String uuid, WaystoneType waystoneType, Location location, String type, Player owner, Visibility visibility) {
+    public void addWaystone(String name, WaystoneType waystoneType, Location location, String type, Player owner, Visibility visibility) {
+        String uuid = UUID.randomUUID().toString();
         Waystone newWaystone = new Waystone(name, uuid, waystoneType, location, type, owner.getUniqueId().toString(), visibility);
         newWaystone.createWaystone(newWaystone);
         saveWaystone(name, uuid, newWaystone, newWaystone.getEntityIds());
@@ -175,9 +176,9 @@ public class WaystoneMemory {
                     String textures = ((Map<String, String>) waystone.get("spawnItem")).get("textures");
 
                     ItemStack craftResult = new WaystoneSummonItem().getLodestoneHead(null, typeName, headOwnerId, textures);
-                    NamespacedKey recipeId = new NamespacedKey(Main.getInstance(), UUID.randomUUID().toString());
+                    NamespacedKey recipeName = new NamespacedKey(Main.getInstance(), typeName + "_recipe");
 
-                    ShapedRecipe recipe = new ShapedRecipe(recipeId, new ItemStack(craftResult));
+                    ShapedRecipe recipe = new ShapedRecipe(recipeName, new ItemStack(craftResult));
                     List<String> craftingList = (List<String>) waystone.get("crafting");
                     recipe.shape("123", "456", "789");
 

@@ -26,7 +26,7 @@ public class Main extends JavaPlugin implements Listener {
         String bukkitVersion = Bukkit.getVersion();
 
         if (!bukkitVersion.contains("1.19.4") && !bukkitVersion.contains("1.20")) {
-            System.out.println("[WaystonesPlus] This plugin only supports 1.19.4 or higher versions!");
+            getLogger().warning("[WaystonesPlus] This plugin only supports 1.19.4 or higher versions!");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }

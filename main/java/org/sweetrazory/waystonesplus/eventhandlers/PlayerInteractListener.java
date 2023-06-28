@@ -47,11 +47,8 @@ public class PlayerInteractListener implements Listener {
 
         String waystoneName = itemMeta.getDisplayName();
         NamespacedKey waystoneType = new NamespacedKey(Main.getInstance(), "waystoneType");
-        NamespacedKey waystoneId = new NamespacedKey(Main.getInstance(), "waystoneId");
         PersistentDataContainer dataContainer = itemMeta.getPersistentDataContainer();
         String waystoneTypeValue = dataContainer.get(waystoneType, PersistentDataType.STRING);
-        String waystoneIdValue = dataContainer.get(waystoneId, PersistentDataType.STRING);
-
         if (!waystoneTypeValue.isEmpty()) {
             if (player.hasPermission("waystonesplus.placewaystone") || player.isOp()) {
                 for (Waystone waystone : WaystoneMemory.getWaystoneDataMemory().values()) {
@@ -63,26 +60,26 @@ public class PlayerInteractListener implements Listener {
                     }
                 }
             } else if (!player.hasPermission("waystonesplus.placewaystone") && !player.isOp()) {
+                event.getBlockPlaced().setType(Material.AIR);
                 return;
             }
         }
 
         Location temp = event.getBlockPlaced().getLocation();
-        event.getPlayer().setItemInHand(null);
         Location placedBlockLocation = new Location(temp.getWorld(), temp.getX(), temp.getY() - 1, temp.getZ());
 
-        if (waystoneTypeValue != null && waystoneIdValue != null) {
+        if (waystoneTypeValue != null) {
             WaystoneType ws = WaystoneMemory.getWaystoneTypes().get(waystoneTypeValue.toLowerCase());
             if (ws != null) {
-                addWaystoneAndNotify(!waystoneName.equals("New Waystone") ? waystoneName : "New Waystone", player, ws, placedBlockLocation, waystoneIdValue);
+                addWaystoneAndNotify(!waystoneName.equals("New Waystone") ? waystoneName : "New Waystone", player, ws, placedBlockLocation);
             } else {
                 player.sendMessage(Color.ORANGE + "Faulty block detected. (How did we get here?)");
             }
         }
     }
 
-    private void addWaystoneAndNotify(String name, Player player, WaystoneType waystoneType, Location location, String waystoneId) {
-        waystoneMemory.addWaystone(name, waystoneId, waystoneType, location, waystoneType.getTypeName().toLowerCase(), player, Visibility.fromString("GLOBAL"));
+    private void addWaystoneAndNotify(String name, Player player, WaystoneType waystoneType, Location location) {
+        waystoneMemory.addWaystone(name, waystoneType, location, waystoneType.getTypeName().toLowerCase(), player, Visibility.fromString("GLOBAL"));
         player.sendMessage("Waystone is ready to use!");
     }
 

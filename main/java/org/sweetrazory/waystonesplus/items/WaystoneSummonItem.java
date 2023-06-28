@@ -45,11 +45,8 @@ public class WaystoneSummonItem {
                 ChatColor.translateAlternateColorCodes('&', "&f&6" + name) :
                 ChatColor.translateAlternateColorCodes('&', "&f&6" + "New Waystone"));
 
-        NamespacedKey waystoneId = new NamespacedKey(Main.getInstance(), "waystoneId");
         NamespacedKey waystoneType = new NamespacedKey(Main.getInstance(), "waystoneType");
-        String waystoneUUID = UUID.randomUUID().toString();
         PersistentDataContainer dataContainer = itemMeta.getPersistentDataContainer();
-        dataContainer.set(waystoneId, PersistentDataType.STRING, waystoneUUID);
         dataContainer.set(waystoneType, PersistentDataType.STRING, type);
         skullItem.setItemMeta(itemMeta);
 

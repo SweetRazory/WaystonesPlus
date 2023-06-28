@@ -19,7 +19,7 @@ public class OnWaystoneCraft {
                 .map(ShapedRecipe::getKey)
                 .anyMatch(key -> key.equals(eventRecipe.getKey()));
 
-        if (isWaystoneRecipe && !player.hasPermission("waystonesplus.craft") || player.isOp()) {
+        if (isWaystoneRecipe && !player.hasPermission("waystonesplus.craft") && !player.isOp()) {
             event.setCancelled(true);
         }
     }

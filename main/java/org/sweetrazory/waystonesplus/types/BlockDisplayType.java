@@ -32,7 +32,7 @@ public class BlockDisplayType {
 
 
     public Integer spawnBlockDisplay(String waystoneId, Location location) {
-        BlockDisplay blockDisplay = (BlockDisplay) Objects.requireNonNull(location.getWorld()).spawnEntity(new Location(location.getWorld(), location.getX(), location.getY() + 3, location.getZ()), EntityType.BLOCK_DISPLAY);
+        BlockDisplay blockDisplay = (BlockDisplay) (location.getWorld()).spawnEntity(new Location(location.getWorld(), location.getX(), location.getY() + 3, location.getZ()), EntityType.BLOCK_DISPLAY);
 
         this.entityId = blockDisplay.getUniqueId();
         blockDisplay.setBlock(material.createBlockData());

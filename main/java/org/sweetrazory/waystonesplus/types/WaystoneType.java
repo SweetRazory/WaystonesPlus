@@ -21,7 +21,9 @@ public class WaystoneType {
         this.spawnItemHeadId = spawnItemHeadId;
         this.spawnItemTextures = spawnItemTextures;
 
-        Bukkit.getServer().addRecipe(recipe);
+        if (Bukkit.getServer().getRecipe(recipe.getKey()) == null) {
+            Bukkit.getServer().addRecipe(recipe);
+        }
     }
 
     public String getTypeName() {

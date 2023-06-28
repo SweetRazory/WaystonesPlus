@@ -30,16 +30,13 @@ public class OnWaystoneBreak implements Listener {
                         ItemStack skullItem = new WaystoneSummonItem().getLodestoneHead(waystoneName, blockWaystoneType, null, null);
                         world.dropItemNaturally(dropLocation, skullItem);
                         waystoneMemory.removeWaystone(waystoneId);
-
-                        Main.getInstance().getServer().getOnlinePlayers().forEach(e -> e.saveData());
-                        Main.getInstance().getServer().getWorld(world.getUID()).save();
                     } else {
                         event.setCancelled(true);
                     }
                 }
             }
         } catch (IndexOutOfBoundsException error) {
-            System.out.println("A non-fatal error occurred.");
+            Main.getInstance().getLogger().warning("A non-fatal error occurred.");
         }
     }
 }
