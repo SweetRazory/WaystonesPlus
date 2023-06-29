@@ -12,15 +12,17 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.Nullable;
 import org.sweetrazory.waystonesplus.Main;
+import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.memoryhandlers.WaystoneMemory;
 import org.sweetrazory.waystonesplus.types.WaystoneType;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.UUID;
 
 public class WaystoneSummonItem {
 
-    public ItemStack getLodestoneHead(@Nullable String name, String type, @Nullable String headOwnerId, @Nullable String texturesString) {
+    public ItemStack getLodestoneHead(@Nullable String name, String type, @Nullable String headOwnerId, @Nullable String texturesString, @Nullable Visibility visibility) {
         ItemStack skullItem = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta skullMeta = (SkullMeta) skullItem.getItemMeta();
         WaystoneType ws = WaystoneMemory.getWaystoneTypes().get(type);
@@ -42,12 +44,17 @@ public class WaystoneSummonItem {
         skullItem.setItemMeta(skullMeta);
         ItemMeta itemMeta = skullItem.getItemMeta();
         itemMeta.setDisplayName(name != null && name.length() > 0 ?
-                ChatColor.translateAlternateColorCodes('&', "&f&6" + name) :
+                ChatColor.translateAlternateColorCodes('&', name) :
                 ChatColor.translateAlternateColorCodes('&', "&f&6" + "New Waystone"));
 
         NamespacedKey waystoneType = new NamespacedKey(Main.getInstance(), "waystoneType");
+        NamespacedKey waystoneVisibility = new NamespacedKey(Main.getInstance(), "waystoneVisibility");
         PersistentDataContainer dataContainer = itemMeta.getPersistentDataContainer();
         dataContainer.set(waystoneType, PersistentDataType.STRING, type);
+        dataContainer.set(waystoneVisibility, PersistentDataType.STRING, visibility.getValue() == null ? Visibility.GLOBAL.getValue() : visibility.getValue());
+        itemMeta.setLore(new ArrayList<String>() {{
+            add(Main.coloredText(visibility.getValue() != null ? visibility.getValue().equals("PRIVATE") ? "&cPRIVATE" : visibility.getValue().equals("PUBLIC") ? "&2PUBLIC" : "&eGLOBAL" : "&eGLOBAL"));
+        }});
         skullItem.setItemMeta(itemMeta);
 
         return skullItem;

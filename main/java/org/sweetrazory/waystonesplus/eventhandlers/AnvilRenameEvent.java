@@ -19,9 +19,9 @@ public class AnvilRenameEvent {
         ItemStack waystoneItem;
         NamespacedKey waystoneIdKey = new NamespacedKey(Main.getInstance(), "waystoneId");
         String waystoneId = "";
-        if (firstSlot != null) {
+        if (firstSlot != null && firstSlot.getItemMeta() != null) {
             waystoneId = firstSlot.getItemMeta().getPersistentDataContainer().get(waystoneIdKey, PersistentDataType.STRING);
-        } else if (secondSlot != null) {
+        } else if (secondSlot != null && secondSlot.getItemMeta() != null) {
             waystoneId = secondSlot.getItemMeta().getPersistentDataContainer().get(waystoneIdKey, PersistentDataType.STRING);
         }
 
@@ -40,7 +40,7 @@ public class AnvilRenameEvent {
         } else if (waystoneItem != null) {
             ItemMeta renameFixer = waystoneItem.getItemMeta();
             String anvilText = event.getInventory().getRenameText();
-            if (anvilText.length() == 0) {
+            if (anvilText != null && anvilText.length() == 0) {
                 event.setResult(null);
             } else {
                 renameFixer.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&r&6" + anvilText));

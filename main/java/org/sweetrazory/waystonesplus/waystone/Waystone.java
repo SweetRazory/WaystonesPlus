@@ -22,8 +22,8 @@ public class Waystone {
     private final Location location;
     private final String type;
     private final String ownerId;
-    private final Visibility visibility;
     private final WaystoneType waystoneType;
+    private Visibility visibility;
     private Integer[] entityIds = new Integer[]{};
     private BukkitRunnable particleSpawner;
 
@@ -36,6 +36,7 @@ public class Waystone {
         this.ownerId = ownerId;
         this.visibility = visibility;
     }
+
 
     public Integer[] getEntityIds() {
         return entityIds;
@@ -127,7 +128,6 @@ public class Waystone {
         return blockDisplayIds;
     }
 
-
     public void createWaystone(Waystone waystone) {
         WaystoneMemory WaystoneMemory = MemoryManager.getWaystoneMemory();
         particleSpawner = new BukkitRunnable() {
@@ -141,7 +141,7 @@ public class Waystone {
 
         entityIds = spawnStructure();
 
-        WaystoneMemory.saveWaystone(waystone.getName(), waystone.getUuid(), this, waystone.getEntityIds());
+        WaystoneMemory.createWaystoneConfig(waystone.getName(), waystone.getUuid(), this, waystone.getEntityIds());
     }
 
     public String getOwnerId() {
@@ -150,6 +150,12 @@ public class Waystone {
 
     public Visibility getVisibility() {
         return visibility;
+    }
+
+    public void setVisibility(Visibility visibility) {
+        this.visibility = visibility;
+
+        WaystoneMemory.saveWaystoneConfig(this);
     }
 
     public String getUuid() {

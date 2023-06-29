@@ -25,7 +25,7 @@ public class WaystoneMemory {
     private static final Map<String, Waystone> waystoneDataMemory = new HashMap<>();
     private static final String WAYSTONES = "waystones";
     private static final Map<String, WaystoneType> waystoneTypeMemory = new HashMap<>();
-    private final File waystonesFolder;
+    private static File waystonesFolder;
 
     public WaystoneMemory() {
         waystonesFolder = new File(Main.getInstance().getDataFolder(), WAYSTONES);
@@ -42,7 +42,30 @@ public class WaystoneMemory {
         return Collections.unmodifiableMap(waystoneTypeMemory);
     }
 
-    public String[] getWaystoneIds() {
+    public static void saveWaystoneConfig(Waystone waystone) {
+        File[] files = waystonesFolder.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory() && file.getName().equals(waystone.getUuid())) {
+                    File configFile = new File(file, "config.yml");
+
+                    if (configFile.exists()) {
+                        FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
+                        config.set("visibility", waystone.getVisibility().getValue());
+                        config.set("name", waystone.getName());
+                        try {
+                            config.save(configFile);
+                        } catch (IOException e) {
+                            Main.Logger().warning("Couldn't update Waystone data. It will reset to it's initial state after restart!");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static String[] getWaystoneIds() {
         return waystoneDataMemory.keySet().toArray(new String[0]);
     }
 
@@ -64,12 +87,11 @@ public class WaystoneMemory {
         }
     }
 
-
     public void addWaystone(String name, WaystoneType waystoneType, Location location, String type, Player owner, Visibility visibility) {
         String uuid = UUID.randomUUID().toString();
         Waystone newWaystone = new Waystone(name, uuid, waystoneType, location, type, owner.getUniqueId().toString(), visibility);
         newWaystone.createWaystone(newWaystone);
-        saveWaystone(name, uuid, newWaystone, newWaystone.getEntityIds());
+        createWaystoneConfig(name, uuid, newWaystone, newWaystone.getEntityIds());
     }
 
     public void removeWaystone(String waystoneId) {
@@ -97,7 +119,6 @@ public class WaystoneMemory {
         }
         folder.delete();
     }
-
 
     public void loadWaystoneConfig(String waystoneId) {
         File waystoneFolder = new File(waystonesFolder, waystoneId);
@@ -175,7 +196,7 @@ public class WaystoneMemory {
                     String headOwnerId = ((Map<String, String>) waystone.get("spawnItem")).get("playerId");
                     String textures = ((Map<String, String>) waystone.get("spawnItem")).get("textures");
 
-                    ItemStack craftResult = new WaystoneSummonItem().getLodestoneHead(null, typeName, headOwnerId, textures);
+                    ItemStack craftResult = new WaystoneSummonItem().getLodestoneHead(null, typeName, headOwnerId, textures, Visibility.PRIVATE);
                     NamespacedKey recipeName = new NamespacedKey(Main.getInstance(), typeName + "_recipe");
 
                     ShapedRecipe recipe = new ShapedRecipe(recipeName, new ItemStack(craftResult));
@@ -197,39 +218,6 @@ public class WaystoneMemory {
             throw new RuntimeException(e);
         }
     }
-
-//    public void loadWaystoneTypes() {
-//        Map<String, WaystoneType> newTypes = new HashMap<>();
-//        String yamlFile = getInstance().getDataFolder() + "/config.yml";
-//
-//        Yaml yaml = new Yaml();
-//        try (InputStream inputStream = Files.newInputStream(Paths.get(yamlFile))) {
-//            Map<String, Object> data = yaml.load(inputStream);
-//
-//            List<Map<String, Object>> waystones = (List<Map<String, Object>>) data.get(WAYSTONES);
-//
-//            for (Map<String, Object> waystone : waystones) {
-//                String waystoneT = waystone.keySet().iterator().next();
-//                Map<String, Object> waystoneData = (Map<String, Object>) waystone.get(waystoneT);
-//                ArrayList<Material> blocks = new ArrayList<>();
-//                List<String> blockList = (List<String>) waystoneData.get("blocks");
-//                String[] block = blockList.toArray(new String[0]);
-//
-//                for (int i = 0; i < blockList.size(); i++) {
-//                    blocks.add(Material.matchMaterial(block[i]));
-//                }
-//                WaystoneType waystoneType = new WaystoneType(waystoneT, blocks);
-//                newTypes.put(waystoneT, waystoneType);
-//            }
-//
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        if (!waystoneTypeMemory.equals(newTypes)) {
-//            waystoneTypeMemory = newTypes;
-//        }
-//    }
 
     public void enableHandler() {
         File[] files = new File(Main.getInstance().getDataFolder().getAbsolutePath()).listFiles();
@@ -261,13 +249,12 @@ public class WaystoneMemory {
         }
     }
 
-
-    public void saveWaystone(String name, String waystoneId, Waystone waystone, Integer[] entityIds) {
+    public void createWaystoneConfig(String name, String waystoneId, Waystone waystone, Integer[] entityIds) {
         if (!waystonesFolder.exists()) {
             waystonesFolder.mkdir();
         }
         File[] files = waystonesFolder.listFiles();
-//        System.out.println(Arrays.stream(files).toArray().toString());
+//        Main.Logger().warning(Arrays.stream(files).toArray().toString());
 
         if (files != null) {
             for (File file : files) {

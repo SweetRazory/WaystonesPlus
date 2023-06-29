@@ -3,6 +3,7 @@ package org.sweetrazory.waystonesplus.commands.subcommands;
 import org.bukkit.Color;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.items.WaystoneSummonItem;
 import org.sweetrazory.waystonesplus.memoryhandlers.WaystoneMemory;
 import org.sweetrazory.waystonesplus.utils.SubCommand;
@@ -22,7 +23,7 @@ public class Get implements SubCommand {
                 if (WaystoneMemory.getWaystoneTypes().containsKey(args[1].toLowerCase())) {
                     String name = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
                     // TODO: length handling
-                    ItemStack skullItem = new WaystoneSummonItem().getLodestoneHead(name, args[1].toLowerCase(), null, null);
+                    ItemStack skullItem = new WaystoneSummonItem().getLodestoneHead(name, args[1].toLowerCase(), null, null, Visibility.GLOBAL);
                     player.getInventory().addItem(skullItem);
                 } else {
                     player.sendMessage(Color.ORANGE + "A waystone variation with that name doesn't exist!");

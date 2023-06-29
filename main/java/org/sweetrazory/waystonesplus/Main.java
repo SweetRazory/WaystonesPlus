@@ -1,6 +1,7 @@
 package org.sweetrazory.waystonesplus;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.sweetrazory.waystonesplus.memoryhandlers.CommandManager;
@@ -9,13 +10,21 @@ import org.sweetrazory.waystonesplus.memoryhandlers.MemoryManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.logging.Logger;
 
 public class Main extends JavaPlugin implements Listener {
     private static Main instance;
 
     public static Main getInstance() {
         return instance;
+    }
+
+    public static Logger Logger() {
+        return getInstance().getLogger();
+    }
+
+    public static String coloredText(String s) {
+        return ChatColor.translateAlternateColorCodes('&', s);
     }
 
     @Override
@@ -32,7 +41,7 @@ public class Main extends JavaPlugin implements Listener {
         }
 
         new MemoryManager();
-        EventController eventController = new EventController(MemoryManager.getWaystoneMemory(), MemoryManager.getInventoryMemory());
+        EventController eventController = new EventController(MemoryManager.getWaystoneMemory());
         getServer().getPluginManager().registerEvents(eventController, this);
 
         MemoryManager.getWaystoneMemory();
@@ -46,7 +55,7 @@ public class Main extends JavaPlugin implements Listener {
         commandAliases.add("waystoneplus");
 
         for (String commandAlias : commandAliases) {
-            Objects.requireNonNull(getCommand(commandAlias)).setExecutor(new CommandManager(MemoryManager.getWaystoneMemory()));
+            getCommand(commandAlias).setExecutor(new CommandManager(MemoryManager.getWaystoneMemory()));
         }
     }
 

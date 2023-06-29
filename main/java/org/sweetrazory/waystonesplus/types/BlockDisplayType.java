@@ -9,7 +9,6 @@ import org.bukkit.util.Transformation;
 import org.joml.AxisAngle4f;
 import org.joml.Vector3f;
 
-import java.util.Objects;
 import java.util.UUID;
 
 public class BlockDisplayType {
@@ -43,7 +42,7 @@ public class BlockDisplayType {
     }
 
     public void removeBlockDisplay() {
-        Objects.requireNonNull(Bukkit.getEntity(entityId)).remove();
+        Bukkit.getEntity(entityId).remove();
     }
 
 //    public String getWaystoneId() {

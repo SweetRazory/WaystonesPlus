@@ -47,39 +47,42 @@ public class PlayerInteractListener implements Listener {
 
         String waystoneName = itemMeta.getDisplayName();
         NamespacedKey waystoneType = new NamespacedKey(Main.getInstance(), "waystoneType");
+        NamespacedKey waystoneVisibility = new NamespacedKey(Main.getInstance(), "waystoneVisibility");
         PersistentDataContainer dataContainer = itemMeta.getPersistentDataContainer();
         String waystoneTypeValue = dataContainer.get(waystoneType, PersistentDataType.STRING);
-        if (!waystoneTypeValue.isEmpty()) {
+        String waystoneVisibilityValue = dataContainer.get(waystoneVisibility, PersistentDataType.STRING);
+        if (waystoneTypeValue != null && waystoneVisibilityValue != null) {
             if (player.hasPermission("waystonesplus.placewaystone") || player.isOp()) {
                 for (Waystone waystone : WaystoneMemory.getWaystoneDataMemory().values()) {
                     // TODO Switch config.yml to waystonetypes.yml, add config.yml and define minimum waystone distance
                     if ((waystone.getLocation().getWorld() != null && waystone.getLocation().getWorld().equals(event.getBlockPlaced().getWorld()) && waystone.getLocation().distance(event.getBlockPlaced().getLocation()) < 50 && !player.hasPermission("waystonesplus.distanceoverride")) && !player.isOp()) {
                         event.getBlockPlaced().setType(Material.AIR);
                         event.getPlayer().sendMessage("You can't place Waystones this close to each-other (50 Blocks)");
+                        event.setCancelled(true);
                         return;
                     }
                 }
+
+                Location temp = event.getBlockPlaced().getLocation();
+                Location placedBlockLocation = new Location(temp.getWorld(), temp.getX(), temp.getY() - 1, temp.getZ());
+
+                WaystoneType ws = WaystoneMemory.getWaystoneTypes().get(waystoneTypeValue.toLowerCase());
+                if (ws != null) {
+                    addWaystoneAndNotify(!waystoneName.equals("New Waystone") ? waystoneName : "New Waystone", player, ws, placedBlockLocation, Visibility.fromString(waystoneVisibilityValue));
+                } else {
+                    player.sendMessage(Color.ORANGE + "Faulty block detected. (How did we get here?)");
+                }
             } else if (!player.hasPermission("waystonesplus.placewaystone") && !player.isOp()) {
                 event.getBlockPlaced().setType(Material.AIR);
-                return;
+                event.setCancelled(true);
             }
         }
 
-        Location temp = event.getBlockPlaced().getLocation();
-        Location placedBlockLocation = new Location(temp.getWorld(), temp.getX(), temp.getY() - 1, temp.getZ());
 
-        if (waystoneTypeValue != null) {
-            WaystoneType ws = WaystoneMemory.getWaystoneTypes().get(waystoneTypeValue.toLowerCase());
-            if (ws != null) {
-                addWaystoneAndNotify(!waystoneName.equals("New Waystone") ? waystoneName : "New Waystone", player, ws, placedBlockLocation);
-            } else {
-                player.sendMessage(Color.ORANGE + "Faulty block detected. (How did we get here?)");
-            }
-        }
     }
 
-    private void addWaystoneAndNotify(String name, Player player, WaystoneType waystoneType, Location location) {
-        waystoneMemory.addWaystone(name, waystoneType, location, waystoneType.getTypeName().toLowerCase(), player, Visibility.fromString("GLOBAL"));
+    private void addWaystoneAndNotify(String name, Player player, WaystoneType waystoneType, Location location, Visibility visibility) {
+        waystoneMemory.addWaystone(name, waystoneType, location, waystoneType.getTypeName().toLowerCase(), player, visibility);
         player.sendMessage("Waystone is ready to use!");
     }
 
