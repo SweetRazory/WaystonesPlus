@@ -8,10 +8,8 @@ Welcome to WaystonesPlus's Github page!
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
+- [Supporting](#supporting)
 - [Bug Reports](#bug-reports)
-- [License](#license)
-- [Acknowledgements](#acknowledgements)
 - [Contact](#contact)
 
 ## Getting Started
