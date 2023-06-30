@@ -3,8 +3,6 @@ package org.sweetrazory.waystonesplus.commands.subcommands;
 import org.bukkit.Color;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.items.WaystoneSummonItem;
 import org.sweetrazory.waystonesplus.memoryhandlers.WaystoneMemory;
@@ -27,8 +25,7 @@ public class Get implements SubCommand {
                     // TODO: length handling
                     ItemStack skullItem = new WaystoneSummonItem().getLodestoneHead(name, args[1].toLowerCase(), null, null, Visibility.GLOBAL);
                     player.getInventory().addItem(skullItem);
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 10 * 20, 10));
-
+//                    player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 10 * 20, 10));
 //                    Bukkit.getScheduler().runTaskLater(WaystonesPlus.getInstance(), () -> player.removePotionEffect(PotionEffectType.BLINDNESS), 10 * 20); TODO: Invent animation
                 } else {
                     player.sendMessage(Color.ORANGE + "A waystone variation with that name doesn't exist!");
