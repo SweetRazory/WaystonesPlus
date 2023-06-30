@@ -1,6 +1,10 @@
 package org.sweetrazory.waystonesplus.memoryhandlers;
 
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Color;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -18,8 +22,17 @@ import org.sweetrazory.waystonesplus.waystone.Waystone;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class WaystoneMemory {
     private static final Map<String, Waystone> waystoneDataMemory = new HashMap<>();
@@ -139,9 +152,8 @@ public class WaystoneMemory {
                 System.arraycopy(entityIds, 0, entityIdList, 0, entityIds.length);
 
                 Location location = new Location(WaystonesPlus.getInstance().getServer().getWorld(worldName), x, y, z);
-
-                assert visibility != null;
                 Waystone loadedWaystone = new Waystone(name, waystoneId, waystoneTypeMemory.get(type), location, type, ownerId, Visibility.fromString(visibility));
+
                 loadedWaystone.setEntityIds(entityIdList);
                 waystoneDataMemory.put(waystoneId, loadedWaystone);
             }  // TODO: Handle missing config file for the waystone
@@ -293,7 +305,7 @@ public class WaystoneMemory {
 
             configData.put("type", waystone.getType());
             configData.put("owner", waystone.getOwnerId());
-            configData.put("visibility", waystone.getVisibility().getValue());
+            configData.put("visibility", waystone.getVisibility().name());
 
             try (FileWriter writer = new FileWriter(waystoneConfig)) {
                 String yamlString = yaml.dump(configData);
@@ -309,5 +321,4 @@ public class WaystoneMemory {
             new Console.error("Failed to create folder for " + waystone.getUuid() + ".");
         }
     }
-
 }

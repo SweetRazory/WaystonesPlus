@@ -10,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
@@ -22,7 +23,7 @@ import java.util.UUID;
 
 public class WaystoneSummonItem {
 
-    public ItemStack getLodestoneHead(@Nullable String name, String type, @Nullable String headOwnerId, @Nullable String texturesString, @Nullable Visibility visibility) {
+    public ItemStack getLodestoneHead(@Nullable String name, String type, @Nullable String headOwnerId, @Nullable String texturesString, @NotNull Visibility visibility) {
         ItemStack skullItem = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta skullMeta = (SkullMeta) skullItem.getItemMeta();
         WaystoneType ws = WaystoneMemory.getWaystoneTypes().get(type);
@@ -51,9 +52,9 @@ public class WaystoneSummonItem {
         NamespacedKey waystoneVisibility = new NamespacedKey(WaystonesPlus.getInstance(), "waystoneVisibility");
         PersistentDataContainer dataContainer = itemMeta.getPersistentDataContainer();
         dataContainer.set(waystoneType, PersistentDataType.STRING, type);
-        dataContainer.set(waystoneVisibility, PersistentDataType.STRING, visibility.getValue() == null ? Visibility.GLOBAL.getValue() : visibility.getValue());
+        dataContainer.set(waystoneVisibility, PersistentDataType.STRING, visibility.name());
         itemMeta.setLore(new ArrayList<String>() {{
-            add(WaystonesPlus.coloredText(visibility.getValue() != null ? visibility.getValue().equals("PRIVATE") ? "&cPRIVATE" : visibility.getValue().equals("PUBLIC") ? "&2PUBLIC" : "&eGLOBAL" : "&eGLOBAL"));
+            add(WaystonesPlus.coloredText(visibility == Visibility.PRIVATE ? "&cPRIVATE" : visibility == Visibility.PUBLIC ? "&2PUBLIC" : "&eGLOBAL"));
         }});
         skullItem.setItemMeta(itemMeta);
 

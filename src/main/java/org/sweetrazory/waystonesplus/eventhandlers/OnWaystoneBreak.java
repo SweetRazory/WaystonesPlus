@@ -17,6 +17,7 @@ import org.sweetrazory.waystonesplus.memoryhandlers.WaystoneMemory;
 import java.util.List;
 
 public class OnWaystoneBreak implements Listener {
+
     public OnWaystoneBreak(WaystoneMemory waystoneMemory, BlockBreakEvent event) {
         try {
             Block block = event.getBlock();
