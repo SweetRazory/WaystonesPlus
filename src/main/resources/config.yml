@@ -1,1 +1,23 @@
-stuff: asd
+# Chance of a Waystone item spawning in random chests
+loot-chance: 25
+
+# Minimum distance between Waystones
+minimum-distance: 50
+
+# Default visibility of a crafted waystone
+default-visibility: "PRIVATE"
+
+# Toggles whether Waystone crafting is enabled
+enable-crafting: true
+
+# Defines what the default Waystone spawn item/structure name
+default-waystone-name: "&6New Waystone"
+
+# Enables/Disables notification on Waystone placement
+new-waystone-notification: true
+
+# Sets Title when a new Waystone is placed
+new-waystone-title: "&7New Waystone:"
+
+# Sets Title when a new Waystone is placed
+new-waystone-subtitle: "&6%waystone_name%"

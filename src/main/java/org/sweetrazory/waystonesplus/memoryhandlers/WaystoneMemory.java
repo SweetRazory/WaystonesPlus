@@ -1,10 +1,6 @@
 package org.sweetrazory.waystonesplus.memoryhandlers;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Color;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -22,17 +18,8 @@ import org.sweetrazory.waystonesplus.waystone.Waystone;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.io.*;
+import java.util.*;
 
 public class WaystoneMemory {
     private static final Map<String, Waystone> waystoneDataMemory = new HashMap<>();
@@ -65,7 +52,7 @@ public class WaystoneMemory {
 
                     if (configFile.exists()) {
                         FileConfiguration config = YamlConfiguration.loadConfiguration(configFile);
-                        config.set("visibility", waystone.getVisibility().getValue());
+                        config.set("visibility", waystone.getVisibility().name());
                         config.set("name", waystone.getName());
                         try {
                             config.save(configFile);
@@ -207,22 +194,27 @@ public class WaystoneMemory {
 
                     String headOwnerId = ((Map<String, String>) waystone.get("spawnItem")).get("playerId");
                     String textures = ((Map<String, String>) waystone.get("spawnItem")).get("textures");
+                    ShapedRecipe recipe = null;
+                    if (ConfigManager.enableCrafting) {
+                        ItemStack craftResult = new WaystoneSummonItem().getLodestoneHead(null, typeName, headOwnerId, textures, ConfigManager.defaultVisibility);
+                        NamespacedKey recipeName = new NamespacedKey(WaystonesPlus.getInstance(), typeName + "_recipe");
 
-                    ItemStack craftResult = new WaystoneSummonItem().getLodestoneHead(null, typeName, headOwnerId, textures, Visibility.PRIVATE);
-                    NamespacedKey recipeName = new NamespacedKey(WaystonesPlus.getInstance(), typeName + "_recipe");
+                        List<String> craftingList = (List<String>) waystone.get("crafting");
+                        if (craftingList != null && !craftingList.isEmpty() && craftingList instanceof List && craftingList.size() == 9) {
+                            recipe = new ShapedRecipe(recipeName, new ItemStack(craftResult));
+                            recipe.shape("123", "456", "789");
 
-                    ShapedRecipe recipe = new ShapedRecipe(recipeName, new ItemStack(craftResult));
-                    List<String> craftingList = (List<String>) waystone.get("crafting");
-                    recipe.shape("123", "456", "789");
+                            char[] symbols = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
+                            for (int i = 0; i < craftingList.size(); i++) {
+                                String ingredient = craftingList.get(i);
+                                char symbol = symbols[i];
+                                Material material = Material.matchMaterial(ingredient);
 
-                    char[] symbols = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
-                    for (int i = 0; i < craftingList.size(); i++) {
-                        String ingredient = craftingList.get(i);
-                        char symbol = symbols[i];
-                        Material material = Material.matchMaterial(ingredient);
-
-                        recipe.setIngredient(symbol, material);
+                                recipe.setIngredient(symbol, material);
+                            }
+                        }
                     }
+
                     waystoneTypeMemory.put(typeName, new WaystoneType(typeName, blocks, blockDisplays, recipe, headOwnerId, textures));
                 }
             }

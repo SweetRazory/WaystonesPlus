@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.sweetrazory.waystonesplus.memoryhandlers.CommandManager;
+import org.sweetrazory.waystonesplus.memoryhandlers.ConfigManager;
 import org.sweetrazory.waystonesplus.memoryhandlers.EventController;
 import org.sweetrazory.waystonesplus.memoryhandlers.MemoryManager;
 
@@ -93,7 +94,9 @@ public class WaystonesPlus extends JavaPlugin implements Listener {
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-
+        new MemoryManager();
+        ConfigManager configMemory = new ConfigManager();
+        configMemory.loadConfig();
         EventController eventController = new EventController(MemoryManager.getWaystoneMemory());
         getServer().getPluginManager().registerEvents(eventController, this);
 

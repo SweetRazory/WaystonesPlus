@@ -6,7 +6,7 @@
 
     <groupId>org.sweetrazory</groupId>
     <artifactId>WaystonesPlus</artifactId>
-    <version>1.4.4</version>
+    <version>1.5.0</version>
     <packaging>jar</packaging>
 
     <name>WaystonesPlus</name>
@@ -45,8 +45,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>${maven.compiler.source}</source>
-                    <target>${maven.compiler.target}</target>
+                    <source>8</source>
+                    <target>8</target>
                     <compilerArgs>
                         <arg>-Xlint:deprecation</arg>
                         <arg>-Xlint:unchecked</arg>

@@ -2,6 +2,8 @@ package org.sweetrazory.waystonesplus.types;
 
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ShapedRecipe;
+import org.jetbrains.annotations.Nullable;
+import org.sweetrazory.waystonesplus.memoryhandlers.ConfigManager;
 
 import java.util.List;
 
@@ -13,7 +15,7 @@ public class WaystoneType {
     private final String spawnItemHeadId;
     private final String spawnItemTextures;
 
-    public WaystoneType(String typeName, List<BlockType> blocks, List<BlockDisplayType> blockDisplays, ShapedRecipe recipe, String spawnItemHeadId, String spawnItemTextures) {
+    public WaystoneType(String typeName, List<BlockType> blocks, List<BlockDisplayType> blockDisplays, @Nullable ShapedRecipe recipe, String spawnItemHeadId, String spawnItemTextures) {
         this.typeName = typeName;
         this.blocks = blocks;
         BlockDisplays = blockDisplays;
@@ -21,7 +23,7 @@ public class WaystoneType {
         this.spawnItemHeadId = spawnItemHeadId;
         this.spawnItemTextures = spawnItemTextures;
 
-        if (Bukkit.getServer().getRecipe(recipe.getKey()) == null) {
+        if (ConfigManager.enableCrafting && recipe != null && Bukkit.getServer().getRecipe(recipe.getKey()) == null) {
             Bukkit.getServer().addRecipe(recipe);
         }
     }

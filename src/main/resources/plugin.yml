@@ -26,7 +26,7 @@ permissions:
     description: Gives access for the player to place a waystone
     default: false
   waystonesplus.distanceoverride:
-    description: Remove the 50 block radius boundary from the player, so it can place multiple Waystones less then 50 blocks from eachother
+    description: Remove the block radius boundary from the player, so it can place multiple Waystones less then 50 blocks from eachother
     default: false
 softdepend:
   - Multiverse-Core

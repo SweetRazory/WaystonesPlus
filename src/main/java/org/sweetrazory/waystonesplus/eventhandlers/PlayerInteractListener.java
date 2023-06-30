@@ -15,6 +15,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
+import org.sweetrazory.waystonesplus.memoryhandlers.ConfigManager;
 import org.sweetrazory.waystonesplus.memoryhandlers.WaystoneMemory;
 import org.sweetrazory.waystonesplus.types.WaystoneType;
 import org.sweetrazory.waystonesplus.waystone.Waystone;
@@ -51,13 +52,14 @@ public class PlayerInteractListener implements Listener {
         PersistentDataContainer dataContainer = itemMeta.getPersistentDataContainer();
         String waystoneTypeValue = dataContainer.get(waystoneType, PersistentDataType.STRING);
         String waystoneVisibilityValue = dataContainer.get(waystoneVisibility, PersistentDataType.STRING);
+
         if (waystoneTypeValue != null && waystoneVisibilityValue != null) {
             if (player.hasPermission("waystonesplus.placewaystone") || player.isOp()) {
                 for (Waystone waystone : WaystoneMemory.getWaystoneDataMemory().values()) {
                     // TODO Switch config.yml to waystonetypes.yml, add config.yml and define minimum waystone distance
-                    if ((waystone.getLocation().getWorld() != null && waystone.getLocation().getWorld().equals(event.getBlockPlaced().getWorld()) && waystone.getLocation().distance(event.getBlockPlaced().getLocation()) < 50 && !player.hasPermission("waystonesplus.distanceoverride")) && !player.isOp()) {
+                    if ((waystone.getLocation().getWorld() != null && waystone.getLocation().getWorld().equals(event.getBlockPlaced().getWorld()) && waystone.getLocation().distance(event.getBlockPlaced().getLocation()) <= ConfigManager.minimumDistance && !player.hasPermission("waystonesplus.distanceoverride")) && !player.isOp()) {
                         event.getBlockPlaced().setType(Material.AIR);
-                        event.getPlayer().sendMessage("You can't place Waystones this close to each-other (50 Blocks)");
+                        event.getPlayer().sendMessage("You can't place Waystones this close to each-other (" + ConfigManager.minimumDistance + " Blocks)");
                         event.setCancelled(true);
                         return;
                     }
@@ -67,11 +69,18 @@ public class PlayerInteractListener implements Listener {
                 Location placedBlockLocation = new Location(temp.getWorld(), temp.getX(), temp.getY() - 1, temp.getZ());
 
                 WaystoneType ws = WaystoneMemory.getWaystoneTypes().get(waystoneTypeValue.toLowerCase());
+
                 if (ws != null) {
+                    waystoneName = !waystoneName.equals("New Waystone") ? waystoneName : "New Waystone";
                     addWaystoneAndNotify(!waystoneName.equals("New Waystone") ? waystoneName : "New Waystone", player, ws, placedBlockLocation, Visibility.fromString(waystoneVisibilityValue));
+                    if (ConfigManager.enableNotification) {
+                        player.sendTitle(WaystonesPlus.coloredText(ConfigManager.newWaystoneTitle), WaystonesPlus.coloredText(ConfigManager.newWaystoneSubtitle.replace("%waystone_name%", waystoneName)), 20, 40, 20);
+                    }
+
                 } else {
                     player.sendMessage(Color.ORANGE + "Faulty block detected. (How did we get here?)");
                 }
+
             } else if (!player.hasPermission("waystonesplus.placewaystone") && !player.isOp()) {
                 event.getBlockPlaced().setType(Material.AIR);
                 event.setCancelled(true);
