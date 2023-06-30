@@ -1,13 +1,12 @@
 package org.sweetrazory.waystonesplus.gui.inventory.screens;
 
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
-import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.gui.inventory.MenuInventory;
+import org.sweetrazory.waystonesplus.utils.Keys;
 import org.sweetrazory.waystonesplus.waystone.Waystone;
 
 public class OptionSelector {
@@ -32,9 +31,7 @@ public class OptionSelector {
             return;
         }
 
-        NamespacedKey clickEvent = new NamespacedKey(WaystonesPlus.getInstance(), "clickEvent");
-
-        String clickEventValue = currentItem.getItemMeta().getPersistentDataContainer().get(clickEvent, PersistentDataType.STRING);
+        String clickEventValue = currentItem.getItemMeta().getPersistentDataContainer().get(Keys.clickEvent, PersistentDataType.STRING);
         if (clickEventValue != null) {
             switch (clickEventValue) {
                 case "openWaystoneList":

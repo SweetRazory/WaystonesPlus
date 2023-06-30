@@ -7,11 +7,11 @@ import java.util.List;
 
 public class WaystoneType {
     private final String typeName;
-    List<BlockType> blocks;
-    List<BlockDisplayType> BlockDisplays;
-    ShapedRecipe recipe;
-    String spawnItemHeadId;
-    String spawnItemTextures;
+    private final List<BlockType> blocks;
+    private final List<BlockDisplayType> BlockDisplays;
+    private final ShapedRecipe recipe;
+    private final String spawnItemHeadId;
+    private final String spawnItemTextures;
 
     public WaystoneType(String typeName, List<BlockType> blocks, List<BlockDisplayType> blockDisplays, ShapedRecipe recipe, String spawnItemHeadId, String spawnItemTextures) {
         this.typeName = typeName;

@@ -7,7 +7,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.sweetrazory.waystonesplus.gui.inventory.MenuInventory;
 
 public class InventoryClickEventHandler implements Listener {
-
     private final Player player;
     private final MenuInventory menu;
 

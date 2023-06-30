@@ -86,19 +86,16 @@ public class WaystonesPlus extends JavaPlugin implements Listener {
         loadWaystonesConfig();
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
-        String bukkitVersion = Bukkit.getVersion();
 
+        String bukkitVersion = Bukkit.getVersion();
         if (!bukkitVersion.contains("1.19.4") && !bukkitVersion.contains("1.20")) {
             getLogger().warning("[WaystonesPlus] This plugin only supports 1.19.4 or higher versions!");
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
 
-        new MemoryManager();
         EventController eventController = new EventController(MemoryManager.getWaystoneMemory());
         getServer().getPluginManager().registerEvents(eventController, this);
-
-        MemoryManager.getWaystoneMemory();
 
         List<String> commandAliases = new ArrayList<>();
 

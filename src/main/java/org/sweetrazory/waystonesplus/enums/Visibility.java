@@ -1,26 +1,17 @@
 package org.sweetrazory.waystonesplus.enums;
 
+import org.jetbrains.annotations.NotNull;
+
 public enum Visibility {
-    GLOBAL("GLOBAL"),
-    PUBLIC("PUBLIC"),
-    PRIVATE("PRIVATE");
+    GLOBAL,
+    PUBLIC,
+    PRIVATE;
 
-    private final String value;
-
-    Visibility(String value) {
-        this.value = value;
-    }
-
-    public static Visibility fromString(String visibility) {
+    public static Visibility fromString(@NotNull String visibility) {
         try {
             return Visibility.valueOf(visibility.toUpperCase());
         } catch (IllegalArgumentException e) {
-            return null;
+            throw new RuntimeException(String.format("Could not find visibility named %s", visibility));
         }
     }
-
-    public String getValue() {
-        return value;
-    }
-
 }

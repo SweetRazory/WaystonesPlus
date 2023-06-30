@@ -9,6 +9,7 @@ import org.sweetrazory.waystonesplus.types.WaystoneType;
 import java.util.Map;
 
 public class OnWaystoneCraft {
+
     public OnWaystoneCraft(CraftItemEvent event) {
         ShapedRecipe eventRecipe = (ShapedRecipe) event.getRecipe();
         Map<String, WaystoneType> waystoneTypes = WaystoneMemory.getWaystoneTypes();

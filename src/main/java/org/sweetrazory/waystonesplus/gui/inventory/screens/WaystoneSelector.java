@@ -16,6 +16,7 @@ import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.gui.inventory.MenuInventory;
 import org.sweetrazory.waystonesplus.utils.Console;
+import org.sweetrazory.waystonesplus.utils.Keys;
 
 public class WaystoneSelector {
     private final InventoryClickEvent event;
@@ -37,7 +38,6 @@ public class WaystoneSelector {
             if (clickedInventory != null && slotType != InventoryType.SlotType.OUTSIDE) {
                 try {
                     ItemStack clickedItem = event.getCurrentItem();
-                    assert clickedItem != null;
                     if (clickedItem.getItemMeta().getDisplayName().equalsIgnoreCase("Previous") && clickedItem.getType().equals(Material.SNOWBALL)) {
                         menu.prevPage();
                     } else if (clickedItem.getItemMeta().getDisplayName().equalsIgnoreCase("Next") && clickedItem.getType().equals(Material.SNOWBALL)) {
@@ -51,16 +51,17 @@ public class WaystoneSelector {
                         ItemMeta itemMeta = clickedItem.getItemMeta();
                         PersistentDataContainer dataContainer = itemMeta.getPersistentDataContainer();
 
-                        String visibility = dataContainer.get(new NamespacedKey(WaystonesPlus.getInstance(), "waystone_visibility"), PersistentDataType.STRING); // TODO: Implement this
-                        String world = dataContainer.get(new NamespacedKey(WaystonesPlus.getInstance(), "waystone_world"), PersistentDataType.STRING);
-                        String owner = dataContainer.get(new NamespacedKey(WaystonesPlus.getInstance(), "waystone_owner"), PersistentDataType.STRING);
-                        Integer x = dataContainer.get(new NamespacedKey(WaystonesPlus.getInstance(), "waystone_x"), PersistentDataType.INTEGER);
-                        Integer y = dataContainer.get(new NamespacedKey(WaystonesPlus.getInstance(), "waystone_y"), PersistentDataType.INTEGER);
-                        Integer z = dataContainer.get(new NamespacedKey(WaystonesPlus.getInstance(), "waystone_z"), PersistentDataType.INTEGER);
+                        String visibility = dataContainer.get(Keys.waystoneVisibility, PersistentDataType.STRING); // TODO: Implement this
+                        String world = dataContainer.get(Keys.waystoneWorld, PersistentDataType.STRING);
+                        String owner = dataContainer.get(Keys.waystoneOwner, PersistentDataType.STRING);
+                        Integer x = dataContainer.get(Keys.waystoneX, PersistentDataType.INTEGER);
+                        Integer y = dataContainer.get(Keys.waystoneY, PersistentDataType.INTEGER);
+                        Integer z = dataContainer.get(Keys.waystoneZ, PersistentDataType.INTEGER);
 
-                        if (visibility.equals(Visibility.PRIVATE.getValue()) && !player.hasPermission("waystonesplus.teleport.private") && !player.isOp() && !owner.equals(player.getUniqueId().toString())) {
+                        if (visibility.equals(Visibility.PRIVATE.name()) && !player.hasPermission("waystonesplus.teleport.private") && !player.isOp() && !owner.equals(player.getUniqueId().toString())) {
                             return;
                         }
+
                         player.teleport(new Location(Bukkit.getWorld(world), x - 1.5, y + 1.2, z + 0.5, -90, 4.5f));
                     }
                 } catch (Exception e) {

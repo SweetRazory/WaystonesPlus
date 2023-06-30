@@ -1,5 +1,6 @@
 package org.sweetrazory.waystonesplus.commands.subcommands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -30,12 +31,8 @@ public class Get implements SubCommand {
                     ItemStack skullItem = new WaystoneSummonItem().getLodestoneHead(name, args[1].toLowerCase(), null, null, Visibility.GLOBAL);
                     player.getInventory().addItem(skullItem);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 10 * 20, 10));
-                    new BukkitRunnable() {
-                        @Override
-                        public void run() {
-                            player.removePotionEffect(PotionEffectType.BLINDNESS);
-                        }
-                    }.runTaskLater(WaystonesPlus.getInstance(), 10 * 20);
+
+                    Bukkit.getScheduler().runTaskLater(WaystonesPlus.getInstance(), () -> player.removePotionEffect(PotionEffectType.BLINDNESS), 10 * 20);
                 } else {
                     player.sendMessage(Color.ORANGE + "A waystone variation with that name doesn't exist!");
                 }

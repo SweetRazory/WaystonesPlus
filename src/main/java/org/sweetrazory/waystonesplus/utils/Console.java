@@ -6,7 +6,7 @@ import org.bukkit.ChatColor;
 import java.util.logging.Logger;
 
 public class Console {
-    Logger logger = Bukkit.getLogger();
+    protected final Logger logger = Bukkit.getLogger();
 
     public static class info extends Console {
         public info(String s) {

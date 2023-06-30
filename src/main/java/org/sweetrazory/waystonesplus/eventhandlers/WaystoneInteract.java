@@ -11,6 +11,7 @@ import org.sweetrazory.waystonesplus.waystone.Waystone;
 import java.util.List;
 
 public class WaystoneInteract {
+
     public Waystone getInteractedWaystone(PlayerInteractEvent e) {
         Waystone waystone = null;
         if (e.getHand() == EquipmentSlot.HAND && e.getClickedBlock() != null && e.getAction() == Action.RIGHT_CLICK_BLOCK) {
