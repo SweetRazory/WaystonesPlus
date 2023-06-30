@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class Main extends JavaPlugin implements Listener {
-    private static Main instance;
+public class WaystonesPlus extends JavaPlugin implements Listener {
+    private static WaystonesPlus instance;
 
-    public static Main getInstance() {
+    public static WaystonesPlus getInstance() {
         return instance;
     }
 

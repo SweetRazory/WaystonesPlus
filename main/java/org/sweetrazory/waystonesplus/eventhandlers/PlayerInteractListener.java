@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.sweetrazory.waystonesplus.Main;
+import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.memoryhandlers.WaystoneMemory;
 import org.sweetrazory.waystonesplus.types.WaystoneType;
@@ -46,8 +46,8 @@ public class PlayerInteractListener implements Listener {
         }
 
         String waystoneName = itemMeta.getDisplayName();
-        NamespacedKey waystoneType = new NamespacedKey(Main.getInstance(), "waystoneType");
-        NamespacedKey waystoneVisibility = new NamespacedKey(Main.getInstance(), "waystoneVisibility");
+        NamespacedKey waystoneType = new NamespacedKey(WaystonesPlus.getInstance(), "waystoneType");
+        NamespacedKey waystoneVisibility = new NamespacedKey(WaystonesPlus.getInstance(), "waystoneVisibility");
         PersistentDataContainer dataContainer = itemMeta.getPersistentDataContainer();
         String waystoneTypeValue = dataContainer.get(waystoneType, PersistentDataType.STRING);
         String waystoneVisibilityValue = dataContainer.get(waystoneVisibility, PersistentDataType.STRING);

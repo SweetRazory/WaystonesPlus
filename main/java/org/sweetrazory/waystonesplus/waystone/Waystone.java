@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.sweetrazory.waystonesplus.Main;
+import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.memoryhandlers.MemoryManager;
 import org.sweetrazory.waystonesplus.memoryhandlers.WaystoneMemory;
@@ -75,7 +75,7 @@ public class Waystone {
             }
         };
 
-        particleSpawner.runTaskTimer(Main.getInstance(), 0, 2);
+        particleSpawner.runTaskTimer(WaystonesPlus.getInstance(), 0, 2);
     }
 
     public void waystoneDelete() {
@@ -105,8 +105,8 @@ public class Waystone {
     public Integer[] spawnStructure() {
         World world = getLocation().getWorld();
         Block baseBlock = world.getBlockAt(getLocation());
-        MetadataValue waypointIdentifier = new FixedMetadataValue(Main.getInstance(), uuid);
-        MetadataValue waypointType = new FixedMetadataValue(Main.getInstance(), type);
+        MetadataValue waypointIdentifier = new FixedMetadataValue(WaystonesPlus.getInstance(), uuid);
+        MetadataValue waypointType = new FixedMetadataValue(WaystonesPlus.getInstance(), type);
 
         for (BlockType block : waystoneType.getBlocks()) {
             Block newBlock = world.getBlockAt(new Location(baseBlock.getWorld(),
@@ -137,7 +137,7 @@ public class Waystone {
             }
         };
 
-        particleSpawner.runTaskTimer(Main.getInstance(), 0, 2);
+        particleSpawner.runTaskTimer(WaystonesPlus.getInstance(), 0, 2);
 
         entityIds = spawnStructure();
 

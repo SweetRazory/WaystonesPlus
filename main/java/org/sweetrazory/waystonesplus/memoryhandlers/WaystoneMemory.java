@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.joml.Vector3f;
-import org.sweetrazory.waystonesplus.Main;
+import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.items.WaystoneSummonItem;
 import org.sweetrazory.waystonesplus.types.BlockDisplayType;
@@ -28,7 +28,7 @@ public class WaystoneMemory {
     private static File waystonesFolder;
 
     public WaystoneMemory() {
-        waystonesFolder = new File(Main.getInstance().getDataFolder(), WAYSTONES);
+        waystonesFolder = new File(WaystonesPlus.getInstance().getDataFolder(), WAYSTONES);
 
         loadWaystoneTypes();
         enableHandler();
@@ -57,7 +57,7 @@ public class WaystoneMemory {
                         try {
                             config.save(configFile);
                         } catch (IOException e) {
-                            Main.Logger().warning("Couldn't update Waystone data. It will reset to it's initial state after restart!");
+                            WaystonesPlus.Logger().warning("Couldn't update Waystone data. It will reset to it's initial state after restart!");
                         }
                     }
                 }
@@ -138,7 +138,7 @@ public class WaystoneMemory {
                 Integer[] entityIdList = new Integer[entityIds.length];
                 System.arraycopy(entityIds, 0, entityIdList, 0, entityIds.length);
 
-                Location location = new Location(Main.getInstance().getServer().getWorld(worldName), x, y, z);
+                Location location = new Location(WaystonesPlus.getInstance().getServer().getWorld(worldName), x, y, z);
 
                 assert visibility != null;
                 Waystone loadedWaystone = new Waystone(name, waystoneId, waystoneTypeMemory.get(type), location, type, ownerId, Visibility.fromString(visibility));
@@ -149,7 +149,7 @@ public class WaystoneMemory {
     }
 
     public void loadWaystoneTypes() {
-        File configFile = new File(Main.getInstance().getDataFolder().getAbsolutePath() + File.separator + "config.yml");
+        File configFile = new File(WaystonesPlus.getInstance().getDataFolder().getAbsolutePath() + File.separator + "config.yml");
         try {
             FileInputStream fis = new FileInputStream(configFile);
             Yaml yaml = new Yaml();
@@ -197,7 +197,7 @@ public class WaystoneMemory {
                     String textures = ((Map<String, String>) waystone.get("spawnItem")).get("textures");
 
                     ItemStack craftResult = new WaystoneSummonItem().getLodestoneHead(null, typeName, headOwnerId, textures, Visibility.PRIVATE);
-                    NamespacedKey recipeName = new NamespacedKey(Main.getInstance(), typeName + "_recipe");
+                    NamespacedKey recipeName = new NamespacedKey(WaystonesPlus.getInstance(), typeName + "_recipe");
 
                     ShapedRecipe recipe = new ShapedRecipe(recipeName, new ItemStack(craftResult));
                     List<String> craftingList = (List<String>) waystone.get("crafting");
@@ -220,7 +220,7 @@ public class WaystoneMemory {
     }
 
     public void enableHandler() {
-        File[] files = new File(Main.getInstance().getDataFolder().getAbsolutePath()).listFiles();
+        File[] files = new File(WaystonesPlus.getInstance().getDataFolder().getAbsolutePath()).listFiles();
 
         boolean found = false;
 

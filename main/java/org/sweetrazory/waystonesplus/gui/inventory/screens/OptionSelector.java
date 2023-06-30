@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
-import org.sweetrazory.waystonesplus.Main;
+import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.gui.inventory.MenuInventory;
 import org.sweetrazory.waystonesplus.waystone.Waystone;
@@ -32,7 +32,7 @@ public class OptionSelector {
             return;
         }
 
-        NamespacedKey clickEvent = new NamespacedKey(Main.getInstance(), "clickEvent");
+        NamespacedKey clickEvent = new NamespacedKey(WaystonesPlus.getInstance(), "clickEvent");
 
         String clickEventValue = currentItem.getItemMeta().getPersistentDataContainer().get(clickEvent, PersistentDataType.STRING);
         if (clickEventValue != null) {

@@ -11,7 +11,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.Nullable;
-import org.sweetrazory.waystonesplus.Main;
+import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.memoryhandlers.WaystoneMemory;
 import org.sweetrazory.waystonesplus.types.WaystoneType;
@@ -47,13 +47,13 @@ public class WaystoneSummonItem {
                 ChatColor.translateAlternateColorCodes('&', name) :
                 ChatColor.translateAlternateColorCodes('&', "&f&6" + "New Waystone"));
 
-        NamespacedKey waystoneType = new NamespacedKey(Main.getInstance(), "waystoneType");
-        NamespacedKey waystoneVisibility = new NamespacedKey(Main.getInstance(), "waystoneVisibility");
+        NamespacedKey waystoneType = new NamespacedKey(WaystonesPlus.getInstance(), "waystoneType");
+        NamespacedKey waystoneVisibility = new NamespacedKey(WaystonesPlus.getInstance(), "waystoneVisibility");
         PersistentDataContainer dataContainer = itemMeta.getPersistentDataContainer();
         dataContainer.set(waystoneType, PersistentDataType.STRING, type);
         dataContainer.set(waystoneVisibility, PersistentDataType.STRING, visibility.getValue() == null ? Visibility.GLOBAL.getValue() : visibility.getValue());
         itemMeta.setLore(new ArrayList<String>() {{
-            add(Main.coloredText(visibility.getValue() != null ? visibility.getValue().equals("PRIVATE") ? "&cPRIVATE" : visibility.getValue().equals("PUBLIC") ? "&2PUBLIC" : "&eGLOBAL" : "&eGLOBAL"));
+            add(WaystonesPlus.coloredText(visibility.getValue() != null ? visibility.getValue().equals("PRIVATE") ? "&cPRIVATE" : visibility.getValue().equals("PUBLIC") ? "&2PUBLIC" : "&eGLOBAL" : "&eGLOBAL"));
         }});
         skullItem.setItemMeta(itemMeta);
 

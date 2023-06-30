@@ -1,6 +1,7 @@
 package org.sweetrazory.waystonesplus.eventhandlers;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -8,7 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.MetadataValue;
-import org.sweetrazory.waystonesplus.Main;
+import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.items.WaystoneSummonItem;
 import org.sweetrazory.waystonesplus.memoryhandlers.WaystoneMemory;
@@ -36,6 +37,8 @@ public class OnWaystoneBreak implements Listener {
                         world.dropItemNaturally(dropLocation, skullItem);
                         waystoneMemory.removeWaystone(waystoneId);
 
+                        event.getPlayer().sendTitle("", ChatColor.BLACK.toString(), 0, 20, 10);
+
                         Bukkit.getWorld(event.getPlayer().getWorld().getName()).save();
                         Bukkit.getPlayer(event.getPlayer().getUniqueId()).saveData();
                     } else {
@@ -44,7 +47,7 @@ public class OnWaystoneBreak implements Listener {
                 }
             }
         } catch (IndexOutOfBoundsException error) {
-            Main.getInstance().getLogger().warning("A non-fatal error occurred.");
+            WaystonesPlus.getInstance().getLogger().warning("A non-fatal error occurred.");
         }
     }
 }

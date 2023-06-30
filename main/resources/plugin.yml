@@ -1,6 +1,6 @@
 name: WaystonesPlus
 version: ${project.version}
-main: org.sweetrazory.waystonesplus.Main
+main: org.sweetrazory.waystonesplus.WaystonesPlus
 api-version: "1.19"
 author: SweetRazory
 permissions:

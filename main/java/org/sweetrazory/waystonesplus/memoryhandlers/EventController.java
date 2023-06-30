@@ -11,7 +11,7 @@ import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.sweetrazory.waystonesplus.Main;
+import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.eventhandlers.*;
 import org.sweetrazory.waystonesplus.gui.inventory.DragHandler;
 import org.sweetrazory.waystonesplus.gui.inventory.MenuInventory;
@@ -44,7 +44,7 @@ public class EventController implements Listener {
 
             menu.openGUI(player, waystone);
 
-            Bukkit.getPluginManager().registerEvents(new InventoryClickEventHandler(player, menu), Main.getInstance());
+            Bukkit.getPluginManager().registerEvents(new InventoryClickEventHandler(player, menu), WaystonesPlus.getInstance());
         }
     }
 

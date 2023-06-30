@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.sweetrazory.waystonesplus.Main;
+import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.gui.inventory.MenuInventory;
 import org.sweetrazory.waystonesplus.utils.Console;
@@ -51,12 +51,12 @@ public class WaystoneSelector {
                         ItemMeta itemMeta = clickedItem.getItemMeta();
                         PersistentDataContainer dataContainer = itemMeta.getPersistentDataContainer();
 
-                        String visibility = dataContainer.get(new NamespacedKey(Main.getInstance(), "waystone_visibility"), PersistentDataType.STRING); // TODO: Implement this
-                        String world = dataContainer.get(new NamespacedKey(Main.getInstance(), "waystone_world"), PersistentDataType.STRING);
-                        String owner = dataContainer.get(new NamespacedKey(Main.getInstance(), "waystone_owner"), PersistentDataType.STRING);
-                        Integer x = dataContainer.get(new NamespacedKey(Main.getInstance(), "waystone_x"), PersistentDataType.INTEGER);
-                        Integer y = dataContainer.get(new NamespacedKey(Main.getInstance(), "waystone_y"), PersistentDataType.INTEGER);
-                        Integer z = dataContainer.get(new NamespacedKey(Main.getInstance(), "waystone_z"), PersistentDataType.INTEGER);
+                        String visibility = dataContainer.get(new NamespacedKey(WaystonesPlus.getInstance(), "waystone_visibility"), PersistentDataType.STRING); // TODO: Implement this
+                        String world = dataContainer.get(new NamespacedKey(WaystonesPlus.getInstance(), "waystone_world"), PersistentDataType.STRING);
+                        String owner = dataContainer.get(new NamespacedKey(WaystonesPlus.getInstance(), "waystone_owner"), PersistentDataType.STRING);
+                        Integer x = dataContainer.get(new NamespacedKey(WaystonesPlus.getInstance(), "waystone_x"), PersistentDataType.INTEGER);
+                        Integer y = dataContainer.get(new NamespacedKey(WaystonesPlus.getInstance(), "waystone_y"), PersistentDataType.INTEGER);
+                        Integer z = dataContainer.get(new NamespacedKey(WaystonesPlus.getInstance(), "waystone_z"), PersistentDataType.INTEGER);
 
                         if (visibility.equals(Visibility.PRIVATE.getValue()) && !player.hasPermission("waystonesplus.teleport.private") && !player.isOp() && !owner.equals(player.getUniqueId().toString())) {
                             return;

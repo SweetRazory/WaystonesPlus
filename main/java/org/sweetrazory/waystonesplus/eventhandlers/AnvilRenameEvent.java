@@ -8,7 +8,7 @@ import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
-import org.sweetrazory.waystonesplus.Main;
+import org.sweetrazory.waystonesplus.WaystonesPlus;
 
 public class AnvilRenameEvent {
     public AnvilRenameEvent(PrepareAnvilEvent event) {
@@ -17,7 +17,7 @@ public class AnvilRenameEvent {
         ItemStack secondSlot = eventInventory.getItem(1);
 
         ItemStack waystoneItem;
-        NamespacedKey waystoneIdKey = new NamespacedKey(Main.getInstance(), "waystoneId");
+        NamespacedKey waystoneIdKey = new NamespacedKey(WaystonesPlus.getInstance(), "waystoneId");
         String waystoneId = "";
         if (firstSlot != null && firstSlot.getItemMeta() != null) {
             waystoneId = firstSlot.getItemMeta().getPersistentDataContainer().get(waystoneIdKey, PersistentDataType.STRING);

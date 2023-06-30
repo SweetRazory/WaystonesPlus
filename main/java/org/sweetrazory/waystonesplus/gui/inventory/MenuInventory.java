@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.sweetrazory.waystonesplus.Main;
+import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.eventhandlers.InventoryClickEventHandler;
 import org.sweetrazory.waystonesplus.gui.inventory.screens.OptionSelector;
@@ -75,7 +75,7 @@ public class MenuInventory implements Listener {
         ItemStack filler = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta fillerMeta = filler.getItemMeta();
         if (fillerMeta != null) {
-            fillerMeta.setDisplayName(Main.coloredText("&r "));
+            fillerMeta.setDisplayName(WaystonesPlus.coloredText("&r "));
         }
 
         filler.setItemMeta(fillerMeta);
@@ -94,43 +94,42 @@ public class MenuInventory implements Listener {
         ItemMeta waystoneSettingsMeta = waystoneSettings.getItemMeta();
         ItemMeta waystoneVisibilityMeta = waystoneVisibility.getItemMeta();
 
-        NamespacedKey clickEvent = new NamespacedKey(Main.getInstance(), "clickEvent");
-
-        waystoneListMeta.getPersistentDataContainer().set(clickEvent, PersistentDataType.STRING, "openWaystoneList");
-        waystoneSettingsMeta.getPersistentDataContainer().set(clickEvent, PersistentDataType.STRING, "openWaystoneSettings");
-        waystoneVisibilityMeta.getPersistentDataContainer().set(clickEvent, PersistentDataType.STRING, "toggleWaystoneVisibility");
+        NamespacedKey clickEvent = new NamespacedKey(WaystonesPlus.getInstance(), "clickEvent");
 
 
         if (waystoneListMeta != null) {
-            waystoneListMeta.setDisplayName(Main.coloredText("&6&lWaystones list"));
+            waystoneListMeta.getPersistentDataContainer().set(clickEvent, PersistentDataType.STRING, "openWaystoneList");
+            waystoneListMeta.setDisplayName(WaystonesPlus.coloredText("&6&lWaystones list"));
         }
         if (waystoneSettingsMeta != null) {
-            waystoneSettingsMeta.setDisplayName(Main.coloredText("&b&lWaystone settings"));
+            waystoneSettingsMeta.getPersistentDataContainer().set(clickEvent, PersistentDataType.STRING, "openWaystoneSettings");
+            waystoneSettingsMeta.setDisplayName(WaystonesPlus.coloredText("&b&lWaystone settings"));
         }
         if (waystoneVisibilityMeta != null) {
+            waystoneVisibilityMeta.getPersistentDataContainer().set(clickEvent, PersistentDataType.STRING, "toggleWaystoneVisibility");
             switch (waystone.getVisibility().getValue()) {
                 case "GLOBAL":
-                    waystoneVisibilityMeta.setDisplayName(Main.coloredText("&e&lGlobally accessible"));
+                    waystoneVisibilityMeta.setDisplayName(WaystonesPlus.coloredText("&e&lGlobally accessible"));
                     waystoneVisibilityMeta.setLore(Arrays.asList(
-                            Main.coloredText("&7This Waystone's visibility"),
-                            Main.coloredText("&7Level is &e&lGLOBAL"),
-                            Main.coloredText("&7Cannot be changed")));
+                            WaystonesPlus.coloredText("&7This Waystone's visibility"),
+                            WaystonesPlus.coloredText("&7Level is &e&lGLOBAL"),
+                            WaystonesPlus.coloredText("&7Cannot be changed")));
                     break;
                 case "PUBLIC":
-                    waystoneVisibilityMeta.setDisplayName(Main.coloredText("&e&lToggle visibility"));
+                    waystoneVisibilityMeta.setDisplayName(WaystonesPlus.coloredText("&e&lToggle visibility"));
                     waystoneVisibilityMeta.setLore(Arrays.asList(
-                            Main.coloredText("&7This Waystone's visibility"),
-                            Main.coloredText("&7Level is &2&lPUBLIC"),
-                            Main.coloredText("&7Click to change it to &c&lPRIVATE")));
+                            WaystonesPlus.coloredText("&7This Waystone's visibility"),
+                            WaystonesPlus.coloredText("&7Level is &2&lPUBLIC"),
+                            WaystonesPlus.coloredText("&7Click to change it to &c&lPRIVATE")));
 
-                    waystoneVisibilityMeta.setDisplayName(Main.coloredText("&e&lToggle visibility"));
+                    waystoneVisibilityMeta.setDisplayName(WaystonesPlus.coloredText("&e&lToggle visibility"));
                     break;
                 case "PRIVATE":
-                    waystoneVisibilityMeta.setDisplayName(Main.coloredText("&e&lToggle visibility"));
+                    waystoneVisibilityMeta.setDisplayName(WaystonesPlus.coloredText("&e&lToggle visibility"));
                     waystoneVisibilityMeta.setLore(Arrays.asList(
-                            Main.coloredText("&7This Waystone's visibility"),
-                            Main.coloredText("&7Level is &c&lPRIVATE"),
-                            Main.coloredText("&7Click to change it to &2&lPUBLIC")));
+                            WaystonesPlus.coloredText("&7This Waystone's visibility"),
+                            WaystonesPlus.coloredText("&7Level is &c&lPRIVATE"),
+                            WaystonesPlus.coloredText("&7Click to change it to &2&lPUBLIC")));
                     break;
             }
         }
@@ -173,21 +172,21 @@ public class MenuInventory implements Listener {
             ItemStack waystoneItem = new ItemStack(waystone.getWaystoneType().getBlocks().get(1).getMaterial());
             ItemMeta waystoneItemMeta = waystoneItem.getItemMeta();
             PersistentDataContainer waystoneData = waystoneItemMeta.getPersistentDataContainer();
-            waystoneData.set(new NamespacedKey(Main.getInstance(), "waystone_visibility"), PersistentDataType.STRING, waystone.getVisibility().getValue());
-            waystoneData.set(new NamespacedKey(Main.getInstance(), "waystone_world"), PersistentDataType.STRING, waystone.getLocation().getWorld().getName());
-            waystoneData.set(new NamespacedKey(Main.getInstance(), "waystone_owner"), PersistentDataType.STRING, waystone.getOwnerId());
-            waystoneData.set(new NamespacedKey(Main.getInstance(), "waystone_x"), PersistentDataType.INTEGER, (int) waystone.getLocation().getX());
-            waystoneData.set(new NamespacedKey(Main.getInstance(), "waystone_y"), PersistentDataType.INTEGER, (int) waystone.getLocation().getY());
-            waystoneData.set(new NamespacedKey(Main.getInstance(), "waystone_z"), PersistentDataType.INTEGER, (int) waystone.getLocation().getZ());
+            waystoneData.set(new NamespacedKey(WaystonesPlus.getInstance(), "waystone_visibility"), PersistentDataType.STRING, waystone.getVisibility().getValue());
+            waystoneData.set(new NamespacedKey(WaystonesPlus.getInstance(), "waystone_world"), PersistentDataType.STRING, waystone.getLocation().getWorld().getName());
+            waystoneData.set(new NamespacedKey(WaystonesPlus.getInstance(), "waystone_owner"), PersistentDataType.STRING, waystone.getOwnerId());
+            waystoneData.set(new NamespacedKey(WaystonesPlus.getInstance(), "waystone_x"), PersistentDataType.INTEGER, (int) waystone.getLocation().getX());
+            waystoneData.set(new NamespacedKey(WaystonesPlus.getInstance(), "waystone_y"), PersistentDataType.INTEGER, (int) waystone.getLocation().getY());
+            waystoneData.set(new NamespacedKey(WaystonesPlus.getInstance(), "waystone_z"), PersistentDataType.INTEGER, (int) waystone.getLocation().getZ());
 
             waystoneItemMeta.setDisplayName(ChatColor.GOLD + waystone.getName());
             List<String> lore = new ArrayList<>();
-            lore.add(Main.coloredText("&eWaystone is: &6" + waystone.getVisibility().getValue()));
-            lore.add(Main.coloredText("&eWaystone location:"));
-            lore.add(Main.coloredText("&e  World: &6" + waystone.getLocation().getWorld().getName()));
-            lore.add(Main.coloredText("&e  X: &6" + waystone.getLocation().getX()));
-            lore.add(Main.coloredText("&e  Y: &6" + waystone.getLocation().getY()));
-            lore.add(Main.coloredText("&e  Z: &6" + waystone.getLocation().getZ()));
+            lore.add(WaystonesPlus.coloredText("&eWaystone is: &6" + waystone.getVisibility().getValue()));
+            lore.add(WaystonesPlus.coloredText("&eWaystone location:"));
+            lore.add(WaystonesPlus.coloredText("&e  World: &6" + waystone.getLocation().getWorld().getName()));
+            lore.add(WaystonesPlus.coloredText("&e  X: &6" + waystone.getLocation().getX()));
+            lore.add(WaystonesPlus.coloredText("&e  Y: &6" + waystone.getLocation().getY()));
+            lore.add(WaystonesPlus.coloredText("&e  Z: &6" + waystone.getLocation().getZ()));
             waystoneItemMeta.setLore(lore);
             waystoneItem.setItemMeta(waystoneItemMeta);
 
