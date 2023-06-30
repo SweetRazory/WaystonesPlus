@@ -149,7 +149,7 @@ public class WaystoneMemory {
     }
 
     public void loadWaystoneTypes() {
-        File configFile = new File(WaystonesPlus.getInstance().getDataFolder().getAbsolutePath() + File.separator + "config.yml");
+        File configFile = new File(WaystonesPlus.getInstance().getDataFolder().getAbsolutePath() + File.separator + "waystones.yml");
         try {
             FileInputStream fis = new FileInputStream(configFile);
             Yaml yaml = new Yaml();

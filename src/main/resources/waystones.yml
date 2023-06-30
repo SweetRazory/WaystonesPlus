@@ -1,7 +1,7 @@
 waystones:
   - name: lodestone
     blocks:
-      - { name: smooth_stone_slab, x: 0, y: 1, z: 0 }
+      - { name: smooth_stone_slabya, x: 0, y: 1, z: 0 }
       - { name: lodestone, x: 0, y: 2, z: 0 }
       - { name: light, x: 0, y: 3, z: 0 }
     blockDisplays:
