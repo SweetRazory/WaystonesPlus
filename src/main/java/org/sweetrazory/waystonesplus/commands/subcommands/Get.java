@@ -23,7 +23,7 @@ public class Get implements SubCommand {
                 if (WaystoneMemory.getWaystoneTypes().containsKey(args[1].toLowerCase())) {
                     String name = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
                     // TODO: length handling
-                    ItemStack skullItem = new WaystoneSummonItem().getLodestoneHead(name, args[1].toLowerCase(), null, null, Visibility.GLOBAL);
+                    ItemStack skullItem = WaystoneSummonItem.getLodestoneHead(name, args[1].toLowerCase(), null, null, Visibility.GLOBAL);
                     player.getInventory().addItem(skullItem);
 //                    player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 10 * 20, 10));
 //                    Bukkit.getScheduler().runTaskLater(WaystonesPlus.getInstance(), () -> player.removePotionEffect(PotionEffectType.BLINDNESS), 10 * 20); TODO: Invent animation
