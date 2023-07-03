@@ -62,7 +62,7 @@ public class EventController implements Listener {
         if (new Random().nextInt(100) + 1 <= ConfigManager.lootSpawnChance) {
             Object[] waystoneTypes = WaystoneMemory.getWaystoneTypes().keySet().toArray(new Object[0]);
             int randomNumber = new Random().nextInt(WaystoneMemory.getWaystoneTypes().size());
-            ItemStack waystoneItem = new WaystoneSummonItem()
+            ItemStack waystoneItem = WaystoneSummonItem
                     .getLodestoneHead(
                             WaystonesPlus.coloredText(ConfigManager.defaultWaystoneName),
                             waystoneTypes[randomNumber].toString(),
