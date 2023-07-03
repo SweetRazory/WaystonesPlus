@@ -196,7 +196,7 @@ public class WaystoneMemory {
                     String textures = ((Map<String, String>) waystone.get("spawnItem")).get("textures");
                     ShapedRecipe recipe = null;
                     if (ConfigManager.enableCrafting) {
-                        ItemStack craftResult = new WaystoneSummonItem().getLodestoneHead(null, typeName, headOwnerId, textures, ConfigManager.defaultVisibility);
+                        ItemStack craftResult = WaystoneSummonItem.getLodestoneHead(null, typeName, headOwnerId, textures, ConfigManager.defaultVisibility);
                         NamespacedKey recipeName = new NamespacedKey(WaystonesPlus.getInstance(), typeName + "_recipe");
 
                         List<String> craftingList = (List<String>) waystone.get("crafting");
