@@ -34,7 +34,7 @@ public class OnWaystoneBreak implements Listener {
                         World world = event.getPlayer().getWorld();
                         String waystoneId = blockMeta.get(0).asString();
                         String waystoneName = WaystoneMemory.getWaystoneDataMemory().get(waystoneId).getName();
-                        ItemStack skullItem = new WaystoneSummonItem().getLodestoneHead(waystoneName, blockWaystoneType, null, null, Visibility.PRIVATE);
+                        ItemStack skullItem = WaystoneSummonItem.getLodestoneHead(waystoneName, blockWaystoneType, null, null, Visibility.PRIVATE);
                         world.dropItemNaturally(dropLocation, skullItem);
                         waystoneMemory.removeWaystone(waystoneId);
 
