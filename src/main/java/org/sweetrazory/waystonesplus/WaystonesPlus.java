@@ -1,15 +1,14 @@
 package org.sweetrazory.waystonesplus;
 
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.sweetrazory.waystonesplus.memoryhandlers.CommandManager;
-import org.sweetrazory.waystonesplus.memoryhandlers.ConfigManager;
-import org.sweetrazory.waystonesplus.memoryhandlers.EventController;
-import org.sweetrazory.waystonesplus.memoryhandlers.MemoryManager;
+import org.sweetrazory.waystonesplus.memoryhandlers.*;
+import org.sweetrazory.waystonesplus.menu.MenuListener;
+import org.sweetrazory.waystonesplus.menu.MenuManager;
+import org.sweetrazory.waystonesplus.utils.ColoredText;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,7 +17,11 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class WaystonesPlus extends JavaPlugin implements Listener {
+    public static CooldownManager cooldownManager = new CooldownManager();
+    public static ConfigManager configMemory = new ConfigManager();
+    public static MenuManager menuManager = new MenuManager();
     private static WaystonesPlus instance;
+    private DatabaseManager databaseManager;
 
     public static WaystonesPlus getInstance() {
         return instance;
@@ -28,21 +31,49 @@ public class WaystonesPlus extends JavaPlugin implements Listener {
         return getInstance().getLogger();
     }
 
-    public static String coloredText(String s) {
-        return ChatColor.translateAlternateColorCodes('&', s);
+    @Override
+    public void onEnable() {
+        instance = this;
+        loadWaystonesConfig();
+        getConfig().options().copyDefaults(true);
+        saveDefaultConfig();
+        ConfigManager.loadConfig();
+        databaseManager = new DatabaseManager();
+        databaseManager.initializeDatabase();
+
+        String bukkitVersion = Bukkit.getVersion();
+        if (!bukkitVersion.contains("1.19.4") && !bukkitVersion.contains("1.20")) {
+            getLogger().warning("[WaystonesPlus] This plugin only supports 1.19.4 or higher versions!");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+        new WaystoneMemory();
+        new ColoredText();
+        EventController eventController = new EventController();
+        getServer().getPluginManager().registerEvents(eventController, this);
+        getServer().getPluginManager().registerEvents(new MenuListener(menuManager), this);
+
+        List<String> commandAliases = new ArrayList<String>() {{
+            add("waystones");
+            add("waystone");
+            add("wsp");
+            add("waystonesplus");
+            add("waystoneplus");
+        }};
+
+        for (String commandAlias : commandAliases) {
+            getCommand(commandAlias).setExecutor(new CommandManager());
+        }
+    }
+
+    @Override
+    public void onDisable() {
+        if (databaseManager != null) {
+            databaseManager.closeConnection();
+        }
     }
 
     public void loadWaystonesConfig() {
-//        String[] additionalFiles = {"file1.yml", "file2.yml", "file3.yml"};
-//
-//        for (String fileName : additionalFiles) {
-//            File additionalFile = new File(getDataFolder(), fileName);
-//
-//            if (!additionalFile.exists()) {
-//                saveResource(fileName, false);
-//            }
-//        } saved for later if more files come in
-
         File waystonesFile = new File(getDataFolder(), "waystones.yml");
         File configFile = new File(getDataFolder(), "config.yml");
 
@@ -80,41 +111,5 @@ public class WaystonesPlus extends JavaPlugin implements Listener {
             e.printStackTrace();
         }
     }
-
-    @Override
-    public void onEnable() {
-        instance = this;
-        loadWaystonesConfig();
-        getConfig().options().copyDefaults(true);
-        saveDefaultConfig();
-
-        String bukkitVersion = Bukkit.getVersion();
-        if (!bukkitVersion.contains("1.19.4") && !bukkitVersion.contains("1.20")) {
-            getLogger().warning("[WaystonesPlus] This plugin only supports 1.19.4 or higher versions!");
-            getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
-        new MemoryManager();
-        ConfigManager configMemory = new ConfigManager();
-        configMemory.loadConfig();
-        EventController eventController = new EventController(MemoryManager.getWaystoneMemory());
-        getServer().getPluginManager().registerEvents(eventController, this);
-
-        List<String> commandAliases = new ArrayList<>();
-
-        commandAliases.add("waystones");
-        commandAliases.add("waystone");
-        commandAliases.add("wsp");
-        commandAliases.add("waystonesplus");
-        commandAliases.add("waystoneplus");
-
-        for (String commandAlias : commandAliases) {
-            getCommand(commandAlias).setExecutor(new CommandManager(MemoryManager.getWaystoneMemory()));
-        }
-    }
-
-//    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-
-//    }
 }
 

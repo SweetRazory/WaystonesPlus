@@ -7,8 +7,8 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
-import org.sweetrazory.waystonesplus.commands.subcommands.Get;
-import org.sweetrazory.waystonesplus.commands.subcommands.Help;
+import org.sweetrazory.waystonesplus.commands.subcommands.*;
+import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.utils.SubCommand;
 
 import java.util.ArrayList;
@@ -16,14 +16,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class CommandManager implements CommandExecutor, TabCompleter {
-    private final WaystoneMemory waystoneMemory;
     private final ArrayList<SubCommand> subCommands = new ArrayList<>();
 
-    public CommandManager(WaystoneMemory waystoneMemory) {
-        this.waystoneMemory = waystoneMemory;
-
+    public CommandManager() {
         subCommands.add(new Get());
         subCommands.add(new Help());
+        subCommands.add(new Rename());
+        subCommands.add(new Reload());
+        subCommands.add(new SetVisibility());
     }
 
     @Override
@@ -62,11 +62,33 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                 if (player.hasPermission("waystonesplus.command.get") || player.isOp()) {
                     commands.add("get");
                 }
+                if (player.hasPermission("waystonesplus.command.visibility") || player.isOp()) {
+                    commands.add("setvisibility");
+                }
+                if (player.hasPermission("waystonesplus.command.rename") || player.isOp()) {
+                    commands.add("rename");
+                }
+                if (player.hasPermission("waystonesplus.command.reload") || player.isOp()) {
+                    commands.add("rename");
+                }
                 StringUtil.copyPartialMatches(args[0], commands, completions);
             } else if (args.length == 2) {
                 if (args[0].equalsIgnoreCase("get")) {
                     if (player.hasPermission("waystonesplus.command.get") || player.isOp()) {
                         commands.addAll(WaystoneMemory.getWaystoneTypes().keySet());
+                    }
+                }
+                if (args[0].equalsIgnoreCase("setvisibility")) {
+                    if (player.hasPermission("waystonesplus.command.visibility") || player.isOp()) {
+                        for (Visibility visibility : Visibility.values()) {
+                            commands.add(visibility.name());
+                        }
+
+                    }
+                }
+                if (args[0].equalsIgnoreCase("rename")) {
+                    if (player.hasPermission("waystonesplus.command.rename") || player.isOp()) {
+                        commands.add("&6Example");
                     }
                 }
                 StringUtil.copyPartialMatches(args[1], commands, completions);

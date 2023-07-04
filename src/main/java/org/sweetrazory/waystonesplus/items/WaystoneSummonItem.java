@@ -2,7 +2,6 @@ package org.sweetrazory.waystonesplus.items;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
@@ -16,6 +15,7 @@ import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.memoryhandlers.WaystoneMemory;
 import org.sweetrazory.waystonesplus.types.WaystoneType;
+import org.sweetrazory.waystonesplus.utils.ColoredText;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -45,8 +45,8 @@ public class WaystoneSummonItem {
         skullItem.setItemMeta(skullMeta);
         ItemMeta itemMeta = skullItem.getItemMeta();
         itemMeta.setDisplayName(name != null && name.length() > 0 ?
-                ChatColor.translateAlternateColorCodes('&', name) :
-                ChatColor.translateAlternateColorCodes('&', "&f&6" + "New Waystone"));
+                ColoredText.getText(name) :
+                ColoredText.getText("&f&6" + "New Waystone"));
 
         NamespacedKey waystoneType = new NamespacedKey(WaystonesPlus.getInstance(), "waystoneType");
         NamespacedKey waystoneVisibility = new NamespacedKey(WaystonesPlus.getInstance(), "waystoneVisibility");
@@ -54,7 +54,7 @@ public class WaystoneSummonItem {
         dataContainer.set(waystoneType, PersistentDataType.STRING, type);
         dataContainer.set(waystoneVisibility, PersistentDataType.STRING, visibility.name());
         itemMeta.setLore(new ArrayList<String>() {{
-            add(WaystonesPlus.coloredText(visibility == Visibility.PRIVATE ? "&cPRIVATE" : visibility == Visibility.PUBLIC ? "&2PUBLIC" : "&eGLOBAL"));
+            add(ColoredText.getText(visibility == Visibility.PRIVATE ? "&cPRIVATE" : visibility == Visibility.PUBLIC ? "&2PUBLIC" : "&eGLOBAL"));
         }});
         skullItem.setItemMeta(itemMeta);
 

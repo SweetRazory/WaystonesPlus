@@ -10,9 +10,9 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.sweetrazory.waystonesplus.WaystonesPlus;
 
-public class AnvilRenameEvent {
+public class WaystoneRename {
 
-    public AnvilRenameEvent(PrepareAnvilEvent event) {
+    public WaystoneRename(PrepareAnvilEvent event) {
         AnvilInventory eventInventory = event.getInventory();
         ItemStack firstSlot = eventInventory.getItem(0);
         ItemStack secondSlot = eventInventory.getItem(1);

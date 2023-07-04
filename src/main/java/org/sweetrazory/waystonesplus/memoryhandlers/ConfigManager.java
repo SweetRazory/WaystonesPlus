@@ -18,8 +18,11 @@ public class ConfigManager {
     public static String newWaystoneTitle;
     public static String newWaystoneSubtitle;
     public static String defaultWaystoneName;
+    public static int teleportCountdown;
+    public static int waystonePlaceCooldown;
+    public static int waystoneTeleportCooldown;
 
-    public void loadConfig() {
+    public static void loadConfig() {
         File configFile = new File(WaystonesPlus.getInstance().getDataFolder().getAbsolutePath() + File.separator + "config.yml");
         try {
             FileInputStream fis = new FileInputStream(configFile);
@@ -34,6 +37,9 @@ public class ConfigManager {
             newWaystoneTitle = (String) config.getOrDefault("new-waystone-title", "New Waystone:");
             newWaystoneSubtitle = (String) config.getOrDefault("new-waystone-subtitle", "%waystone_name%");
             defaultWaystoneName = (String) config.getOrDefault("default-waystone-name", "New Waystone");
+            teleportCountdown = (int) config.getOrDefault("teleport-countdown", 3);
+            waystonePlaceCooldown = (int) config.getOrDefault("waystone-place-cooldown", 30);
+            waystoneTeleportCooldown = (int) config.getOrDefault("teleport-cooldown", 30);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }

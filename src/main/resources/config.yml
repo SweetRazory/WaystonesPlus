@@ -17,7 +17,16 @@ default-waystone-name: "&6New Waystone"
 new-waystone-notification: true
 
 # Sets Title when a new Waystone is placed
-new-waystone-title: "&7New Waystone:"
+new-waystone-title: "&8New Waystone:"
 
 # Sets Title when a new Waystone is placed
 new-waystone-subtitle: "&6%waystone_name%"
+
+# Sets how many seconds of countdown a player needs to wait before being teleported
+teleport-countdown: 3
+
+# Sets how frequently a player can put down a Waystone
+waystone-place-cooldown: 30
+
+# Sets how frequently a player can put down a Waystone
+teleport-cooldown: 30
