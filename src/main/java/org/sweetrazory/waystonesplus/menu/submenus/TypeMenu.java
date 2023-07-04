@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.sweetrazory.waystonesplus.memoryhandlers.LangManager;
 import org.sweetrazory.waystonesplus.memoryhandlers.WaystoneMemory;
 import org.sweetrazory.waystonesplus.menu.Menu;
 import org.sweetrazory.waystonesplus.menu.MenuManager;
@@ -16,10 +17,11 @@ import org.sweetrazory.waystonesplus.waystone.Waystone;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class TypeMenu extends Menu {
     public TypeMenu() {
-        super(27, "Change Waystone's type", 0);
+        super(27, ColoredText.getText(LangManager.typeMenuTitle), 0);
     }
 
     @Override
@@ -32,14 +34,14 @@ public class TypeMenu extends Menu {
         for (int i = 0; i < waystoneTypes.size(); i++) {
             WaystoneType waystoneType = waystoneTypes.get(i);
             setItem(i + 10, new ItemBuilder(waystoneType.getBlocks().get(1).getMaterial())
-                    .displayName(ColoredText.getText("&6" + waystoneType.getTypeName()))
+                    .displayName(ColoredText.getText("&6" + waystoneType.getTypeName().toUpperCase(Locale.ROOT)))
                     .persistentData("action", "changeType")
                     .persistentData("type", waystoneType.getTypeName())
                     .build());
         }
 
         ItemStack backButton = new ItemBuilder(Material.BARRIER)
-                .displayName(ColoredText.getText("&cReturn to option select"))
+                .displayName(ColoredText.getText(LangManager.returnText))
                 .persistentData("action", "menu")
                 .build();
         setItem(22, backButton);

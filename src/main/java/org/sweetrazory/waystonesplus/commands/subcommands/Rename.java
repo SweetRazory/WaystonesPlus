@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.sweetrazory.waystonesplus.memoryhandlers.LangManager;
 import org.sweetrazory.waystonesplus.utils.ColoredText;
 import org.sweetrazory.waystonesplus.utils.ItemUtils;
 import org.sweetrazory.waystonesplus.utils.SubCommand;
@@ -18,7 +19,7 @@ public class Rename implements SubCommand {
 
     @Override
     public void run(Player player, String[] args) {
-        if (player.hasPermission("waystonesplus.command.reload") || player.isOp()) {
+        if (player.hasPermission("waystonesplus.command.rename") || player.isOp()) {
             ItemStack waystoneItem = player.getItemInHand();
             if (waystoneItem.getType().equals(Material.PLAYER_HEAD) && ItemUtils.hasPersistentData(waystoneItem, "waystoneType")) {
                 if (args.length > 1) {
@@ -31,9 +32,17 @@ public class Rename implements SubCommand {
                         );
                         waystoneItem.setItemMeta(waystoneItemMeta);
                         player.setItemInHand(waystoneItem);
+                    } else {
+                        player.sendMessage(ColoredText.getText(LangManager.invalidItem));
                     }
+                } else {
+                    player.sendMessage(ColoredText.getText(LangManager.waystoneNameMissing));
                 }
+            } else {
+                player.sendMessage(ColoredText.getText(LangManager.noItemHeld));
             }
+        } else {
+            player.sendMessage(ColoredText.getText(LangManager.noPermission));
         }
     }
 }

@@ -13,6 +13,7 @@ import org.bukkit.persistence.PersistentDataType;
 import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.memoryhandlers.ConfigManager;
+import org.sweetrazory.waystonesplus.memoryhandlers.LangManager;
 import org.sweetrazory.waystonesplus.memoryhandlers.WaystoneMemory;
 import org.sweetrazory.waystonesplus.types.WaystoneType;
 import org.sweetrazory.waystonesplus.utils.ColoredText;
@@ -50,21 +51,14 @@ public class WaystonePlace implements Listener {
 
         if (waystoneTypeValue != null && waystoneVisibilityValue != null) {
             if (player.hasPermission("waystonesplus.placewaystone") || player.isOp()) {
-//                for (Waystone waystone : WaystoneMemory.getWaystoneDataMemory().values()) {
-//                    // TODO Switch config.yml to waystonetypes.yml, add config.yml and define minimum waystone distance
-//                    if ((waystone.getLocation().getWorld() != null && waystone.getLocation().getWorld().equals(event.getBlockPlaced().getWorld()) && waystone.getLocation().distance(event.getBlockPlaced().getLocation()) <= ConfigManager.minimumDistance && !player.hasPermission("waystonesplus.distanceoverride")) && !player.isOp()) {
-//                        event.getBlockPlaced().setType(Material.AIR);
-//                        event.getPlayer().sendMessage("You can't place Waystones this close to each-other (" + ConfigManager.minimumDistance + " Blocks)");
-//                        event.setCancelled(true);
-//                        return;
-//                    }
-//                }
+                // TODO Switch config.yml to waystonetypes.yml, add config.yml and define minimum waystone distance
                 if (!player.hasPermission("waystonesplus.cooldown.placewaystone")) {
                     int playerCooldown = (int) WaystonesPlus.cooldownManager.getRemainingCooldown(player, "waystonePlace");
 
                     if (playerCooldown != 0) {
                         event.getBlockPlaced().setType(Material.AIR);
-                        event.getPlayer().sendMessage(ColoredText.getText("&7You need to wait " + playerCooldown + " second(s)"));
+                        event.getPlayer().sendMessage(ColoredText.getText(LangManager.wait.replaceAll("%cooldown%", String.valueOf(playerCooldown))));
+//                        event.getPlayer().sendMessage(ColoredText.getText("&7You need to wait " + playerCooldown + " second(s)"));
                         event.setCancelled(true);
                         return;
                     } else {
@@ -81,7 +75,7 @@ public class WaystonePlace implements Listener {
                     waystoneName = !waystoneName.equals("New Waystone") ? waystoneName : "New Waystone";
                     addWaystoneAndNotify(!waystoneName.equals("New Waystone") ? waystoneName : "New Waystone", player, waystoneType, placedBlockLocation, Visibility.fromString(waystoneVisibilityValue), Particle.ENCHANTMENT_TABLE);
                     if (ConfigManager.enableNotification) {
-                        player.sendTitle(ColoredText.getText(ConfigManager.newWaystoneTitle), ColoredText.getText(ConfigManager.newWaystoneSubtitle.replace("%waystone_name%", waystoneName)), 20, 40, 20);
+                        player.sendTitle(ColoredText.getText(LangManager.newWaystoneTitle), ColoredText.getText(LangManager.newWaystoneSubtitle.replace("%waystone_name%", waystoneName)), 20, 40, 20);
                     }
 
                 } else {
@@ -89,6 +83,7 @@ public class WaystonePlace implements Listener {
                 }
 
             } else if (!player.hasPermission("waystonesplus.placewaystone") && !player.isOp()) {
+                player.sendMessage(ColoredText.getText(LangManager.noPermission));
                 event.getBlockPlaced().setType(Material.AIR);
                 event.setCancelled(true);
             }
@@ -101,7 +96,6 @@ public class WaystonePlace implements Listener {
         Waystone waystone = new Waystone(UUID.randomUUID().toString(), name, location, waystoneType.getTypeName(), player.getUniqueId().toString(), particle, visibility, null, waystoneType.getBlocks().get(1).getMaterial());
         waystone.createWaystone();
         DB.insertWaystone(waystone);
-        player.sendMessage("Waystone is ready to use!");
     }
 
 }

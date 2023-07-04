@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.sweetrazory.waystonesplus.memoryhandlers.LangManager;
 import org.sweetrazory.waystonesplus.menu.Menu;
 import org.sweetrazory.waystonesplus.menu.MenuManager;
 import org.sweetrazory.waystonesplus.utils.ColoredText;
@@ -13,7 +14,7 @@ import org.sweetrazory.waystonesplus.waystone.Waystone;
 
 public class ParticleMenu extends Menu {
     public ParticleMenu() {
-        super(27, ColoredText.getText("&8Particle settings"), 0);
+        super(27, ColoredText.getText(LangManager.particleMenuTitle), 0);
     }
 
     @Override
@@ -60,7 +61,7 @@ public class ParticleMenu extends Menu {
 
         ItemStack back = new ItemBuilder(Material.BARRIER)
                 .persistentData("action", "menu")
-                .displayName(ColoredText.getText("&cReturn to Settings"))
+                .displayName(ColoredText.getText(LangManager.returnText))
                 .build();
         setItem(22, back);
     }

@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.sweetrazory.waystonesplus.enums.Visibility;
+import org.sweetrazory.waystonesplus.memoryhandlers.LangManager;
 import org.sweetrazory.waystonesplus.menu.Menu;
 import org.sweetrazory.waystonesplus.menu.MenuManager;
 import org.sweetrazory.waystonesplus.utils.ColoredText;
@@ -16,7 +17,7 @@ import java.util.Arrays;
 
 public class VisibilitySettingsMenu extends Menu {
     public VisibilitySettingsMenu() {
-        super(27, ColoredText.getText("&8Set Visibility"), 0);
+        super(27, ColoredText.getText(LangManager.visibilityMenuTitle), 0);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class VisibilitySettingsMenu extends Menu {
         setItem(13, publicVisibility);
         setItem(15, privateVisibility);
         ItemStack backButton = new ItemBuilder(Material.BARRIER)
-                .displayName(ColoredText.getText("&cReturn to settings select"))
+                .displayName(ColoredText.getText(LangManager.returnText))
                 .persistentData("action", "back")
                 .build();
         setItem(22, backButton);

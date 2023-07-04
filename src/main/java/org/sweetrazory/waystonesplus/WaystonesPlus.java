@@ -38,17 +38,20 @@ public class WaystonesPlus extends JavaPlugin implements Listener {
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
         ConfigManager.loadConfig();
+        LangManager.loadConfig();
         databaseManager = new DatabaseManager();
         databaseManager.initializeDatabase();
+        databaseManager.migrateWaystones();
 
         String bukkitVersion = Bukkit.getVersion();
         if (!bukkitVersion.contains("1.19.4") && !bukkitVersion.contains("1.20")) {
-            getLogger().warning("[WaystonesPlus] This plugin only supports 1.19.4 or higher versions!");
+            getLogger().warning(LangManager.versionWarning);
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
         new WaystoneMemory();
         new ColoredText();
+
         EventController eventController = new EventController();
         getServer().getPluginManager().registerEvents(eventController, this);
         getServer().getPluginManager().registerEvents(new MenuListener(menuManager), this);

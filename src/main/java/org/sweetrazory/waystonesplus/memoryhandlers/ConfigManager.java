@@ -15,9 +15,6 @@ public class ConfigManager {
     public static Visibility defaultVisibility;
     public static boolean enableCrafting;
     public static boolean enableNotification;
-    public static String newWaystoneTitle;
-    public static String newWaystoneSubtitle;
-    public static String defaultWaystoneName;
     public static int teleportCountdown;
     public static int waystonePlaceCooldown;
     public static int waystoneTeleportCooldown;
@@ -34,9 +31,6 @@ public class ConfigManager {
             defaultVisibility = Visibility.fromString((String) config.getOrDefault("default-visibility", Visibility.PRIVATE.name()));
             enableCrafting = (boolean) config.getOrDefault("enable-crafting", true);
             enableNotification = (boolean) config.getOrDefault("new-waystone-notification", true);
-            newWaystoneTitle = (String) config.getOrDefault("new-waystone-title", "New Waystone:");
-            newWaystoneSubtitle = (String) config.getOrDefault("new-waystone-subtitle", "%waystone_name%");
-            defaultWaystoneName = (String) config.getOrDefault("default-waystone-name", "New Waystone");
             teleportCountdown = (int) config.getOrDefault("teleport-countdown", 3);
             waystonePlaceCooldown = (int) config.getOrDefault("waystone-place-cooldown", 30);
             waystoneTeleportCooldown = (int) config.getOrDefault("teleport-cooldown", 30);

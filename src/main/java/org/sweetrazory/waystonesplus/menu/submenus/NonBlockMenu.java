@@ -3,6 +3,7 @@ package org.sweetrazory.waystonesplus.menu.submenus;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.sweetrazory.waystonesplus.memoryhandlers.LangManager;
 import org.sweetrazory.waystonesplus.menu.Menu;
 import org.sweetrazory.waystonesplus.menu.MenuManager;
 import org.sweetrazory.waystonesplus.utils.ColoredText;
@@ -172,13 +173,13 @@ public class NonBlockMenu extends Menu {
 
 
     public NonBlockMenu(int page) {
-        super(54, "asasdasdasd", page);
+        super(54, ColoredText.getText(LangManager.itemsMenuTitle), page);
     }
 
     @Override
     public void initializeItems(Player player, Waystone waystone) {
         ItemStack backButton = new ItemBuilder(Material.BARRIER)
-                .displayName(ColoredText.getText("&cReturn to option select"))
+                .displayName(ColoredText.getText(LangManager.returnText))
                 .persistentData("action", "menu")
                 .build();
         ItemStack filler = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).displayName(" ").build();
@@ -190,11 +191,11 @@ public class NonBlockMenu extends Menu {
                         filler, null, null, null, null, null, null, null, filler,
                         filler, filler, filler, filler, backButton, filler, filler, filler, filler});
         if (elements.length >= 28 * page + 1) {
-            setItem(50, new ItemBuilder(Material.SNOWBALL).persistentData("action", "nextPage").persistentData("page", page).build());
+            setItem(50, new ItemBuilder(Material.SNOWBALL).displayName(ColoredText.getText(LangManager.nextPage)).persistentData("action", "nextPage").persistentData("page", page).build());
         }
 
         if (page > 0) {
-            setItem(48, new ItemBuilder(Material.SNOWBALL).persistentData("action", "prevPage").persistentData("page", page).build());
+            setItem(48, new ItemBuilder(Material.SNOWBALL).displayName(ColoredText.getText(LangManager.prevPage)).persistentData("action", "prevPage").persistentData("page", page).build());
         }
         Material[] newElements = Arrays.copyOfRange(elements, page * 22, elements.length);
         int k = 0;

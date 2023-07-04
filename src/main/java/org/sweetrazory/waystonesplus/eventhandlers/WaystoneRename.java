@@ -9,6 +9,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.sweetrazory.waystonesplus.WaystonesPlus;
+import org.sweetrazory.waystonesplus.memoryhandlers.LangManager;
+import org.sweetrazory.waystonesplus.utils.ColoredText;
 
 public class WaystoneRename {
 
@@ -50,6 +52,8 @@ public class WaystoneRename {
                 event.setResult(waystoneItem);
                 event.getInventory().setRepairCost(0);
             }
+        } else {
+            player.sendMessage(ColoredText.getText(LangManager.noPermission));
         }
     }
 }

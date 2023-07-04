@@ -15,6 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
+import org.sweetrazory.waystonesplus.memoryhandlers.LangManager;
 import org.sweetrazory.waystonesplus.utils.ColoredText;
 import org.sweetrazory.waystonesplus.utils.DB;
 import org.sweetrazory.waystonesplus.waystone.Waystone;
@@ -30,6 +31,7 @@ public class WaystoneInteract {
                 waystone = DB.getWaystone(blockMeta.get(0).asString());
                 Visibility waystoneVisibility = waystone.getVisibility();
                 if (waystoneVisibility.equals(Visibility.PRIVATE) && !e.getPlayer().hasPermission("waystonesplus.interact.private") && !e.getPlayer().isOp()) {
+                    e.getPlayer().sendMessage(LangManager.notOwner);
                     return null;
                 }
 

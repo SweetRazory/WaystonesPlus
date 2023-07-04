@@ -3,6 +3,7 @@ package org.sweetrazory.waystonesplus.menu.submenus;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.sweetrazory.waystonesplus.memoryhandlers.LangManager;
 import org.sweetrazory.waystonesplus.menu.Menu;
 import org.sweetrazory.waystonesplus.menu.MenuManager;
 import org.sweetrazory.waystonesplus.utils.ColoredText;
@@ -18,7 +19,7 @@ public class ExploredMenu extends Menu {
     private static final int ITEMS_PER_PAGE = 45;
 
     public ExploredMenu(int page) {
-        super(54, "List of Explorers", page);
+        super(54, ColoredText.getText(LangManager.explorersMenuTitle), page);
     }
 
     @Override
@@ -37,7 +38,7 @@ public class ExploredMenu extends Menu {
 
         if (page > 0) {
             ItemStack previousPageItem = new ItemBuilder(Material.ARROW)
-                    .displayName(ColoredText.getText("&cPrevious Page"))
+                    .displayName(ColoredText.getText(LangManager.prevPage))
                     .persistentData("action", "prevPage")
                     .persistentData("page", String.valueOf(page - 1))
                     .build();
@@ -46,7 +47,7 @@ public class ExploredMenu extends Menu {
 
         if (endIndex < explorers.size()) {
             ItemStack nextPageItem = new ItemBuilder(Material.ARROW)
-                    .displayName(ColoredText.getText("&aNext Page"))
+                    .displayName(ColoredText.getText(LangManager.nextPage))
                     .persistentData("action", "nextPage")
                     .persistentData("page", String.valueOf(page + 1))
                     .build();
@@ -54,7 +55,7 @@ public class ExploredMenu extends Menu {
         }
 
         ItemStack backButton = new ItemBuilder(Material.BARRIER)
-                .displayName(ColoredText.getText("&cReturn to option select"))
+                .displayName(ColoredText.getText(LangManager.returnText))
                 .persistentData("action", "menu")
                 .build();
         setItem(49, backButton);

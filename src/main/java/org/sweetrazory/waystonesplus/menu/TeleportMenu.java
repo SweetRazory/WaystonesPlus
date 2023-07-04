@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.memoryhandlers.ConfigManager;
+import org.sweetrazory.waystonesplus.memoryhandlers.LangManager;
 import org.sweetrazory.waystonesplus.menu.submenus.SelectorMenu;
 import org.sweetrazory.waystonesplus.utils.ColoredText;
 import org.sweetrazory.waystonesplus.utils.DB;
@@ -27,7 +28,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class TeleportMenu extends Menu {
     public TeleportMenu(int page) {
-        super(45, ColoredText.getText("&8Teleport to &6Waystone&8:"), page);
+        super(45, ColoredText.getText(LangManager.teleportMenuTitle), page);
     }
 
     @Override
@@ -69,7 +70,7 @@ public class TeleportMenu extends Menu {
         }
 
         ItemStack backButton = new ItemBuilder(Material.BARRIER)
-                .displayName(ColoredText.getText("&cReturn to option select"))
+                .displayName(ColoredText.getText(LangManager.returnText))
                 .persistentData("action", "menu")
                 .build();
         if (waystone.getOwnerId().equals(player.getUniqueId().toString())) {

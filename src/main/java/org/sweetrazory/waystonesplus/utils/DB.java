@@ -202,6 +202,26 @@ public class DB {
         return waystoneIds;
     }
 
+    public static void saveWaystones(List<Waystone> waystones) {
+        String query = "INSERT INTO waystones (id, name, location, entityIds, type, owner, particle, visibility, icon) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        for (Waystone waystone : waystones) {
+            String id = waystone.getId();
+            String name = waystone.getName();
+            Location location = waystone.getLocation();
+            String entityIds = waystone.getEntities().stream().map(String::valueOf).collect(Collectors.joining(","));
+            String type = waystone.getType();
+            String owner = waystone.getOwnerId();
+            String particle = (waystone.getParticle() != null) ? waystone.getParticle().name() : "off";
+            String visibility = waystone.getVisibility().name();
+            Material icon = waystone.getIcon();
+
+            String locationString = "world=" + location.getWorld().getName() + ",x=" + location.getX() + ",y=" + location.getY() + ",z=" + location.getZ();
+
+            DatabaseManager.executeUpdate(query, id, name, locationString, entityIds, type, owner, particle, visibility, icon.name());
+        }
+    }
+
     public static List<Waystone> getWaystones(String playerId, Integer pageNumber, Integer pageSize, String waystoneId) {
         List<Waystone> waystones = new ArrayList<>();
         String query = "SELECT w.id, w.name, w.location, w.entityIds, w.type, w.owner, w.visibility, w.particle, w.icon " +
@@ -300,17 +320,6 @@ public class DB {
         String query = "INSERT INTO explored_waystones (playerName, playerId, waystoneId) VALUES (?, ?, ?)";
         DatabaseManager.executeUpdate(query, name, playerId, waystoneId);
     }
-
-//    private static void updateExploredWaystones(String playerId, String waystoneId) {
-//        // Delete the existing records for the player
-////        deleteExploredWaystones(playerId);
-//        insertExploredWaystone(playerId, waystoneId);
-//    }
-
-//    private static void deleteExploredWaystones(String playerId) {
-//        String query = "DELETE FROM explored_waystones WHERE playerId = ?";
-//        DatabaseManager.executeUpdate(query, playerId);
-//    }
 
     public static List<Map<String, String>> getExplorers(String waystoneId) {
         String query = "SELECT playerId, playerName from explored_waystones we where we.waystoneId = \"" + waystoneId + "\";";

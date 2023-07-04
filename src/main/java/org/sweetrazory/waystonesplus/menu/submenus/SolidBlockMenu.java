@@ -3,6 +3,7 @@ package org.sweetrazory.waystonesplus.menu.submenus;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.sweetrazory.waystonesplus.memoryhandlers.LangManager;
 import org.sweetrazory.waystonesplus.menu.Menu;
 import org.sweetrazory.waystonesplus.menu.MenuManager;
 import org.sweetrazory.waystonesplus.utils.ColoredText;
@@ -183,7 +184,7 @@ public class SolidBlockMenu extends Menu {
     }}.toArray(new Material[0]);
 
     public SolidBlockMenu(int page) {
-        super(54, "asasdasdasd", page);
+        super(54, ColoredText.getText(LangManager.blocksMenuTitle), page);
     }
 
     @Override

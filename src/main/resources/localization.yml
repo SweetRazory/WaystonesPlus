@@ -1,0 +1,59 @@
+version-warning: "&c[ WaystonesPlus ] This plugin only supports 1.19.4 or higher versions!"
+
+waystone-type-nonexistent: "&cA waystone variation with that name doesn't exist!"
+
+waystone-type-missing: "&cYou need to provide the Waystone type."
+
+waystone-visibility-missing: "&cYou need to provide the Waystone visibility."
+
+waystone-name-missing: "&cYou need to provide the Waystone name."
+
+no-permission: "&cYou don't have permissions to do that!"
+
+reload: "&cReloading WaystonesPlus's config and waystones."
+
+not-owner: "&cYou are not the owner of this Waystone."
+
+wait: "&cPlease wait %cooldown% seconds before doing that."
+
+new-waystone-title: "&8New Waystone:"
+
+new-waystone-subtitle: "&6%waystone_name%"
+
+new-waystone-name: "&aEnter a new name for the Waystone:"
+
+explorers-menu-title: "&8Waystone Explorers Menu"
+
+selector-menu-title: "&8Waystone Option Selector"
+
+settings-menu-title: "&8Waystone Settings"
+
+icon-menu-title: "&8Waystone Icon"
+
+type-menu-title: "&8Waystone Type"
+
+teleport-menu-title: "&8Waystone Teleportation"
+
+visibility-menu-title: "&8Waystone Visibility"
+
+items-menu-title: "&8Waystone Items"
+
+particle-menu-title: "&8Waystone Particles"
+
+blocks-menu-title: "&8Blocks"
+
+prev-page: "&ePrevious Page"
+
+next-page: "&eNext Page"
+
+return-text: "&eReturn"
+
+blocks: "&6Blocks"
+
+items: "&6Items"
+
+no-item-held: "&cYou are not holding any item."
+
+invalid-item: "&cInvalid item. Please hold a valid item in your hand."
+
+invalid-visibility: "&cInvalid visibility value. Please choose a valid visibility option."

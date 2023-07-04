@@ -3,6 +3,7 @@ package org.sweetrazory.waystonesplus.eventhandlers;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
@@ -10,7 +11,9 @@ import org.bukkit.metadata.MetadataValue;
 import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.items.WaystoneSummonItem;
+import org.sweetrazory.waystonesplus.memoryhandlers.LangManager;
 import org.sweetrazory.waystonesplus.memoryhandlers.WaystoneMemory;
+import org.sweetrazory.waystonesplus.utils.ColoredText;
 import org.sweetrazory.waystonesplus.utils.DB;
 import org.sweetrazory.waystonesplus.waystone.Waystone;
 
@@ -20,6 +23,7 @@ public class WaystoneBreak implements Listener {
 
     public WaystoneBreak(BlockBreakEvent event) {
         try {
+            Player player = event.getPlayer();
             Block block = event.getBlock();
             List<MetadataValue> blockMeta = block.getMetadata("waystoneId");
             List<MetadataValue> blockWaystoneTypeList = block.getMetadata("waystoneType");
@@ -29,6 +33,7 @@ public class WaystoneBreak implements Listener {
                     Waystone waystone = DB.getWaystone(blockMeta.get(0).asString());
                     if (waystone != null && event.getPlayer().hasPermission("waystonesplus.breakwaystone") || event.getPlayer().isOp()) {
                         if (waystone.getVisibility().equals(Visibility.PRIVATE) && !waystone.getOwnerId().equals(event.getPlayer().getUniqueId().toString()) && !event.getPlayer().hasPermission("waystonesplus.breakwaystone.private") && !event.getPlayer().isOp()) {
+                            player.sendMessage(ColoredText.getText(LangManager.notOwner));
                             event.setCancelled(true);
                         }
                         Location dropLocation = event.getPlayer().getTargetBlock(null, 5).getLocation().add(0, 1, 0);
@@ -38,6 +43,7 @@ public class WaystoneBreak implements Listener {
                         world.dropItemNaturally(dropLocation, skullItem);
                         waystone.delete();
                     } else {
+                        player.sendMessage(ColoredText.getText(LangManager.noPermission));
                         event.setCancelled(true);
                     }
                 }

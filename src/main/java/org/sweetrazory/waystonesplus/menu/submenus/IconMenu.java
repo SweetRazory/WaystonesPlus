@@ -3,6 +3,7 @@ package org.sweetrazory.waystonesplus.menu.submenus;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.sweetrazory.waystonesplus.memoryhandlers.LangManager;
 import org.sweetrazory.waystonesplus.menu.Menu;
 import org.sweetrazory.waystonesplus.menu.MenuManager;
 import org.sweetrazory.waystonesplus.utils.ColoredText;
@@ -12,7 +13,7 @@ import org.sweetrazory.waystonesplus.waystone.Waystone;
 
 public class IconMenu extends Menu {
     public IconMenu() {
-        super(27, ColoredText.getText("&7Test"), 0);
+        super(27, ColoredText.getText(LangManager.iconMenuTitle), 0);
     }
 
     @Override
@@ -24,16 +25,16 @@ public class IconMenu extends Menu {
                         filler, filler, filler, filler, filler, filler, filler, filler, filler});
         ItemStack solid = new ItemBuilder(Material.GRASS_BLOCK)
                 .persistentData("action", "solidMenu")
-                .displayName(ColoredText.getText("&6Solid blocks"))
+                .displayName(ColoredText.getText(LangManager.blocks))
                 .build();
         setItem(11, solid);
         ItemStack nonSolid = new ItemBuilder(Material.FLOWER_POT)
                 .persistentData("action", "nonBlockMenu")
-                .displayName(ColoredText.getText("&6Items"))
+                .displayName(ColoredText.getText(LangManager.items))
                 .build();
         setItem(15, nonSolid);
 
-        setItem(22, new ItemBuilder(Material.BARRIER).displayName(ColoredText.getText("&cReturn to option select")).persistentData("action", "selectorMenu").build());
+        setItem(22, new ItemBuilder(Material.BARRIER).displayName(ColoredText.getText(LangManager.returnText)).persistentData("action", "selectorMenu").build());
     }
 
     @Override

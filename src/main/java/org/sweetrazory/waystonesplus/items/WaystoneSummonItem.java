@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
+import org.sweetrazory.waystonesplus.memoryhandlers.LangManager;
 import org.sweetrazory.waystonesplus.memoryhandlers.WaystoneMemory;
 import org.sweetrazory.waystonesplus.types.WaystoneType;
 import org.sweetrazory.waystonesplus.utils.ColoredText;
@@ -46,7 +47,7 @@ public class WaystoneSummonItem {
         ItemMeta itemMeta = skullItem.getItemMeta();
         itemMeta.setDisplayName(name != null && name.length() > 0 ?
                 ColoredText.getText(name) :
-                ColoredText.getText("&f&6" + "New Waystone"));
+                ColoredText.getText(LangManager.newWaystoneName));
 
         NamespacedKey waystoneType = new NamespacedKey(WaystonesPlus.getInstance(), "waystoneType");
         NamespacedKey waystoneVisibility = new NamespacedKey(WaystonesPlus.getInstance(), "waystoneVisibility");
@@ -60,5 +61,5 @@ public class WaystoneSummonItem {
 
         return skullItem;
     }
-    
+
 }

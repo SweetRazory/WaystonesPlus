@@ -61,7 +61,7 @@ public class EventController implements Listener {
             int randomNumber = new Random().nextInt(WaystoneMemory.getWaystoneTypes().size());
             ItemStack waystoneItem = WaystoneSummonItem
                     .getLodestoneHead(
-                            ColoredText.getText(ConfigManager.defaultWaystoneName),
+                            ColoredText.getText(LangManager.newWaystoneName),
                             waystoneTypes[randomNumber].toString(),
                             null,
                             null,

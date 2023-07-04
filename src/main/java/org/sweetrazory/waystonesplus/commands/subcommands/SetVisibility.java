@@ -9,6 +9,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
+import org.sweetrazory.waystonesplus.memoryhandlers.LangManager;
 import org.sweetrazory.waystonesplus.utils.ColoredText;
 import org.sweetrazory.waystonesplus.utils.ItemUtils;
 import org.sweetrazory.waystonesplus.utils.SubCommand;
@@ -40,13 +41,23 @@ public class SetVisibility implements SubCommand {
                             visibility = "&aPUBLIC";
                         } else if (args[1].equals(Visibility.GLOBAL.name())) {
                             visibility = "&eGLOBAL";
+                        } else {
+                            player.sendMessage(ColoredText.getText(LangManager.invalidVisibility));
                         }
                         waystoneItemMeta.setLore(Collections.singletonList(ColoredText.getText(visibility)));
                         waystoneItem.setItemMeta(waystoneItemMeta);
                         player.setItemInHand(waystoneItem);
+                    } else {
+                        player.sendMessage(ColoredText.getText(LangManager.invalidItem));
                     }
+                } else {
+                    player.sendMessage(ColoredText.getText(LangManager.waystoneVisibilityMissing));
                 }
+            } else {
+                player.sendMessage(ColoredText.getText(LangManager.noItemHeld));
             }
+        } else {
+            player.sendMessage(ColoredText.getText(LangManager.noPermission));
         }
     }
 }

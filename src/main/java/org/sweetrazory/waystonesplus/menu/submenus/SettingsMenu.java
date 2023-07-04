@@ -3,6 +3,7 @@ package org.sweetrazory.waystonesplus.menu.submenus;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.sweetrazory.waystonesplus.memoryhandlers.LangManager;
 import org.sweetrazory.waystonesplus.menu.Menu;
 import org.sweetrazory.waystonesplus.menu.MenuManager;
 import org.sweetrazory.waystonesplus.utils.ColoredText;
@@ -14,7 +15,7 @@ import java.util.Arrays;
 
 public class SettingsMenu extends Menu {
     public SettingsMenu() {
-        super(27, ColoredText.getText("&cWaystone Settings"), 0);
+        super(27, ColoredText.getText(LangManager.settingsMenuTitle), 0);
     }
 
     @Override
@@ -51,7 +52,7 @@ public class SettingsMenu extends Menu {
         setItem(14, typeMenu);
         setItem(15, iconMenu);
 
-        setItem(22, new ItemBuilder(Material.BARRIER).displayName(ColoredText.getText("&cReturn to option select")).persistentData("action", "selectorMenu").build());
+        setItem(22, new ItemBuilder(Material.BARRIER).displayName(ColoredText.getText(LangManager.returnText)).persistentData("action", "selectorMenu").build());
     }
 
     @Override

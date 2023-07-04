@@ -3,6 +3,7 @@ package org.sweetrazory.waystonesplus.menu.submenus;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.sweetrazory.waystonesplus.memoryhandlers.LangManager;
 import org.sweetrazory.waystonesplus.menu.Menu;
 import org.sweetrazory.waystonesplus.menu.MenuManager;
 import org.sweetrazory.waystonesplus.menu.TeleportMenu;
@@ -15,7 +16,7 @@ import java.util.Arrays;
 
 public class SelectorMenu extends Menu {
     public SelectorMenu() {
-        super(27, "Waystone menu", 0);
+        super(27, ColoredText.getText(LangManager.selectorMenuTitle), 0);
     }
 
     @Override
