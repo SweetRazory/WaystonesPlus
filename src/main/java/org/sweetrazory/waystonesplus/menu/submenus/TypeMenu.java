@@ -14,19 +14,24 @@ import org.sweetrazory.waystonesplus.utils.ItemUtils;
 import org.sweetrazory.waystonesplus.waystone.Waystone;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TypeMenu extends Menu {
     public TypeMenu() {
-        super(36, "Change Waystone's type", 0);
+        super(27, "Change Waystone's type", 0);
     }
 
     @Override
     public void initializeItems(Player player, Waystone waystone) {
+        ItemStack filler = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).displayName(" ").build();
+        inventory.setContents(Arrays.asList(filler, filler, filler, filler, filler, filler, filler, filler, filler,
+                filler, null, null, null, null, null, null, null, filler,
+                filler, filler, filler, filler, filler, filler, filler, filler, filler).toArray(new ItemStack[0]));
         List<WaystoneType> waystoneTypes = new ArrayList<>(WaystoneMemory.getWaystoneTypes().values());
         for (int i = 0; i < waystoneTypes.size(); i++) {
             WaystoneType waystoneType = waystoneTypes.get(i);
-            setItem(i, new ItemBuilder(waystoneType.getBlocks().get(1).getMaterial())
+            setItem(i + 10, new ItemBuilder(waystoneType.getBlocks().get(1).getMaterial())
                     .displayName(ColoredText.getText("&6" + waystoneType.getTypeName()))
                     .persistentData("action", "changeType")
                     .persistentData("type", waystoneType.getTypeName())
@@ -37,7 +42,7 @@ public class TypeMenu extends Menu {
                 .displayName(ColoredText.getText("&cReturn to option select"))
                 .persistentData("action", "menu")
                 .build();
-        setItem(31, backButton);
+        setItem(22, backButton);
     }
 
     @Override

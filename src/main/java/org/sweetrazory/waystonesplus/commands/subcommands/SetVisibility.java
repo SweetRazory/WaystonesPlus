@@ -23,7 +23,7 @@ public class SetVisibility implements SubCommand {
 
     @Override
     public void run(Player player, String[] args) {
-        if (player.hasPermission("waystonesplus.command.reload") || player.isOp()) {
+        if (player.hasPermission("waystonesplus.command.visibility") || player.isOp()) {
             ItemStack waystoneItem = player.getItemInHand();
             if (waystoneItem.getType().equals(Material.PLAYER_HEAD) && ItemUtils.hasPersistentData(waystoneItem, "waystoneVisibility")) {
                 if (args.length == 2) {

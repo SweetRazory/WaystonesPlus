@@ -14,17 +14,16 @@ import java.util.Arrays;
 
 public class SettingsMenu extends Menu {
     public SettingsMenu() {
-        super(45, ColoredText.getText("&cWaystone Settings"), 0);
+        super(27, ColoredText.getText("&cWaystone Settings"), 0);
     }
 
     @Override
     public void initializeItems(Player player, Waystone waystone) {
-        ItemStack[] items;
         ItemStack visibilityMenu = new ItemBuilder(Material.SPYGLASS)
                 .persistentData("action", "visibilitySettings")
                 .displayName(ColoredText.getText("&6Change Visibility"))
                 .build();
-        ItemStack particleMenu = new ItemBuilder(Material.PRISMARINE_SHARD)
+        ItemStack particleMenu = new ItemBuilder(Material.MELON_SEEDS)
                 .persistentData("action", "particleSettings")
                 .displayName(ColoredText.getText("&6Change Particles"))
                 .build();
@@ -36,20 +35,23 @@ public class SettingsMenu extends Menu {
                 .displayName(ColoredText.getText("&6Change Waystone Type"))
                 .persistentData("action", "typeSettings")
                 .build();
+        ItemStack iconMenu = new ItemBuilder(Material.GLOW_ITEM_FRAME)
+                .displayName(ColoredText.getText("&6Change Waystone Icon"))
+                .persistentData("action", "iconSettings")
+                .build();
         ItemStack filler = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE)
                 .displayName(" ")
                 .build();
         inventory.setContents(Arrays.asList(filler, filler, filler, filler, filler, filler, filler, filler, filler,
-                filler, null, null, null, null, null, null, null, filler,
-                filler, null, null, null, null, null, null, null, filler,
-                filler, null, null, null, null, null, null, null, filler,
+                filler, filler, null, null, null, null, null, filler, filler,
                 filler, filler, filler, filler, filler, filler, filler, filler, filler).toArray(new ItemStack[0]));
-        setItem(10, visibilityMenu);
-        setItem(11, particleMenu);
-        setItem(12, explorerList);
-        setItem(13, typeMenu);
+        setItem(11, visibilityMenu);
+        setItem(12, particleMenu);
+        setItem(13, explorerList);
+        setItem(14, typeMenu);
+        setItem(15, iconMenu);
 
-        setItem(40, new ItemBuilder(Material.BARRIER).displayName(ColoredText.getText("&cReturn to option select")).persistentData("action", "selectorMenu").build());
+        setItem(22, new ItemBuilder(Material.BARRIER).displayName(ColoredText.getText("&cReturn to option select")).persistentData("action", "selectorMenu").build());
     }
 
     @Override
@@ -70,12 +72,17 @@ public class SettingsMenu extends Menu {
                     MenuManager.openMenu(player, particleMenu, waystone);
                     break;
                 case "explorerSettings":
-                    Menu exploredMenu = new ExploredMenu();
+                    Menu exploredMenu = new ExploredMenu(0);
                     MenuManager.openMenu(player, exploredMenu, waystone);
                     break;
                 case "typeSettings":
                     Menu typeMenu = new TypeMenu();
                     MenuManager.openMenu(player, typeMenu, waystone);
+                    break;
+                case "iconSettings":
+                    Menu iconMenu = new IconMenu();
+                    MenuManager.openMenu(player, iconMenu, waystone);
+                    break;
             }
         }
     }

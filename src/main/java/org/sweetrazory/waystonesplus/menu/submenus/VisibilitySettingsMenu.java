@@ -6,7 +6,10 @@ import org.bukkit.inventory.ItemStack;
 import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.menu.Menu;
 import org.sweetrazory.waystonesplus.menu.MenuManager;
-import org.sweetrazory.waystonesplus.utils.*;
+import org.sweetrazory.waystonesplus.utils.ColoredText;
+import org.sweetrazory.waystonesplus.utils.DB;
+import org.sweetrazory.waystonesplus.utils.ItemBuilder;
+import org.sweetrazory.waystonesplus.utils.ItemUtils;
 import org.sweetrazory.waystonesplus.waystone.Waystone;
 
 import java.util.Arrays;
@@ -72,28 +75,21 @@ public class VisibilitySettingsMenu extends Menu {
     public void handleClick(Player player, ItemStack item) {
         String action = ItemUtils.getPersistentString(item, "action");
         if (action != null) {
-            ConfigLoader config = new ConfigLoader("waystones/" + waystone.getId() + "/config.yml");
             Menu visibilityMenu = new VisibilitySettingsMenu();
             switch (action) {
                 case "visibilityGlobal":
                     waystone.setVisibility(Visibility.GLOBAL);
                     DB.updateWaystone(waystone);
-                    config.set("visibility", "GLOBAL");
-                    config.save();
                     MenuManager.openMenu(player, visibilityMenu, waystone);
                     break;
                 case "visibilityPublic":
                     waystone.setVisibility(Visibility.PUBLIC);
                     DB.updateWaystone(waystone);
-                    config.set("visibility", "PUBLIC");
-                    config.save();
                     MenuManager.openMenu(player, visibilityMenu, waystone);
                     break;
                 case "visibilityPrivate":
                     waystone.setVisibility(Visibility.PRIVATE);
                     DB.updateWaystone(waystone);
-                    config.set("visibility", "PRIVATE");
-                    config.save();
                     MenuManager.openMenu(player, visibilityMenu, waystone);
                     break;
                 case "back":

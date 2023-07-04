@@ -76,6 +76,10 @@ public class WaystonesPlus extends JavaPlugin implements Listener {
     public void loadWaystonesConfig() {
         File waystonesFile = new File(getDataFolder(), "waystones.yml");
         File configFile = new File(getDataFolder(), "config.yml");
+        File localizationFile = new File(getDataFolder(), "localization.yml");
+        if (!localizationFile.exists()) {
+            saveResource("localization.yml", false);
+        }
 
         if (!waystonesFile.exists()) {
             if (configFile.exists()) {

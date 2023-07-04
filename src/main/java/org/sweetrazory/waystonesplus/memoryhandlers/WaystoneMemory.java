@@ -40,7 +40,7 @@ public class WaystoneMemory {
             waystoneParticleMemory.put(waystone.getId(), new BukkitRunnable() {
                 @Override
                 public void run() {
-                    spawnParticles(new Location(waystone.getLocation().getWorld(), waystone.getLocation().getX() + 0.5, waystone.getLocation().getY() + 2.5, waystone.getLocation().getZ() + 0.5), waystone.getParticle());
+                    spawnParticles(new Location(waystone.getLocation().getWorld(), waystone.getLocation().getX() + 0.5, waystone.getLocation().getY() + 2, waystone.getLocation().getZ() + 0.5), waystone.getParticle());
                 }
             }.runTaskTimer(WaystonesPlus.getInstance(), 0, 2));
         }
@@ -50,7 +50,7 @@ public class WaystoneMemory {
         if (particle != null) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (player.getLocation().getWorld().equals(location.getWorld()) && player.getLocation().distance(location) <= Bukkit.getServer().getViewDistance() * 16) {
-                    player.spawnParticle(particle, location, 1, 1.075, 1, 1.075);
+                    player.spawnParticle(particle, location, 1, 0.5, 0.5, 0.5);
                 }
             }
         }

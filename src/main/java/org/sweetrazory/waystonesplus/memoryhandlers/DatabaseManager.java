@@ -99,6 +99,7 @@ public class DatabaseManager {
                 "entityIds TEXT NOT NULL, " +
                 "type TEXT NOT NULL, " +
                 "owner TEXT NOT NULL, " +
+                "icon TEXT NOT NULL, " +
                 "visibility TEXT NOT NULL, " +
                 "particle TEXT " +
                 ")";

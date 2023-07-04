@@ -29,8 +29,9 @@ public class Waystone {
     Particle particle;
     Visibility visibility;
     List<Integer> entities;
+    Material icon;
 
-    public Waystone(String id, String name, Location location, String type, String ownerId, Particle particle, Visibility visibility, @Nullable List<Integer> entities) {
+    public Waystone(String id, String name, Location location, String type, String ownerId, Particle particle, Visibility visibility, @Nullable List<Integer> entities, Material icon) {
         this.id = id;
         this.name = name;
         this.location = location;
@@ -39,6 +40,15 @@ public class Waystone {
         this.particle = particle;
         this.visibility = visibility;
         this.entities = entities;
+        this.icon = icon;
+    }
+
+    public Material getIcon() {
+        return icon;
+    }
+
+    public void setIcon(Material icon) {
+        this.icon = icon;
     }
 
     public void createWaystone() {

@@ -98,7 +98,7 @@ public class WaystonePlace implements Listener {
     }
 
     private void addWaystoneAndNotify(String name, Player player, WaystoneType waystoneType, Location location, Visibility visibility, Particle particle) {
-        Waystone waystone = new Waystone(UUID.randomUUID().toString(), name, location, waystoneType.getTypeName(), player.getUniqueId().toString(), particle, visibility, null);
+        Waystone waystone = new Waystone(UUID.randomUUID().toString(), name, location, waystoneType.getTypeName(), player.getUniqueId().toString(), particle, visibility, null, waystoneType.getBlocks().get(1).getMaterial());
         waystone.createWaystone();
         DB.insertWaystone(waystone);
         player.sendMessage("Waystone is ready to use!");

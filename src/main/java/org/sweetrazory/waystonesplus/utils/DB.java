@@ -1,9 +1,6 @@
 package org.sweetrazory.waystonesplus.utils;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Particle;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.memoryhandlers.DatabaseManager;
 import org.sweetrazory.waystonesplus.memoryhandlers.WaystoneMemory;
@@ -82,6 +79,7 @@ public class DB {
                 String owner = resultSet.getString("owner");
                 String particle = resultSet.getString("particle");
                 String visibility = resultSet.getString("visibility");
+                Material icon = Material.matchMaterial(resultSet.getString("icon"));
 
                 String[] entityIdStrings = entityIds.split(",");
                 Integer[] entityIdsArray = new Integer[entityIdStrings.length];
@@ -89,7 +87,7 @@ public class DB {
                     entityIdsArray[i] = Integer.parseInt(entityIdStrings[i]);
                 }
 
-                Waystone waystone = new Waystone(uuid, name, location, type, owner, particle.equals("off") ? null : Particle.valueOf(particle), Visibility.fromString(visibility), Arrays.asList(entityIdsArray));
+                Waystone waystone = new Waystone(uuid, name, location, type, owner, particle.equals("off") ? null : Particle.valueOf(particle), Visibility.fromString(visibility), Arrays.asList(entityIdsArray), icon);
                 waystones.add(waystone);
             }
         } catch (SQLException e) {
@@ -123,14 +121,14 @@ public class DB {
                 String owner = resultSet.getString("owner");
                 String particle = resultSet.getString("particle");
                 String visibility = resultSet.getString("visibility");
-
+                Material icon = Material.matchMaterial(resultSet.getString("icon"));
                 String[] entityIdStrings = entityIds.split(",");
                 Integer[] entityIdsArray = new Integer[entityIdStrings.length];
                 for (int i = 0; i < entityIdStrings.length; i++) {
                     entityIdsArray[i] = Integer.parseInt(entityIdStrings[i]);
                 }
 
-                Waystone waystone = new Waystone(uuid, name, location, type, owner, particle.equals("off") ? null : Particle.valueOf(particle), Visibility.fromString(visibility), Arrays.asList(entityIdsArray));
+                Waystone waystone = new Waystone(uuid, name, location, type, owner, particle.equals("off") ? null : Particle.valueOf(particle), Visibility.fromString(visibility), Arrays.asList(entityIdsArray), icon);
                 waystones.add(waystone);
             }
         } catch (SQLException e) {
@@ -164,13 +162,13 @@ public class DB {
                 String owner = resultSet.getString("owner");
                 String particle = resultSet.getString("particle");
                 String visibility = resultSet.getString("visibility");
-
+                Material icon = Material.matchMaterial(resultSet.getString("icon"));
                 String[] entityIdStrings = entityIds.split(",");
                 Integer[] entityIdsArray = new Integer[entityIdStrings.length];
                 for (int i = 0; i < entityIdStrings.length; i++) {
                     entityIdsArray[i] = Integer.parseInt(entityIdStrings[i]);
                 }
-                Waystone waystone = new Waystone(uuid, name, location, type, owner, particle.equals("off") ? null : Particle.valueOf(particle), Visibility.fromString(visibility), Arrays.asList(entityIdsArray));
+                Waystone waystone = new Waystone(uuid, name, location, type, owner, particle.equals("off") ? null : Particle.valueOf(particle), Visibility.fromString(visibility), Arrays.asList(entityIdsArray), icon);
                 waystones.add(waystone);
             }
         } catch (SQLException e) {
@@ -206,7 +204,7 @@ public class DB {
 
     public static List<Waystone> getWaystones(String playerId, Integer pageNumber, Integer pageSize, String waystoneId) {
         List<Waystone> waystones = new ArrayList<>();
-        String query = "SELECT w.id, w.name, w.location, w.entityIds, w.type, w.owner, w.visibility, w.particle " +
+        String query = "SELECT w.id, w.name, w.location, w.entityIds, w.type, w.owner, w.visibility, w.particle, w.icon " +
                 "FROM waystones w " +
                 "LEFT JOIN explored_waystones we ON w.id = we.waystoneId " +
                 "WHERE w.owner = \"" + playerId + "\" OR (we.playerId = \"" + playerId + "\" AND w.visibility = \"PUBLIC\") OR w.visibility = \"GLOBAL\"";
@@ -251,11 +249,11 @@ public class DB {
                 for (int i = 0; i < entityIdStrings.length; i++) {
                     entityIdsArray[i] = Integer.parseInt(entityIdStrings[i]);
                 }
-
+                Material icon = Material.matchMaterial(resultSet.getString("icon"));
                 Particle particleEnum = particle.equals("off") ? null : Particle.valueOf(particle.toUpperCase());
                 Visibility visibilityEnum = Visibility.fromString(visibility);
 
-                Waystone waystone = new Waystone(id, name, location, type, owner, particleEnum, visibilityEnum, Arrays.asList(entityIdsArray));
+                Waystone waystone = new Waystone(id, name, location, type, owner, particleEnum, visibilityEnum, Arrays.asList(entityIdsArray), icon);
                 waystones.add(waystone);
             }
         } catch (SQLException e) {
@@ -362,8 +360,8 @@ public class DB {
                 for (int i = 0; i < entityIdStrings.length; i++) {
                     entityIdsArray[i] = Integer.parseInt(entityIdStrings[i]);
                 }
-
-                Waystone waystone = new Waystone(uuid, name, location, type, owner, particle.equals("off") ? null : Particle.valueOf(particle), Visibility.fromString(visibility), Arrays.asList(entityIdsArray));
+                Material icon = Material.matchMaterial(resultSet.getString("icon"));
+                Waystone waystone = new Waystone(uuid, name, location, type, owner, particle.equals("off") ? null : Particle.valueOf(particle), Visibility.fromString(visibility), Arrays.asList(entityIdsArray), icon);
                 return waystone;
             }
         } catch (SQLException e) {
@@ -375,13 +373,14 @@ public class DB {
 
 
     public static void insertWaystone(Waystone waystone) {
-        String query = "INSERT INTO waystones (id, name, location, entityIds, type, owner, visibility, particle) VALUES (" +
+        String query = "INSERT INTO waystones (id, name, location, entityIds, type, owner, icon, visibility, particle) VALUES (" +
                 "'" + waystone.getId() + "', " +
                 "'" + waystone.getName() + "', " +
                 "'" + getLocationString(waystone.getLocation()) + "', " +
                 "'" + getEntityIdsString(waystone.getEntities()) + "', " +
                 "'" + waystone.getType() + "', " +
                 "'" + waystone.getOwnerId() + "', " +
+                "'" + waystone.getIcon().name() + "', " +
                 "'" + waystone.getVisibility().toString() + "', " +
                 "'" + (waystone.getParticle() != null ? waystone.getParticle().toString() : "off") + "')";
 
@@ -406,6 +405,7 @@ public class DB {
         String query = "UPDATE waystones SET " +
                 "name = '" + waystone.getName() + "', " +
                 "type = '" + waystone.getType() + "', " +
+                "icon = '" + waystone.getIcon().name() + "', " +
                 "visibility = '" + waystone.getVisibility().toString() + "', " +
                 "particle = '" + (waystone.getParticle() != null ? waystone.getParticle().toString() : "off") + "' " +
                 "WHERE id = '" + waystone.getId() + "'";

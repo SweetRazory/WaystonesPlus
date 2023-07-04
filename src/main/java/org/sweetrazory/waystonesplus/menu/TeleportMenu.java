@@ -12,7 +12,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.sweetrazory.waystonesplus.WaystonesPlus;
 import org.sweetrazory.waystonesplus.enums.Visibility;
 import org.sweetrazory.waystonesplus.memoryhandlers.ConfigManager;
-import org.sweetrazory.waystonesplus.memoryhandlers.WaystoneMemory;
 import org.sweetrazory.waystonesplus.menu.submenus.SelectorMenu;
 import org.sweetrazory.waystonesplus.utils.ColoredText;
 import org.sweetrazory.waystonesplus.utils.DB;
@@ -51,7 +50,7 @@ public class TeleportMenu extends Menu {
             for (int j = 1; j < 8; j++) {
                 if (waystones.size() > k) {
                     Waystone currWaystone = waystones.get(k);
-                    ItemStack waystoneItem = new ItemBuilder(WaystoneMemory.getWaystoneTypes().get(currWaystone.getType()).getBlocks().get(1).getMaterial())
+                    ItemStack waystoneItem = new ItemBuilder(currWaystone.getIcon())
                             .displayName(ColoredText.getText(currWaystone.getName()))
                             .persistentData("waystoneId", waystones.get(k).getId())
                             .persistentData("action", "teleport")
@@ -62,11 +61,11 @@ public class TeleportMenu extends Menu {
             }
         }
         if (listSize > 21 * page + 21) {
-            setItem(41, new ItemBuilder(Material.LEGACY_SNOW_BALL).persistentData("action", "nextPage").persistentData("page", page).build());
+            setItem(41, new ItemBuilder(Material.SNOWBALL).persistentData("action", "nextPage").persistentData("page", page).build());
         }
 
         if (page > 0) {
-            setItem(39, new ItemBuilder(Material.LEGACY_SNOW_BALL).persistentData("action", "prevPage").persistentData("page", page).build());
+            setItem(39, new ItemBuilder(Material.SNOWBALL).persistentData("action", "prevPage").persistentData("page", page).build());
         }
 
         ItemStack backButton = new ItemBuilder(Material.BARRIER)

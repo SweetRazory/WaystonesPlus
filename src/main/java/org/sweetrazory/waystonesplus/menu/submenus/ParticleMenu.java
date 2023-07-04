@@ -5,6 +5,7 @@ import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.sweetrazory.waystonesplus.menu.Menu;
+import org.sweetrazory.waystonesplus.menu.MenuManager;
 import org.sweetrazory.waystonesplus.utils.ColoredText;
 import org.sweetrazory.waystonesplus.utils.ItemBuilder;
 import org.sweetrazory.waystonesplus.utils.ItemUtils;
@@ -12,40 +13,56 @@ import org.sweetrazory.waystonesplus.waystone.Waystone;
 
 public class ParticleMenu extends Menu {
     public ParticleMenu() {
-        super(45, ColoredText.getText("&8Particle settings"), 0);
+        super(27, ColoredText.getText("&8Particle settings"), 0);
     }
 
     @Override
     public void initializeItems(Player player, Waystone waystone) {
-        ItemStack enchant = new ItemBuilder(Material.ENCHANTED_BOOK).persistentData("action", "enchantedParticle").build();
-        setItem(0, enchant);
+        ItemStack filler = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).displayName(" ").build();
+        inventory.setContents(new ItemStack[]
+                {filler, filler, filler, filler, filler, filler, filler, filler, filler,
+                        filler, filler, null, filler, filler, filler, null, filler, filler,
+                        filler, filler, filler, filler, filler, filler, filler, filler, filler});
+        ItemStack enchant = new ItemBuilder(Material.ENCHANTED_BOOK)
+                .persistentData("action", "enchantedParticle")
+                .build();
+        setItem(10, enchant);
 
-        ItemStack hearts = new ItemBuilder(Material.RED_DYE).persistentData("action", "heartsParticle").build();
-        setItem(1, hearts);
+        ItemStack hearts = new ItemBuilder(Material.RED_DYE)
+                .persistentData("action", "heartsParticle")
+                .build();
+        setItem(11, hearts);
 
-        ItemStack angry = new ItemBuilder(Material.FIRE_CHARGE).persistentData("action", "angryParticle").build();
-        setItem(2, angry);
+        ItemStack angry = new ItemBuilder(Material.FIRE_CHARGE)
+                .persistentData("action", "angryParticle")
+                .build();
+        setItem(12, angry);
 
-        ItemStack bubble = new ItemBuilder(Material.WATER_BUCKET).persistentData("action", "bubbleParticle").build();
-        setItem(3, bubble);
+        ItemStack happy = new ItemBuilder(Material.GREEN_DYE)
+                .persistentData("action", "happyParticle")
+                .build();
+        setItem(13, happy);
 
-        ItemStack cherry = new ItemBuilder(Material.DRAGON_BREATH).persistentData("action", "dragonParticle").build();
-        setItem(4, cherry);
+        ItemStack note = new ItemBuilder(Material.NOTE_BLOCK)
+                .persistentData("action", "noteParticle")
+                .build();
+        setItem(14, note);
 
-        ItemStack sculk = new ItemBuilder(Material.SCULK_SENSOR).persistentData("action", "sculkParticle").build();
-        setItem(5, sculk);
+        ItemStack nether = new ItemBuilder(Material.OBSIDIAN)
+                .persistentData("action", "netherParticle")
+                .build();
+        setItem(15, nether);
 
-        ItemStack happy = new ItemBuilder(Material.GREEN_DYE).persistentData("action", "happyParticle").build();
-        setItem(6, happy);
+        ItemStack off = new ItemBuilder(Material.BARRIER)
+                .persistentData("action", "offParticle")
+                .build();
+        setItem(16, off);
 
-        ItemStack note = new ItemBuilder(Material.NOTE_BLOCK).persistentData("action", "noteParticle").build();
-        setItem(7, note);
-
-        ItemStack totem = new ItemBuilder(Material.TOTEM_OF_UNDYING).persistentData("action", "totemParticle").build();
-        setItem(8, totem);
-
-        ItemStack off = new ItemBuilder(Material.BARRIER).persistentData("action", "offParticle").build();
-        setItem(8, off);
+        ItemStack back = new ItemBuilder(Material.BARRIER)
+                .persistentData("action", "menu")
+                .displayName(ColoredText.getText("&cReturn to Settings"))
+                .build();
+        setItem(22, back);
     }
 
     @Override
@@ -59,29 +76,24 @@ public class ParticleMenu extends Menu {
                 case "angryParticle":
                     waystone.setParticle(Particle.VILLAGER_ANGRY);
                     break;
-                case "bubbleParticle":
-                    waystone.setParticle(Particle.BUBBLE_COLUMN_UP);
-                    break;
-                case "dragonParticle":
-                    waystone.setParticle(Particle.DRAGON_BREATH);
-                    break;
-                case "sculkParticle":
-                    waystone.setParticle(Particle.SCULK_CHARGE_POP);
-                    break;
                 case "happyParticle":
                     waystone.setParticle(Particle.VILLAGER_HAPPY);
                     break;
                 case "noteParticle":
                     waystone.setParticle(Particle.NOTE);
                     break;
-                case "totemParticle":
-                    waystone.setParticle(Particle.TOTEM);
+                case "netherParticle":
+                    waystone.setParticle(Particle.PORTAL);
                     break;
                 case "enchantedParticle":
                     waystone.setParticle(Particle.ENCHANTMENT_TABLE);
                     break;
                 case "heartsParticle":
                     waystone.setParticle(Particle.HEART);
+                    break;
+                case "menu":
+                    Menu settingsMenu = new SettingsMenu();
+                    MenuManager.openMenu(player, settingsMenu, waystone);
                     break;
             }
         }
