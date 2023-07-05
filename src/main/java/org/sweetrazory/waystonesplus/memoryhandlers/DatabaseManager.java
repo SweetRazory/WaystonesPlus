@@ -161,6 +161,7 @@ public class DatabaseManager {
             String owner = (String) config.get("owner");
             String visibility = (String) config.get("visibility");
             String name = (String) config.get("name");
+            name = name.replaceAll("\uFFFD", "&");
 
             Map<String, Double> locationMap = (Map<String, Double>) config.get("location");
             double x = locationMap.get("x");

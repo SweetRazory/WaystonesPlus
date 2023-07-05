@@ -46,11 +46,22 @@ public class SettingsMenu extends Menu {
         inventory.setContents(Arrays.asList(filler, filler, filler, filler, filler, filler, filler, filler, filler,
                 filler, filler, null, null, null, null, null, filler, filler,
                 filler, filler, filler, filler, filler, filler, filler, filler, filler).toArray(new ItemStack[0]));
-        setItem(11, visibilityMenu);
-        setItem(12, particleMenu);
-        setItem(13, explorerList);
-        setItem(14, typeMenu);
-        setItem(15, iconMenu);
+
+        if (player.isOp() || player.hasPermission("waystonesplus.menu.visibility")) {
+            setItem(11, visibilityMenu);
+        }
+        if (player.isOp() || player.hasPermission("waystonesplus.menu.particle")) {
+            setItem(12, particleMenu);
+        }
+        if (player.isOp() || player.hasPermission("waystonesplus.menu.explorers")) {
+            setItem(13, explorerList);
+        }
+        if (player.isOp() || player.hasPermission("waystonesplus.menu.type")) {
+            setItem(14, typeMenu);
+        }
+        if (player.isOp() || player.hasPermission("waystonesplus.menu.icon")) {
+            setItem(15, iconMenu);
+        }
 
         setItem(22, new ItemBuilder(Material.BARRIER).displayName(ColoredText.getText(LangManager.returnText)).persistentData("action", "selectorMenu").build());
     }

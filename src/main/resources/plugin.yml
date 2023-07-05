@@ -6,27 +6,69 @@ author: SweetRazory
 permissions:
   waystonesplus.teleport:
     description: Toggles if the player can teleport to another Waystone from the GUI
-    default: false
+    default: true
   waystonesplus.command.get:
     description: Gives access to the /waystonesplus or /wsp get command
     default: false
+  waystonesplus.command.visibility:
+    description: Gives access to the /waystonesplus or /wsp visibility command
+    default: false
+  waystonesplus.command.rename:
+    description: Gives access to the /waystonesplus or /wsp rename command
+    default: false
+  waystonesplus.command.reload:
+    description: Gives access to the /waystonesplus or /wsp reload command
+    default: false
   waystonesplus.breakwaystone:
     description: Gives access for the player to break a Waystone
-    default: false
+    default: true
   waystonesplus.rename:
     description: Gives access to rename the Waystone spawner item in an anvil
     default: false
   waystonesplus.craft:
     description: Gives access for the player to craft a Waystone
-    default: false
+    default: true
   waystonesplus.interact:
     description: Gives access for the player to interact with a Waystone with left click, this will bring up the Waystone list GUI
+    default: true
+  waystonesplus.interact.private:
+    description: Allows the player to interact with a waystone that's private, and not the player's waystone
+    default: false
+  waystonesplus.breakwaystone.private:
+    description: Allows the player to break a waystone that's private, and not the player's waystone
     default: false
   waystonesplus.placewaystone:
     description: Gives access for the player to place a waystone
-    default: false
+    default: true
+  waystonesplus.menu.visibility:
+    description: The player can now change the visibility settings
+    default: true
+  waystonesplus.menu.particle:
+    description: The player can now change the particle settings
+    default: true
+  waystonesplus.menu.explorers:
+    description: The player can now look at the explorers list
+    default: true
+  waystonesplus.menu.type:
+    description: The player can now change the type settings
+    default: true
+  waystonesplus.menu.icon:
+    description: The player can now change the icon settings
+    default: true
+  waystonesplus.menu.settings:
+    description: The player can now go into the waystone settings
+    default: true
   waystonesplus.distanceoverride:
     description: Remove the block radius boundary from the player, so it can place multiple Waystones less then 50 blocks from eachother
+    default: false
+  waystonesplus.cooldown.teleport:
+    description: Remove the cooldown of teleporting to another waystone
+    default: false
+  waystonesplus.cooldown.placewaystone:
+    description: Remove the cooldown of placing another waystone
+    default: false
+  waystonesplus.countdown.teleport:
+    description: Remove the countdown before teleporting
     default: false
 softdepend:
   - Multiverse-Core

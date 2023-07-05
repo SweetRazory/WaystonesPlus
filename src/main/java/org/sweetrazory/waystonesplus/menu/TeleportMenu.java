@@ -68,13 +68,14 @@ public class TeleportMenu extends Menu {
         if (page > 0) {
             setItem(39, new ItemBuilder(Material.SNOWBALL).persistentData("action", "prevPage").persistentData("page", page).build());
         }
-
-        ItemStack backButton = new ItemBuilder(Material.BARRIER)
-                .displayName(ColoredText.getText(LangManager.returnText))
-                .persistentData("action", "menu")
-                .build();
-        if (waystone.getOwnerId().equals(player.getUniqueId().toString())) {
-            setItem(40, backButton);
+        if (player.hasPermission("waystonesplus.menu.settings") || player.isOp()) {
+            ItemStack backButton = new ItemBuilder(Material.BARRIER)
+                    .displayName(ColoredText.getText(LangManager.returnText))
+                    .persistentData("action", "menu")
+                    .build();
+            if (waystone.getOwnerId().equals(player.getUniqueId().toString())) {
+                setItem(40, backButton);
+            }
         }
     }
 
@@ -119,7 +120,7 @@ public class TeleportMenu extends Menu {
                 return;
             }
 
-            if (ConfigManager.teleportCountdown > 0 && !player.hasPermission("waystonesplus.countdown.teleport")) {
+            if (ConfigManager.teleportCountdown > 0 && !player.hasPermission("waystonesplus.countdown.teleport") && !player.isOp()) {
                 final int countdownDuration = ConfigManager.teleportCountdown * 20;
                 final int countdownInterval = 20;
 
