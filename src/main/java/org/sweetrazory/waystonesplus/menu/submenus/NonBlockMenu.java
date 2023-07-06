@@ -236,5 +236,4 @@ public class NonBlockMenu extends Menu {
             }
         }
     }
-
 }

@@ -22,8 +22,7 @@ public class ConfigLoader {
             dataFolder.mkdirs();
         }
 
-        File file = new File(dataFolder, filePath);
-        this.configFile = file;
+        this.configFile = new File(dataFolder, filePath);
 
         // Create the file if it doesn't exist
         if (!configFile.exists()) {
@@ -34,7 +33,9 @@ public class ConfigLoader {
                     parentDir.mkdirs();
                 }
 
-                configFile.createNewFile();
+                if (!configFile.createNewFile()) {
+                    WaystonesPlus.getInstance().getLogger().warning("Failed to create config file: " + filePath);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -42,7 +43,6 @@ public class ConfigLoader {
 
         this.config = YamlConfiguration.loadConfiguration(configFile);
     }
-
 
     public Object get(String path, Object defaultValue) {
         if (!config.contains(path)) {

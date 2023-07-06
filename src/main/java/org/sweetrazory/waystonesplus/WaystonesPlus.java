@@ -89,7 +89,9 @@ public class WaystonesPlus extends JavaPlugin implements Listener {
                 YamlConfiguration config = YamlConfiguration.loadConfiguration(configFile);
                 saveWaystonesConfig(config);
 
-                configFile.delete();
+                if (!configFile.delete()) {
+                    getLogger().warning("Failed to delete config.yml");
+                }
                 saveResource("config.yml", false);
 
                 return;

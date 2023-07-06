@@ -31,7 +31,6 @@ public class EventController implements Listener {
         waystoneInteract = new WaystoneInteract();
     }
 
-
     @EventHandler
     public void onWaystoneCraft(CraftItemEvent event) {
         new WaystoneCraft(event);

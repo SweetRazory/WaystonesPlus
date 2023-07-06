@@ -45,17 +45,9 @@ public class BlockDisplayType {
         Bukkit.getEntity(entityId).remove();
     }
 
-//    public String getWaystoneId() {
-//        return waystoneId;
-//    }
-
     public Material getMaterial() {
         return material;
     }
-
-//    public Location getLocation() {
-//        return location;
-//    }
 
     public Vector3f getTranslation() {
         return translation;

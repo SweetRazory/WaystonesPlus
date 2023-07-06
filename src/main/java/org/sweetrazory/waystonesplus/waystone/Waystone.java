@@ -21,15 +21,15 @@ import java.util.Collections;
 import java.util.List;
 
 public class Waystone {
-    String id;
-    String name;
-    Location location;
-    String type;
-    String ownerId;
-    Particle particle;
-    Visibility visibility;
-    List<Integer> entities;
-    Material icon;
+    private String id;
+    private String name;
+    private Location location;
+    private String type;
+    private String ownerId;
+    private Particle particle;
+    private Visibility visibility;
+    private List<Integer> entities;
+    private Material icon;
 
     public Waystone(String id, String name, Location location, String type, String ownerId, Particle particle, Visibility visibility, @Nullable List<Integer> entities, Material icon) {
         this.id = id;
