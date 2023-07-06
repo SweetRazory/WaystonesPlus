@@ -77,7 +77,6 @@ public class LangManager {
             invalidVisibility = (String) config.getOrDefault("invalid-visibility", "&cInvalid visibility. Valid options: public, private.");
             newWaystoneTitle = (String) config.getOrDefault("new-waystone-title", "&8New Waystone:");
             newWaystoneSubtitle = (String) config.getOrDefault("new-waystone-subtitle", "&6%waystone_name%");
-
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }

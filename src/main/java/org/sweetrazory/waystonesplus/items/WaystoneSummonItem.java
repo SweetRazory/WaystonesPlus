@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class WaystoneSummonItem {
-
     public static ItemStack getLodestoneHead(@Nullable String name, String type, @Nullable String headOwnerId, @Nullable String texturesString, @NotNull Visibility visibility) {
         ItemStack skullItem = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta skullMeta = (SkullMeta) skullItem.getItemMeta();
@@ -61,5 +60,4 @@ public class WaystoneSummonItem {
 
         return skullItem;
     }
-
 }

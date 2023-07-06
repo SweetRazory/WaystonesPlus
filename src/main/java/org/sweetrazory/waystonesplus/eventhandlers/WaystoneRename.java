@@ -13,7 +13,6 @@ import org.sweetrazory.waystonesplus.memoryhandlers.LangManager;
 import org.sweetrazory.waystonesplus.utils.ColoredText;
 
 public class WaystoneRename {
-
     public WaystoneRename(PrepareAnvilEvent event) {
         AnvilInventory eventInventory = event.getInventory();
         ItemStack firstSlot = eventInventory.getItem(0);
