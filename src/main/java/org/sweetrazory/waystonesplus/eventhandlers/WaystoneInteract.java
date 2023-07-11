@@ -24,14 +24,18 @@ import java.util.List;
 
 public class WaystoneInteract {
     public Waystone getInteractedWaystone(PlayerInteractEvent e) {
+        if(e.isCancelled()) {
+            return null;
+        }
         Waystone waystone = null;
         if (e.getHand() == EquipmentSlot.HAND && e.getClickedBlock() != null && e.getAction() == Action.RIGHT_CLICK_BLOCK) {
             List<MetadataValue> blockMeta = e.getClickedBlock().getMetadata("waystoneId");
             if (!blockMeta.isEmpty() && (e.getPlayer().hasPermission("waystonesplus.interact") || e.getPlayer().isOp())) {
                 waystone = DB.getWaystone(blockMeta.get(0).asString());
                 Visibility waystoneVisibility = waystone.getVisibility();
-                if (waystoneVisibility.equals(Visibility.PRIVATE) && !e.getPlayer().hasPermission("waystonesplus.interact.private") && !e.getPlayer().isOp()) {
-                    e.getPlayer().sendMessage(LangManager.notOwner);
+                if (waystoneVisibility.equals(Visibility.PRIVATE) && !e.getPlayer().hasPermission("waystonesplus.interact.private") && !waystone.getOwnerId().equals(e.getPlayer().getUniqueId().toString()) && !e.getPlayer().isOp()
+                ) {
+                    e.getPlayer().sendMessage(ColoredText.getText(LangManager.notOwner));
                     return null;
                 }
 

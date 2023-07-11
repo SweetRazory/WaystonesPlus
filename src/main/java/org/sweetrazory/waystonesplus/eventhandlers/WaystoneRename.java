@@ -51,8 +51,6 @@ public class WaystoneRename {
                 event.setResult(waystoneItem);
                 event.getInventory().setRepairCost(0);
             }
-        } else {
-            player.sendMessage(ColoredText.getText(LangManager.noPermission));
         }
     }
 }

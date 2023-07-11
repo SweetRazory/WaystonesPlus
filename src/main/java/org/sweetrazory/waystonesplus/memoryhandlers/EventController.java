@@ -17,6 +17,7 @@ import org.sweetrazory.waystonesplus.eventhandlers.*;
 import org.sweetrazory.waystonesplus.items.WaystoneSummonItem;
 import org.sweetrazory.waystonesplus.menu.MenuManager;
 import org.sweetrazory.waystonesplus.menu.TeleportMenu;
+import org.sweetrazory.waystonesplus.types.WaystoneType;
 import org.sweetrazory.waystonesplus.utils.ColoredText;
 import org.sweetrazory.waystonesplus.waystone.Waystone;
 
@@ -36,7 +37,7 @@ public class EventController implements Listener {
         new WaystoneCraft(event);
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onWaystoneInteract(PlayerInteractEvent event) {
         Player player = event.getPlayer();
         Waystone waystone = waystoneInteract.getInteractedWaystone(event);
@@ -48,15 +49,10 @@ public class EventController implements Listener {
     }
 
     @EventHandler
-    public void asd(PlayerInteractEntityEvent e) {
-        System.out.println(e.getRightClicked().getType().name());
-    }
-
-    @EventHandler
     public void onLootGenerate(LootGenerateEvent event) {
         List<ItemStack> loot = new ArrayList<>(event.getLoot());
         if (new Random().nextInt(100) + 1 <= ConfigManager.lootSpawnChance) {
-            Object[] waystoneTypes = WaystoneMemory.getWaystoneTypes().keySet().toArray(new Object[0]);
+            Object[] waystoneTypes = WaystoneMemory.getWaystoneTypes().values().stream().map(WaystoneType::getTypeName).toArray();
             int randomNumber = new Random().nextInt(WaystoneMemory.getWaystoneTypes().size());
             ItemStack waystoneItem = WaystoneSummonItem
                     .getLodestoneHead(
@@ -81,7 +77,7 @@ public class EventController implements Listener {
         new WaystonePlace().onBlockPlace(e);
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onWaystoneBreak(BlockBreakEvent e) {
         new WaystoneBreak(e);
     }

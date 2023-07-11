@@ -33,8 +33,16 @@ public class WaystoneMemory {
         return Collections.unmodifiableMap(waystoneTypeMemory);
     }
 
+    public static void removeParticles(String id) {
+        if(waystoneParticleMemory.containsKey(id)) {
+            waystoneParticleMemory.get(id).cancel();
+            waystoneParticleMemory.remove(id);
+        }
+    }
+
     public static void changeParticles(Waystone waystone) {
         DB.updateWaystone(waystone);
+        if(waystoneParticleMemory.containsKey(waystone.getId())) {
         waystoneParticleMemory.get(waystone.getId()).cancel();
         if (waystone.getParticle() != null) {
             waystoneParticleMemory.put(waystone.getId(), new BukkitRunnable() {
@@ -43,6 +51,7 @@ public class WaystoneMemory {
                     spawnParticles(new Location(waystone.getLocation().getWorld(), waystone.getLocation().getX() + 0.5, waystone.getLocation().getY() + 2, waystone.getLocation().getZ() + 0.5), waystone.getParticle());
                 }
             }.runTaskTimer(WaystonesPlus.getInstance(), 0, 2));
+        }
         }
     }
 

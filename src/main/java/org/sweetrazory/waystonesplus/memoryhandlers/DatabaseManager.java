@@ -70,7 +70,7 @@ public class DatabaseManager {
             deleteExploredWaystonesStatement.executeUpdate();
             deleteExploredWaystonesStatement.close();
 
-            System.out.println("Waystone removed successfully.");
+            WaystonesPlus.Logger().info("Waystone removed successfully.");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -88,7 +88,7 @@ public class DatabaseManager {
 
             if (parentDirectory != null && !parentDirectory.exists()) {
                 if (!parentDirectory.mkdirs()) {
-                    System.out.println("Failed to create database directory.");
+                    WaystonesPlus.Logger().info("Failed to create database directory.");
                     return;
                 }
             }
@@ -97,10 +97,10 @@ public class DatabaseManager {
                 connection = DriverManager.getConnection("jdbc:sqlite:" + databaseFile.getAbsolutePath());
                 createWaystonesTable();
                 createExploredWaystonesTable();
-                System.out.println("Database created and initialized successfully.");
+                WaystonesPlus.Logger().info("Database created and initialized successfully.");
             } else {
                 connection = DriverManager.getConnection("jdbc:sqlite:" + databaseFile.getAbsolutePath());
-                System.out.println("Database initialized successfully.");
+                WaystonesPlus.Logger().info("Database initialized successfully.");
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
@@ -112,7 +112,7 @@ public class DatabaseManager {
 
         File waystonesFolder = new File(pluginFolder, "waystones");
         if (!waystonesFolder.exists() || !waystonesFolder.isDirectory()) {
-            System.out.println("The 'waystones' folder does not exist.");
+            WaystonesPlus.Logger().info("No Waystones to be migrate.");
             return;
         }
 
@@ -121,14 +121,14 @@ public class DatabaseManager {
         findConfigFiles(waystonesFolder, waystones);
 
         for (Waystone waystone : waystones) {
-            System.out.println("Parsed Waystone: " + waystone.getId());
+            WaystonesPlus.Logger().info("Parsed Waystone: " + waystone.getId());
             DB.insertWaystone(waystone);
         }
 
         if (!waystones.isEmpty()) {
             try {
                 FileUtils.deleteDirectory(waystonesFolder);
-                System.out.println("Deleted 'waystones' folder.");
+                WaystonesPlus.Logger().info("Deleted 'waystones' folder.");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -140,7 +140,7 @@ public class DatabaseManager {
         if (files != null) {
             for (File file : files) {
                 if (file.isFile() && file.getName().equals("config.yml")) {
-                    System.out.println("Found 'config.yml' file");
+                    WaystonesPlus.Logger().info("Found 'config.yml' file");
                     Waystone waystone = parseConfigYaml(file);
                     if (waystone != null) {
                         waystones.add(waystone);
@@ -160,7 +160,7 @@ public class DatabaseManager {
 
             String owner = (String) config.get("owner");
             String visibility = (String) config.get("visibility");
-            String name = (String) config.get("name");
+            String name = (String) config.getOrDefault("name", LangManager.newWaystoneName);
             name = name.replaceAll("\uFFFD", "&");
 
             Map<String, Double> locationMap = (Map<String, Double>) config.get("location");
@@ -170,8 +170,7 @@ public class DatabaseManager {
 
             String id = (String) config.get("id");
             String type = (String) config.get("type");
-
-            String world = (String) config.get("location.world");
+            String world = (String) config.getOrDefault("location.world", Bukkit.getServer().getWorlds().get(0).getName());
 
             List<String> entityIdStrings = (List<String>) config.get("entityIds");
             List<Integer> entityIds = new ArrayList<>();
@@ -226,7 +225,7 @@ public class DatabaseManager {
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
-                System.out.println("Database connection closed.");
+                WaystonesPlus.Logger().info("Database connection closed.");
             }
         } catch (SQLException e) {
             e.printStackTrace();

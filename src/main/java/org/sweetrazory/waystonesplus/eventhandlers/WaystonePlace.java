@@ -3,6 +3,7 @@ package org.sweetrazory.waystonesplus.eventhandlers;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.EquipmentSlot;
@@ -23,8 +24,12 @@ import org.sweetrazory.waystonesplus.waystone.Waystone;
 import java.util.UUID;
 
 public class WaystonePlace implements Listener {
-    @EventHandler
+    @EventHandler(priority = EventPriority.MONITOR)
     public void onBlockPlace(BlockPlaceEvent event) {
+        if(event.isCancelled()) {
+            return;
+        }
+
         if (event.getHand() != EquipmentSlot.HAND) {
             return;
         }

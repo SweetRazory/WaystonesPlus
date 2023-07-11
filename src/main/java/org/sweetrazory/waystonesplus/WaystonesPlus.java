@@ -45,7 +45,7 @@ public class WaystonesPlus extends JavaPlugin implements Listener {
 
         String bukkitVersion = Bukkit.getVersion();
         if (!bukkitVersion.contains("1.19.4") && !bukkitVersion.contains("1.20")) {
-            getLogger().warning(LangManager.versionWarning);
+            getLogger().warning(ColoredText.getText(LangManager.versionWarning));
             getServer().getPluginManager().disablePlugin(this);
             return;
         }

@@ -58,7 +58,7 @@ public class Waystone {
 
     public void changeType(String newType) {
         if (newType != null) {
-            removeStructure();
+            removeWaystone();
             setType(newType);
             spawnStructure();
             DB.updateWaystone(this);
@@ -91,10 +91,19 @@ public class Waystone {
         return blockDisplayIds;
     }
 
-    public void removeStructure() {
+    public void removeWaystone() {
         Block block1 = location.getBlock().getRelative(0, 1, 0);
         Block block2 = location.getBlock().getRelative(0, 2, 0);
         Block block3 = location.getBlock().getRelative(0, 3, 0);
+
+//        block1.removeMetadata("waystoneId", WaystonesPlus.getInstance());
+//        block1.removeMetadata("waystoneType", WaystonesPlus.getInstance());
+//
+//        block2.removeMetadata("waystoneId", WaystonesPlus.getInstance());
+//        block2.removeMetadata("waystoneType", WaystonesPlus.getInstance());
+//
+//        block3.removeMetadata("waystoneId", WaystonesPlus.getInstance());
+//        block3.removeMetadata("waystoneType", WaystonesPlus.getInstance());
 
         block1.setType(Material.AIR);
         block2.setType(Material.AIR);
@@ -107,6 +116,8 @@ public class Waystone {
                 entity.remove();
             }
         }
+
+        WaystoneMemory.removeParticles(this.id);
     }
 
     public String getId() {
@@ -118,7 +129,7 @@ public class Waystone {
     }
 
     public void delete() {
-        removeStructure();
+        removeWaystone();
         DB.deleteWaystone(this);
     }
 

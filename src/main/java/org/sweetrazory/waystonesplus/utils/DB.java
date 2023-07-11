@@ -384,7 +384,7 @@ public class DB {
     public static void insertWaystone(Waystone waystone) {
         String query = "INSERT INTO waystones (id, name, location, entityIds, type, owner, icon, visibility, particle) VALUES (" +
                 "'" + waystone.getId() + "', " +
-                "'" + waystone.getName() + "', " +
+                "\"" + waystone.getName() + "\", " +
                 "'" + getLocationString(waystone.getLocation()) + "', " +
                 "'" + getEntityIdsString(waystone.getEntities()) + "', " +
                 "'" + waystone.getType() + "', " +
@@ -412,7 +412,7 @@ public class DB {
 
     public static void updateWaystone(Waystone waystone) {
         String query = "UPDATE waystones SET " +
-                "name = '" + waystone.getName() + "', " +
+                "name = \"" + waystone.getName() + "\", " +
                 "type = '" + waystone.getType() + "', " +
                 "icon = '" + waystone.getIcon().name() + "', " +
                 "visibility = '" + waystone.getVisibility().toString() + "', " +

@@ -28,7 +28,7 @@ public class Get implements SubCommand {
                     ItemStack skullItem = WaystoneSummonItem.getLodestoneHead(name, args[1].toLowerCase(), null, null, Visibility.GLOBAL);
                     player.getInventory().addItem(skullItem);
                 } else {
-                    player.sendMessage(Color.ORANGE + LangManager.waystoneTypeNonexistent);
+                    player.sendMessage(ColoredText.getText(LangManager.waystoneTypeNonexistent));
                 }
             } else {
                 player.sendMessage(ColoredText.getText(LangManager.waystoneTypeMissing));
