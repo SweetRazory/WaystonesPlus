@@ -54,7 +54,7 @@ public class WaystoneSummonItem {
         dataContainer.set(waystoneType, PersistentDataType.STRING, type);
         dataContainer.set(waystoneVisibility, PersistentDataType.STRING, visibility.name());
         itemMeta.setLore(new ArrayList<String>() {{
-            add(ColoredText.getText(visibility == Visibility.PRIVATE ? "&cPRIVATE" : visibility == Visibility.PUBLIC ? "&2PUBLIC" : "&eGLOBAL"));
+            add(ColoredText.getText(visibility == Visibility.PRIVATE ? "&cPRIVATE" : visibility == Visibility.PUBLIC ? "&aPUBLIC" : "&eGLOBAL"));
         }});
         skullItem.setItemMeta(itemMeta);
 

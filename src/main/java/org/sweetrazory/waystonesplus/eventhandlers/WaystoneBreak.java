@@ -49,7 +49,7 @@ public class WaystoneBreak implements Listener {
                 Location dropLocation = event.getPlayer().getTargetBlock(null, 5).getLocation().add(0, 1, 0);
                 World world = event.getPlayer().getWorld();
                 String waystoneName = waystone.getName();
-                ItemStack skullItem = WaystoneSummonItem.getLodestoneHead(waystoneName, blockWaystoneType, null, null, Visibility.PRIVATE);
+                ItemStack skullItem = WaystoneSummonItem.getLodestoneHead(waystoneName, blockWaystoneType, null, null, waystone.getVisibility());
                 world.dropItemNaturally(dropLocation, skullItem);
                 waystone.delete();
             } else {
