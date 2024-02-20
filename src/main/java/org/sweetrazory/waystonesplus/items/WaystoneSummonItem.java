@@ -31,7 +31,7 @@ public class WaystoneSummonItem {
         String playerId = "9bf98ec7-ca26-45b2-a7f2-976f7655d361";
         String textures = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjUwMjE2NTk3ZjE2YmNkYzIyZjEwYTNjYzIyOTljYTg4NGM1N2U0Njg1MGZiOGRlZjAxODk1NjYyZDM5MDQwNCJ9fX0=";
 
-        GameProfile gameProfile = new GameProfile(UUID.fromString(headOwnerId == null ? ws.getSpawnItemHeadId() != null ? ws.getSpawnItemHeadId() : playerId : headOwnerId), null);
+        GameProfile gameProfile = new GameProfile(UUID.fromString(headOwnerId == null ? ws.getSpawnItemHeadId() != null ? ws.getSpawnItemHeadId() : playerId : headOwnerId), "");
         gameProfile.getProperties().put("textures", new Property("textures", texturesString == null ? ws.getSpawnItemTextures() != null ? ws.getSpawnItemTextures() : textures : texturesString, null));
 
         try {
