@@ -179,7 +179,7 @@ public class DatabaseManager {
                 entityIds.add(entityId);
             }
             // Create and return the Waystone object
-            Waystone waystone = new Waystone(id, name, new Location(Bukkit.getWorld(world), x, y, z), type, owner, Particle.ENCHANTMENT_TABLE, Visibility.fromString(visibility), entityIds, Material.LODESTONE);
+            Waystone waystone = new Waystone(id, name, new Location(Bukkit.getWorld(world), x, y, z), type, owner, Particle.ENCHANT, Visibility.fromString(visibility), entityIds, Material.LODESTONE);
             return waystone;
         } catch (IOException e) {
             e.printStackTrace();

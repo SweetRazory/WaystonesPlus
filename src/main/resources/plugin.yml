@@ -4,6 +4,32 @@ main: org.sweetrazory.waystonesplus.WaystonesPlus
 api-version: "1.19"
 author: SweetRazory
 permissions:
+  waystonesplus.*:
+    description: Enables all permissions
+    default: op
+    children:
+      waystonesplus.teleport: true
+      waystonesplus.command.get: true
+      waystonesplus.command.visibility: true
+      waystonesplus.command.rename: true
+      waystonesplus.command.reload: true
+      waystonesplus.breakwaystone: true
+      waystonesplus.rename: true
+      waystonesplus.craft: true
+      waystonesplus.interact: true
+      waystonesplus.interact.private: true
+      waystonesplus.breakwaystone.private: true
+      waystonesplus.placewaystone: true
+      waystonesplus.menu.visibility: true
+      waystonesplus.menu.particle: true
+      waystonesplus.menu.explorers: true
+      waystonesplus.menu.type: true
+      waystonesplus.menu.icon: true
+      waystonesplus.menu.settings: true
+      waystonesplus.distanceoverride: true
+      waystonesplus.cooldown.teleport: true
+      waystonesplus.cooldown.placewaystone: true
+      waystonesplus.countdown.teleport: true
   waystonesplus.teleport:
     description: Toggles if the player can teleport to another Waystone from the GUI
     default: true
@@ -66,7 +92,7 @@ permissions:
     default: false
   waystonesplus.cooldown.placewaystone:
     description: Remove the cooldown of placing another waystone
-    default: false
+    default: true
   waystonesplus.countdown.teleport:
     description: Remove the countdown before teleporting
     default: false

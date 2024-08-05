@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<!DOCTYPE xml>
+<project name="WaystonesPlus" default="Build">
+    <xmlproperty file="pom.xml" prefix="pom" keeproot="false"/>
+    <target name="Build">
+        <jar jarfile="C:\Users\sweet\Documents\MinecraftServers\1.21\plugins\${ant.project.name}.jar"
+             basedir="./target/classes/"
+             includes="**/*"></jar>
+    </target>
+</project>

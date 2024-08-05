@@ -34,7 +34,7 @@ public class WaystoneMemory {
     }
 
     public static void removeParticles(String id) {
-        if(waystoneParticleMemory.containsKey(id)) {
+        if (waystoneParticleMemory.containsKey(id)) {
             waystoneParticleMemory.get(id).cancel();
             waystoneParticleMemory.remove(id);
         }
@@ -42,16 +42,16 @@ public class WaystoneMemory {
 
     public static void changeParticles(Waystone waystone) {
         DB.updateWaystone(waystone);
-        if(waystoneParticleMemory.containsKey(waystone.getId())) {
-        waystoneParticleMemory.get(waystone.getId()).cancel();
-        if (waystone.getParticle() != null) {
-            waystoneParticleMemory.put(waystone.getId(), new BukkitRunnable() {
-                @Override
-                public void run() {
-                    spawnParticles(new Location(waystone.getLocation().getWorld(), waystone.getLocation().getX() + 0.5, waystone.getLocation().getY() + 2, waystone.getLocation().getZ() + 0.5), waystone.getParticle());
-                }
-            }.runTaskTimer(WaystonesPlus.getInstance(), 0, 2));
-        }
+        if (waystoneParticleMemory.containsKey(waystone.getId())) {
+            waystoneParticleMemory.get(waystone.getId()).cancel();
+            if (waystone.getParticle() != null) {
+                waystoneParticleMemory.put(waystone.getId(), new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        spawnParticles(new Location(waystone.getLocation().getWorld(), waystone.getLocation().getX() + 0.5, waystone.getLocation().getY() + 2, waystone.getLocation().getZ() + 0.5), waystone.getParticle());
+                    }
+                }.runTaskTimer(WaystonesPlus.getInstance(), 0, 2));
+            }
         }
     }
 
@@ -144,9 +144,14 @@ public class WaystoneMemory {
                         recipe = new ShapedRecipe(recipeName, new ItemStack(craftResult));
                         recipe.shape("123", "456", "789");
 
+                        System.out.println(craftingList);
+
                         char[] symbols = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
                         for (int i = 0; i < craftingList.size(); i++) {
                             String ingredient = craftingList.get(i);
+
+                            if (ingredient.toLowerCase().equals("air")) continue;
+
                             char symbol = symbols[i];
                             Material material = Material.matchMaterial(ingredient);
 

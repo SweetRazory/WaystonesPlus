@@ -12,7 +12,7 @@ import org.sweetrazory.waystonesplus.utils.ColoredText;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -44,25 +44,17 @@ public class WaystonesPlus extends JavaPlugin implements Listener {
         databaseManager.migrateWaystones();
 
         String bukkitVersion = Bukkit.getVersion();
-        if (!bukkitVersion.contains("1.19.4") && !bukkitVersion.contains("1.20")) {
+        if (!bukkitVersion.contains("1.19.4") && !bukkitVersion.contains("1.20") && !bukkitVersion.contains("1.21")) {
             getLogger().warning(ColoredText.getText(LangManager.versionWarning));
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
-        new WaystoneMemory();
-        new ColoredText();
 
         EventController eventController = new EventController();
         getServer().getPluginManager().registerEvents(eventController, this);
         getServer().getPluginManager().registerEvents(new MenuListener(menuManager), this);
 
-        List<String> commandAliases = new ArrayList<String>() {{
-            add("waystones");
-            add("waystone");
-            add("wsp");
-            add("waystonesplus");
-            add("waystoneplus");
-        }};
+        List<String> commandAliases = Arrays.asList("waystones", "waystone", "wsp", "waystonesplus", "waystoneplus");
 
         for (String commandAlias : commandAliases) {
             getCommand(commandAlias).setExecutor(new CommandManager());

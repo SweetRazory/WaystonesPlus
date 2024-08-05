@@ -24,7 +24,7 @@ import java.util.List;
 
 public class WaystoneInteract {
     public Waystone getInteractedWaystone(PlayerInteractEvent e) {
-        if(e.isCancelled()) {
+        if (e.isCancelled()) {
             return null;
         }
         Waystone waystone = null;
@@ -55,7 +55,7 @@ public class WaystoneInteract {
     }
 
     private void spawnAndExplodeFirework(Location location) {
-        Firework firework = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK);
+        Firework firework = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK_ROCKET);
         FireworkEffect effect = FireworkEffect.builder()
                 .flicker(false)
                 .trail(true)
@@ -74,7 +74,7 @@ public class WaystoneInteract {
     }
 
     private FireworkMeta createFireworkMeta(FireworkEffect effect, Location location) {
-        FireworkMeta meta = ((Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK)).getFireworkMeta();
+        FireworkMeta meta = ((Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK_ROCKET)).getFireworkMeta();
         meta.addEffect(effect);
         meta.setPower(0);
         return meta;
